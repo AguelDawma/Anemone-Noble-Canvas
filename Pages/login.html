@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <form action="#" method="post">
-            <div class="imgcontainer">
-                <img src="img_avatar2.png" alt="Avatar" class="avatar">
-            </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Login to your Animone Noble Canvas account and start making orders of clothes and art.">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Login to Animone Noble Canvas">
+        <title>Login</title>
+        <link rel="stylesheet" href="..\Styles\formStyle.css">
+    </head>
+    <body>
+        <h2>PLEASE ENTER YOUR LOGIN DETAILS.</h2>
+        <div class="form_container">
+            <form action="#" method="post">
+                <div class="imgcontainer">
+                    <img src="img_avatar2.png" alt="Avatar" class="avatar">
+                </div>
 
-            <div class="container">
-                <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="uname" required>
+                <div class="form-group">
+                    <label for="uName"><b>Username:</b></label>
+                    <input type="text" placeholder="Enter Username" name="uname" required>
 
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" required>
+                    <label for="pWord"><b>Password:</b></label><!-- show password ability -->
+                    <input type="password" placeholder="Enter Password" name="psw" required>
 
-                <button type="submit">Login</button>
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
-            </div>
+                    <button type="submit">Login</button>
+                    <label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                    </label>
+                </div>
 
-            <div class="container" style="background-color:#f1f1f1">
-                <button type="button" class="cancelbtn">Cancel</button>
-                <span class="psw">Forgot <a href="#">password?</a></span>
-            </div>
-        </form>
-    </div>
-</body>
+                <div class="links-container">
+                    <a href="reset_pass.html">Forgot password?</a>
+                    <a href="signup.html">Sign Up</a>
+                </div>
+            </form>
+        </div>
+    </body>
+    <footer>
+        <p>© 2025 Anemone Noble Canvas. All rights reserved.</p>
+        <p>Contact us at <a href="mailto:info@animonenoblecanvas.com">info@animonenoblecanvas.com</a></p>
+    </footer>
 </html>
