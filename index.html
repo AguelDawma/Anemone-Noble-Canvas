@@ -4,19 +4,35 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dynamic Navigation Bar</title>
+        <link rel="stylesheet" href="Styles/generalStyles.css">
     </head>
     <body>
         <header>
-            <nav id="main-nav">
-                <ul id="nav-logged-out">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="..\Pages\about.html">About</a></li>
-                    <li><a href="mailto: info@animonenoblecanvas.com">Contact</a></li>
-                    <li><a href="..\Pages\login.html">Login</a></li>
-                    <li><a href="..\Pages\signup.html">Sign Up</a></li>
-                </ul>
+            <nav class="main-nav">
+                <div class="topLeft">
+                    <div class="menuBar">
+                        <span class="line"></span>
+                        <span class="line"></span>
+                        <span class="line"></span>
+                    </div>
 
-                <ul id="nav-logged-in" style="display: none;">
+                    <nav class="menu-nav">
+                        <ul>
+                            <li id="home"><a href="index.html"><button>Home</button></a></li>
+                            <li id="services"><a href="index.html"><button>Services</button></a></li>
+                            <li id="dashboard"><a href="index.html"><button>Dashboard</button></a></li>
+                            <li id="settings"><a href="index.html"><button>Settings</button></a></li>
+                        </ul>
+                    </nav>
+                    <img src="Images/logo.png" alt="Navigation Logo" class="navLogo">
+                </div>
+                <!-- <h1>Anemone Noble Cavas Lesotho</h1> -->
+                <div id="nav-logged-out">
+                    <a href="..\Pages\login.html"><button>Login</button></a>
+                    <a href="..\Pages\signup.html"><button>Sign Up</button></a>
+                </div>
+
+                <ul id="nav-logged-in">
                     <li><a href="/">Dashboard</a></li>
                     <li><a href="/profile">Profile</a></li>
                     <li><a href="/settings">Settings</a></li>
@@ -26,13 +42,19 @@
         </header>
 
         <main>
-            <h1>Welcome to our Website!</h1>
-            <p>This is the main content area. The navigation above will change based on your login status.</p>
+            <section>
+                <img id="shirt2" src="..\Images\shirt2.jpg" alt="shirt2">
+                <h1>Welcome to our Website!</h1>
+                <p>This is the main content area. The navigation above will change based on your login status.</p>
+            </section>
         </main>
 
         <footer>
             <p>© 2025 Anemone Noble Canvas. All rights reserved.</p>
-            <p>Contact us at <a href="mailto:info@animonenoblecanvas.com">info@animonenoblecanvas.com</a></p>
+            <a href="..\Pages\about.html" target="_blank">About</a>
+            <a href="mailto: info@animonenoblecanvas.com">Contact Us</a>
+            <a href="..\Pages\terms.html" target="_blank">Terms</a>
         </footer>
+        <script src="../JS/general.js"></script>
     </body>
 </html>
