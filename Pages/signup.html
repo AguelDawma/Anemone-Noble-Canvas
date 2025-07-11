@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign Up</title>
+        <link rel="stylesheet" href="..\Styles\formStyle.css">
+    </head>
+    <body>
+        <div>
+            <h2>Create an Account</h2>
+            <div class="form_container">
+                <form method="POST">
+                    <div>
+                        <label for="username">Username:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div>
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div>
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div>
+                        <label for="confirm-password">Confirm Password:</label>
+                        <input type="password" id="confirm-password" name="confirm_password" required>
+                    </div>
+                    <div>
+                        <button type="submit">Sign Up</button>
+                    </div>
+                </form>
+                <div class="links-container">
+                    Already have an account? <a href="login.html">Log In</a>
+                </div>
+            </div>
+        </div>
+
+        <script type="module" src="..\JS\firebase-config.js"></script>
+        <script type="module" src="..\JS\login.js"></script>
+        <script type="module" src="..\JS\signup.js"></script>
+        
+    </body>
+    <footer>
+        <p>© 2025 Anemone Noble Canvas. All rights reserved.</p>
+        <p>Contact us at <a href="mailto:info@animonenoblecanvas.com">info@animonenoblecanvas.com</a></p>
+    </footer>
+</html>

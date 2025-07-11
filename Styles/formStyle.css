@@ -49,6 +49,36 @@ button {
 h2 {
     text-align: center;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    color:goldenrod;
+    color:coral;
     font-size: xx-large;
+}
+
+footer {
+    text-align: center;
+    background-color: #007bff;
+    padding: 5px;
+    margin-top: 5%;
+}
+
+.links-container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.avatar {
+    width: 20%;
+    height: auto;
+}
+
+.imgcontainer {
+    text-align: center;
+}
+
+body {
+    background-image: url('../Images/formBground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
 }
