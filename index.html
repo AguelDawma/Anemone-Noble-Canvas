@@ -5,20 +5,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Dynamic Navigation Bar</title>
         <link rel="stylesheet" href="Styles/generalStyles.css">
+        <script src="../JS/general.js" defer></script>
     </head>
     <body>
         <header>
             <nav class="main-nav">
                 <div class="topLeft">
-                    <div class="menuBar">
+                    <button title="menu" class="menuBar">
                         <span class="line"></span>
                         <span class="line"></span>
                         <span class="line"></span>
-                    </div>
+                    </button>
 
                     <nav class="menu-nav">
                         <ul>
                             <li id="home"><a href="index.html"><button>Home</button></a></li>
+                            <li id="profile"><a href="index.html"><button>Profile</button></a></li>
                             <li id="services"><a href="index.html"><button>Services</button></a></li>
                             <li id="dashboard"><a href="index.html"><button>Dashboard</button></a></li>
                             <li id="settings"><a href="index.html"><button>Settings</button></a></li>
@@ -27,17 +29,6 @@
                     <img src="Images/logo.png" alt="Navigation Logo" class="navLogo">
                 </div>
                 <!-- <h1>Anemone Noble Cavas Lesotho</h1> -->
-                <div id="nav-logged-out">
-                    <a href="..\Pages\login.html"><button>Login</button></a>
-                    <a href="..\Pages\signup.html"><button>Sign Up</button></a>
-                </div>
-
-                <ul id="nav-logged-in">
-                    <li><a href="/">Dashboard</a></li>
-                    <li><a href="/profile">Profile</a></li>
-                    <li><a href="/settings">Settings</a></li>
-                    <li><a href="/menu">Menu</a></li> <li><button id="logout-button">Log Out</button></li>
-                </ul>
             </nav>
         </header>
 
@@ -52,9 +43,8 @@
         <footer>
             <p>© 2025 Anemone Noble Canvas. All rights reserved.</p>
             <a href="..\Pages\about.html" target="_blank">About</a>
-            <a href="mailto: info@animonenoblecanvas.com">Contact Us</a>
+            <a href="mailto: info@animonenoblecanvas.com" target="_blank">Contact Us</a>
             <a href="..\Pages\terms.html" target="_blank">Terms</a>
         </footer>
-        <script src="../JS/general.js"></script>
     </body>
 </html>

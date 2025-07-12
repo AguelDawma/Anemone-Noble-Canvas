@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded' , function(){
     const mainNav = document.querySelector('.menu-nav');
 
     menuIcon.addEventListener('click' , function(){
-        menuIcon.classList.toggle('active');
+        this.classList.toggle('active');
         mainNav.classList.toggle('active');
     })
 })
