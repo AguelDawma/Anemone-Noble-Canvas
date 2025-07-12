@@ -101,6 +101,7 @@ footer {
     flex-direction: column;
 }
 
-#nav-logged-in {
+.menu-nav-logged-in {
     display: none;
 }
+
