@@ -3,14 +3,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Dynamic Navigation Bar</title>
+        <title>Welcome</title>
         <link rel="stylesheet" href="Styles/generalStyles.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="../JS/general.js" defer></script>
     </head>
     <body>
         <header>
             <nav class="main-nav">
-                <div class="topLeft">
+                <div class="side-menu-container">
                     <button title="menu" class="menuBar">
                         <span class="line"></span>
                         <span class="line"></span>
@@ -20,28 +21,41 @@
                     <nav class="menu-nav">
                         <div class="menu-nav-logged-in">
                             <ul>
-                                <li id="home"><a href="index.html"><button>Home</button></a></li>
+                                <li id="home"><a href="index.html"><button><img src="Images/home.png" alt="home icon">Home</button></a></li>
                                 <li id="profile"><a href="index.html"><button>Profile</button></a></li>
                                 <li id="services"><a href="index.html"><button>Services</button></a></li>
                                 <li id="dashboard"><a href="index.html"><button>Dashboard</button></a></li>
                                 <li id="settings"><a href="index.html"><button>Settings</button></a></li>
                                 <li id="logout"><a href="index.html"><button>Log Out</button></a></li>
+
+                                <a href="PlayStore">
+                                    <img src="" alt="GET APP">
+                                </a>
                             </ul>
                         </div>
 
                         <div class="menu-nav-logged-out">
                             <ul>
-                                <li id="home"><a href="index.html"><button>Home</button></a></li>
-                                <li id="join"><a href="..\Pages\signup.html"><button>Join Us</button></a></li>
-                                <li id="services"><a href="index.html"><button>Services</button></a></li>
-                                <li id="settings"><a href="index.html"><button>Settings</button></a></li>
-                                <li id="logout"><a href="..\Pages\login.html"><button>Log In</button></a></li>
+                                <li id="home"><a href="index.html"><button><img src="Images/home.png" alt="home icon"><label>Home</label></button></a></li>
+                                <li id="join"><a href="..\Pages\signup.html"><button><img src="Images/join.png" alt="signin icon">Join Us</button></a></li>
+                                <li id="services"><a href="index.html"><button><img src="Images/services.png" alt="services icon">Services</button></a></li>
+                                <li id="settings"><a href="index.html"><button><img src="Images/settings.png" alt="settings icon">Settings</button></a></li>
+                                <li id="logout"><a href="..\Pages\login.html"><button><img src="Images/login.png" alt="login icon">Log In</button></a></li>
+
+                                <a href="PlayStore">
+                                    <img src="" alt="GET APP">
+                                </a>
                             </ul>
                         </div>
                     </nav>
-                    <img src="Images/logo.png" alt="Navigation Logo" class="navLogo">
                 </div>
-                <!-- <h1>Anemone Noble Cavas Lesotho</h1> -->
+
+                <img src="Images/navLogo.png" alt="Navigation Logo" class="navLogo">
+
+                <div class="search-and-cart">
+                    <button title="search" id="search"><img src="Images/search.png" alt="search icon"></button>
+                    <button title="search" id="cart"><img src="Images/cart.png" alt="cart Icon"></button>
+                </div>
             </nav>
         </header>
 
@@ -50,6 +64,9 @@
                 <img id="shirt2" src="..\Images\shirt2.jpg" alt="shirt2">
                 <h1>Welcome to our Website!</h1>
                 <p>This is the main content area. The navigation above will change based on your login status.</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, veniam modi, in veritatis quisquam earum culpa accusantium neque sed dolorem quos animi ut vel repudiandae corporis expedita mollitia cupiditate delectus!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod aperiam delectus eaque natus sunt? Sit libero debitis eveniet consectetur repellat dignissimos cumque iste dolores dolorum enim! Pariatur nostrum officia asperiores! Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam cumque vitae corrupti quae repudiandae nobis odio tempora delectus optio autem nostrum error, facere reprehenderit nihil! Architecto iste mollitia eligendi quibusdam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic dolor mollitia tempora corrupti animi. Earum quam consequuntur accusantium quisquam fuga dignissimos nobis voluptate odit, aliquam a? Ipsum ab possimus quidem!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis fugit assumenda ullam, ea temporibus suscipit facilis nulla esse nam dolorum provident consequuntur a iusto tempora, tempore aliquam aperiam? Aut, quaerat.</p>
             </section>
         </main>
 

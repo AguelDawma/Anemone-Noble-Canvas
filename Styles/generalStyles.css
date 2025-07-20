@@ -5,21 +5,20 @@ nav {
     text-align: center;
     width: 100%;
     height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .navLogo {
-    width: 15%;
+    width: 33%;
     height: auto;
     margin-top: 5px;
 }
 
 .main-nav {
-    display: inline-flex;
-}
-
-h1 {
-    width: 50%;
-    height: auto;
+    position: fixed;
+    align-items: center;
 }
 
 footer {
@@ -44,64 +43,120 @@ footer {
     justify-content: space-around;
     cursor: pointer;
     padding: 3px;
-    border: solid 1px white;
     background: none;
-    border-radius: 3px;
+    margin-left: 2%;
+    margin-top: 5%;
 }
 
-.line {
+.menuBar .line {
     display: block;
-    width: 100%;
+    width: 25px;
     height: 3px;
     background-color: white;
     border-radius: 2px;
-    transition: all 0.3s ease-in-out;
+    transition: transform 0.3s ease;
 }
 
-.menuBar.active.line:nth-child(1){
-    transform: translateY(8px) rotate(45deg);
+.menuBar.active .line:nth-child(1){
+    transform: translateY(7px);
 }
 
-.menuBar.active.line:nth-child(2){
-    opacity: 0;
+.menuBar.active .line:nth-child(3){
+    transform: translateY(-7px);
 }
 
-.menuBar.active.line:nth-child(3){
-    transform: translateY(-8px) rotate(-45deg);
+.side-menu-container {
+    position: relative;
+    display: flex;
 }
 
 .menu-nav {
-    display: none;
+    display: flex;
+    flex-direction: column;
     padding: 0;
-    margin-left: 10px;
     position: absolute;
-    width: 10%;
-    left: 0;
-    top: 8%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    height: 100vh;
+    right: 0;
+    left: -250px;
+    top: 100%;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    padding-top: 20px;
+    transition: left 0.3s ease;
+    
+    overflow-y: auto;
+    background-color: rgb(218, 67, 67);
 }
 
 .menu-nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    flex-grow: 1;
 }
 
 .menu-nav ul li a button {
     width: 100%;
-    padding: 5% 0 5% 0;
+    padding: 5% 10% 5% 10%;
+    display: flex;
+    flex-direction: row;
+    border: none;
+    border-bottom: 1px solid #444;
+}
+
+.menu-nav ul li a button:hover {
+    background-color: darkolivegreen;
 }
 
 .menu-nav.active {
-    display: block;
-}
-
-.topLeft {
     display: flex;
     flex-direction: column;
+    left: 0;
 }
 
 .menu-nav-logged-in {
     display: none;
 }
 
+.search-and-cart {
+    margin-right: 2%;
+    display: flex;
+    padding: 5% 0 5% 0;
+}
+
+#search, #cart {
+    background: none;
+}
+
+.menu-nav ul li a button img {
+    margin: 0px 10px 0px 5px;
+}
+
+button {
+    background-color:initial;
+    color: white;
+    align-items: center;
+    display: block;
+    border: none;
+}
+
+.menu-nav ul li a {
+    text-decoration: none;
+}
+
+.menuBar, #search, #cart {
+    border: none;
+}
+
+html {
+    padding: 0;
+}
+
+body {
+    overflow-x: hidden;
+}
+
+main {
+    padding: 10px;
+    transition: margin-left 0.3s ease;
+}
