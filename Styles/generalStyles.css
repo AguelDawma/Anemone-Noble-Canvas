@@ -1,3 +1,5 @@
+/*NAVIGATION*/
+
 nav {
     background-color: #010a0f;
     color: white;
@@ -19,20 +21,6 @@ nav {
 .main-nav {
     position: fixed;
     align-items: center;
-}
-
-footer {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    background-color: aqua;
-    padding: 15px;
-}
-
-#shirt2 {
-    width: 33%;
-    height: auto;
-    margin-top: 3%;
 }
 
 .menuBar {
@@ -83,8 +71,6 @@ footer {
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     padding-top: 20px;
     transition: left 0.3s ease;
-    
-    overflow-y: auto;
     background-color: rgb(218, 67, 67);
 }
 
@@ -118,14 +104,9 @@ footer {
     display: none;
 }
 
-.search-and-cart {
-    margin-right: 2%;
+.menu-nav-logged-out {
     display: flex;
-    padding: 5% 0 5% 0;
-}
-
-#search, #cart {
-    background: none;
+    flex-direction: column;
 }
 
 .menu-nav ul li a button img {
@@ -144,9 +125,74 @@ button {
     text-decoration: none;
 }
 
-.menuBar, #search, #cart {
+.menuBar, .search, #cart {
     border: none;
 }
+
+.nav-bottom {
+    margin-top: auto;
+}
+
+#nav-bottom-logo {
+    width: 100%;
+}
+
+.search-and-cart {
+    margin-right: 2%;
+    display: flex;
+    padding: 5% 0 5% 0;
+}
+
+.search, #cart {
+    background: none;
+    cursor: pointer;
+}
+
+.search {
+    transition: transform 0.2s ease;
+    z-index: 2;
+}
+
+.search-container {
+    display: flex;
+    margin-right: 10px;
+    position: relative;
+}
+
+.search-input {
+    opacity: 0;
+    width: 0;
+    transition: all 0.2s ease;
+}
+
+.search-container.active {
+    border: solid 1px;
+    opacity: 1;
+}
+
+.search-container.active .search-input {
+    width: auto;
+    opacity: 1;
+}
+
+.search-container.active .search {
+    transform: translateX(0);
+}
+
+footer {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+    padding: 15px;
+}
+
+#shirt2 {
+    width: 33%;
+    height: auto;
+    margin-top: 3%;
+}
+
 
 html {
     padding: 0;
@@ -158,5 +204,4 @@ body {
 
 main {
     padding: 10px;
-    transition: margin-left 0.3s ease;
 }

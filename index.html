@@ -27,11 +27,14 @@
                                 <li id="dashboard"><a href="index.html"><button>Dashboard</button></a></li>
                                 <li id="settings"><a href="index.html"><button>Settings</button></a></li>
                                 <li id="logout"><a href="index.html"><button>Log Out</button></a></li>
+                            </ul>
 
+                            <div class="nav-bottom">
                                 <a href="PlayStore">
                                     <img src="" alt="GET APP">
                                 </a>
-                            </ul>
+                                <img src="..\Images\navLogo.png" alt="logo" id="nav-bottom-logo">
+                            </div>
                         </div>
 
                         <div class="menu-nav-logged-out">
@@ -41,11 +44,14 @@
                                 <li id="services"><a href="index.html"><button><img src="Images/services.png" alt="services icon">Services</button></a></li>
                                 <li id="settings"><a href="index.html"><button><img src="Images/settings.png" alt="settings icon">Settings</button></a></li>
                                 <li id="logout"><a href="..\Pages\login.html"><button><img src="Images/login.png" alt="login icon">Log In</button></a></li>
+                            </ul>
 
+                            <div class="nav-bottom">
                                 <a href="PlayStore">
                                     <img src="" alt="GET APP">
                                 </a>
-                            </ul>
+                                <img src="..\Images\navLogo.png" alt="logo" id="nav-bottom-logo">
+                            </div>
                         </div>
                     </nav>
                 </div>
@@ -53,7 +59,10 @@
                 <img src="Images/navLogo.png" alt="Navigation Logo" class="navLogo">
 
                 <div class="search-and-cart">
-                    <button title="search" id="search"><img src="Images/search.png" alt="search icon"></button>
+                    <div class="search-container">
+                        <input type="text" placeholder="Search..." class="search-input">
+                        <button title="search" class="search"><img src="Images/search.png" alt="search icon"></button>
+                    </div>
                     <button title="search" id="cart"><img src="Images/cart.png" alt="cart Icon"></button>
                 </div>
             </nav>
