@@ -10,6 +10,7 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin: 0;
 }
 
 .navLogo {
@@ -67,11 +68,11 @@ nav {
     left: -250px;
     top: 100%;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
-    padding-top: 20px;
     transition: left 0.3s ease-in-out;
     background-color: rgb(218, 67, 67);
     overflow-y: auto;
     z-index: 1000;
+    margin: 0;
 }
 
 .menu-nav ul {
@@ -192,17 +193,12 @@ footer {
     padding: 15px;
 }
 
-#shirt2 {
-    width: 33%;
-    height: auto;
-    margin-top: 3%;
-}
-
 body {
     overflow-x: hidden;
     margin: 0;
     padding: 0;
     transition: all 0.3s ease;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 body.nav-active {
@@ -220,8 +216,4 @@ body.search-active {
 
 body.search-active .main-content {
     filter: blur(1px);
-}
-
-main {
-    padding: 10px;
 }
