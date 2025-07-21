@@ -2,7 +2,7 @@
     background-color: crimson;
     padding: 10px;
     border-radius: 5px;
-    border: solid black 2px;
+    border: solid darkorange 2px;
     font-weight: bold;
     font-size: medium;
     cursor: pointer;
@@ -31,7 +31,7 @@
 .introduction {
     color: white;
     z-index: 1;
-    padding: 1rem;
+    padding: 2rem;
 }
 
 p {
@@ -42,4 +42,5 @@ p {
     max-width: 600px;;
     height: auto;
     margin-top: 3%;
+    border-radius: 0px 100px;
 }
