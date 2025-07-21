@@ -19,7 +19,6 @@ nav {
 }
 
 .main-nav {
-    position: fixed;
     align-items: center;
 }
 
@@ -69,8 +68,10 @@ nav {
     top: 100%;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     padding-top: 20px;
-    transition: left 0.3s ease;
+    transition: left 0.3s ease-in-out;
     background-color: rgb(218, 67, 67);
+    overflow-y: auto;
+    z-index: 1000;
 }
 
 .menu-nav ul {
@@ -149,7 +150,7 @@ button {
 }
 
 .search {
-    transition: transform 0.2s ease;
+    transition: transform 0.4s ease;
     z-index: 2;
 }
 
@@ -162,7 +163,7 @@ button {
 .search-input {
     opacity: 0;
     width: 0;
-    transition: all 0.2s ease;
+    transition: all 0.4s ease;
 }
 
 .search-container.active {
@@ -177,6 +178,10 @@ button {
 
 .search-container.active .search {
     transform: translateX(0);
+}
+
+main {
+    margin: 15px;
 }
 
 footer {
@@ -195,6 +200,26 @@ footer {
 
 body {
     overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+body.nav-active {
+    overflow: hidden;
+}
+
+body.nav-active .main-content {
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+body.search-active {
+    overflow: hidden;
+}
+
+body.search-active .main-content {
+    filter: blur(1px);
 }
 
 main {
