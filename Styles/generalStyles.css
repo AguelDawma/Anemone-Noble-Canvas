@@ -205,7 +205,7 @@ body.nav-active {
     overflow: hidden;
 }
 
-body.nav-active .main-content {
+body.nav-active .main-content, body.nav-active .intro-section {
     filter: blur(1px);
     pointer-events: none;
 }
@@ -214,6 +214,6 @@ body.search-active {
     overflow: hidden;
 }
 
-body.search-active .main-content {
+body.search-active .main-content, body.search-active .intro-section {
     filter: blur(1px);
 }
