@@ -44,3 +44,23 @@ p {
     margin-top: 3%;
     border-radius: 0px 100px;
 }
+
+h2 {
+    font-size:xx-large;
+}
+
+h3 {
+    font-size: xx-large;
+}
+
+h4 {
+    font-size: x-large;
+}
+
+body {
+    background-color: rgb(238, 216, 121);
+}
+
+.service-label {
+    margin-right: 60px;
+}

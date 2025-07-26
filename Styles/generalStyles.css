@@ -63,7 +63,7 @@ nav {
     padding: 0;
     position: absolute;
     width: 200px;
-    height: 100vh;
+    height: 97vh;
     right: 0;
     left: -250px;
     top: 100%;
@@ -107,8 +107,10 @@ nav {
 }
 
 .menu-nav-logged-out {
+    position: relative;
     display: flex;
     flex-direction: column;
+    height: 95%;
 }
 
 .menu-nav ul li a button img {
@@ -132,7 +134,8 @@ button {
 }
 
 .nav-bottom {
-    margin-top: auto;
+    position: absolute;
+    bottom: 0;
 }
 
 #nav-bottom-logo {
