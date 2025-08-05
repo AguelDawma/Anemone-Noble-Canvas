@@ -19,5 +19,18 @@ document.addEventListener('DOMContentLoaded' , function(){
         searchInput.classList.toggle('active');
         body.classList.toggle('search-active');
     })
+
+    document.addEventListener('click' , function(event){
+        if(!searchContainer.contains(event.target)){
+            searchContainer.classList.remove('active');
+            searchIcon.classList.remove('active');
+            searchInput.classList.remove('active');
+            body.classList.remove('search-active');
+        }else{
+            menuIcon.classList.remove('active');
+            mainNav.classList.remove('active');
+            body.classList.remove('nav-active');
+        }
+    })
 })
 

@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="Styles/generalStyles.css">
         <link rel="stylesheet" href="Styles/homeStyles.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="../JS/general.js" defer></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     </head>
     <body>
         <header>
@@ -24,7 +24,13 @@
                             <ul>
                                 <li id="home"><a href="index.html"><button><img src="Images/home.png" alt="home icon">Home</button></a></li>
                                 <li id="profile"><a href="index.html"><button>Profile</button></a></li>
-                                <li id="services"><a href="index.html"><button>Services</button></a></li>
+                                <li id="services"><a href="index.html"><button>Services</button></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="..\Pages\doublePick.html"><button>Custom Design</button></a></li>
+                                        <li><a><button>Personalized Touch</button></a></li>
+                                        <li><a><button>Craftsmanship</button></a></li>
+                                    </ul>
+                                </li>
                                 <li id="dashboard"><a href="index.html"><button>Dashboard</button></a></li>
                                 <li id="settings"><a href="index.html"><button>Settings</button></a></li>
                                 <li id="logout"><a href="index.html"><button>Log Out</button></a></li>
@@ -42,7 +48,13 @@
                             <ul>
                                 <li id="home"><a href="index.html"><button><img src="Images/home.png" alt="home icon"><label>Home</label></button></a></li>
                                 <li id="join"><a href="..\Pages\signup.html"><button><img src="Images/join.png" alt="signin icon">Join Us</button></a></li>
-                                <li class="services"><a href="index.html"><button><img src="Images/services.png" alt="services icon"><label class="service-label">Services</label><img src="Images/gt.png" alt="gt sign" class="chevron-right"></button></a></li>
+                                <li class="services"><a><button class="more-services"><img src="Images/services.png" alt="services icon"><label class="service-label">Services</label><img src="Images/gt.png" alt="gt sign" class="chevron-right"></button></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="..\Pages\doublePick.html"><button>Custom Design</button></a></li>
+                                        <li><a><button>Personalized Touch</button></a></li>
+                                        <li><a><button>Craftsmanship</button></a></li>
+                                    </ul>
+                                </li>
                                 <li id="settings"><a href="index.html"><button><img src="Images/settings.png" alt="settings icon">Settings</button></a></li>
                                 <li id="logout"><a href="..\Pages\login.html"><button><img src="Images/login.png" alt="login icon">Log In</button></a></li>
                             </ul>
@@ -87,7 +99,22 @@
             <section>
                 <h3>Unique painted Clothing</h3>
                 <p>Explore our range of pre-painted garments, custom design options, and personalized painting services. Our team of artists ensures each piece is meticulously painted, creating wearable art that reflects your individual style and personality.</p>
-                <img class="shirt" src="..\Images\shirt2.jpg" alt="shirt2">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img class="shirt" src="..\Images\shirt2.jpg" alt="shirt2">
+                        </div>
+                        <div class="swiper-slide">
+                            <img class="shirt" src="..\Images\shirt2.jpg" alt="shirt2">
+                        </div>
+                        <div class="swiper-slide">
+                            <img class="shirt" src="..\Images\shirt2.jpg" alt="shirt2">
+                        </div>
+                        <div class="swiper-slide">
+                            <img class="shirt" src="..\Images\shirt2.jpg" alt="shirt2">
+                        </div>
+                    </div>
+                </div>
                 <p>whether you choose from our pre-painted selection or opt for a custom design, Anemone Noble Canvas promises quality, creativity, and a touch of artistic flair in every garment.</p>
 
                 <h4>Custom Designs</h4>
@@ -113,5 +140,9 @@
             <a href="mailto: info@animonenoblecanvas.com" target="_blank">Contact Us</a>
             <a href="..\Pages\terms.html" target="_blank">Terms</a>
         </footer>
+
+        <script src="../JS/general.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script src="../JS/home.js"></script>
     </body>
 </html>

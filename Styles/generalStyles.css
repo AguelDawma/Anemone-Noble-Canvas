@@ -14,13 +14,13 @@ nav {
 }
 
 .navLogo {
-    width: 33%;
-    height: auto;
-    margin-top: 5px;
+    height: 44px;
+    width: auto;
 }
 
 .main-nav {
     align-items: center;
+    height: 50px;
 }
 
 .menuBar {
@@ -82,7 +82,7 @@ nav {
     flex-grow: 1;
 }
 
-.menu-nav ul li a button {
+.menu-nav ul li a button, .sub-menu li a button {
     width: 100%;
     padding: 5% 10% 5% 10%;
     display: flex;
@@ -91,7 +91,7 @@ nav {
     border-bottom: 1px solid #444;
 }
 
-.menu-nav ul li a button:hover {
+.menu-nav ul li a button:hover, .sub-menu li a button:hover {
     background-color:rgb(224, 86, 82);
 }
 
@@ -127,6 +127,30 @@ button {
 
 .menu-nav ul li a {
     text-decoration: none;
+}
+
+.sub-menu {
+    width: 200px;
+    border: solid #444 1px;
+    position: fixed;
+    left: 210px;
+    display: none;
+    background-color: rgb(218, 67, 67);
+    z-index: 1010;
+}
+
+.sub-menu li a button {
+    height: 44px;
+}
+
+.services {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+}
+
+.services:hover .sub-menu {
+    display: block;
 }
 
 .menuBar, .search, #cart {
@@ -219,4 +243,5 @@ body.search-active {
 
 body.search-active .main-content, body.search-active .intro-section {
     filter: blur(1px);
+    pointer-events: none;
 }
