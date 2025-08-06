@@ -11,22 +11,54 @@
 
 .item {
     width: 350px;
-    height: fit-content;
+    height: auto;
     background-color:  rgb(218, 67, 67);
     margin: 4px;
-    padding: 4px;
-    align-items: center;
+    align-items: normal;
     border: solid;
     border-radius: 10px;
     box-shadow: 5px 5px 10px;
+    padding: 4px;
 }
 
 .item:hover {
     background-color: brown;
 }
 
-figure {
-    width: 150px;
+.figure {
+    width: 250px;
+}
+
+.figure img {
+    width: 100%;
+}
+
+.originals img {
+    width: 30%;
+}
+
+.originals {
+    display: inline;
+}
+
+.previews {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 5px 5px 20px;
+    padding: 3%;
+}
+
+.painting {
+    display: flex;
+    flex-direction: column;
+    margin: 2px;
+    width: 26%;
+    padding: 3%;
+    border: solid 2px rgb(143, 135, 135);
+}
+
+.painting:hover {
+    background-color: rgb(143, 135, 135);
 }
 
 .description-box {
