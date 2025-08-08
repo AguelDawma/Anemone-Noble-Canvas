@@ -26,7 +26,7 @@
 }
 
 .figure {
-    width: 250px;
+    width: 200px;
 }
 
 .figure img {
@@ -38,7 +38,10 @@
 }
 
 .originals {
-    display: inline;
+    display: flexbox;
+    width: 100%;
+    text-align: center;
+    padding: 3%;
 }
 
 .previews {
@@ -51,7 +54,7 @@
 .painting {
     display: flex;
     flex-direction: column;
-    margin: 2px;
+    margin: 0.4%;
     width: 26%;
     padding: 3%;
     border: solid 2px rgb(143, 135, 135);
