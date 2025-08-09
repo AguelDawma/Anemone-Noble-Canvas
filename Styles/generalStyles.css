@@ -84,7 +84,7 @@ nav {
 
 .menu-nav ul li a button, .sub-menu li a button {
     width: 100%;
-    padding: 5% 10% 5% 10%;
+    padding: 10px 20px;
     display: flex;
     flex-direction: row;
     border: none;
@@ -147,6 +147,19 @@ button {
     position: relative;
     display: inline-flex;
     width: 100%;
+}
+
+.services a {
+    width: 100%;
+    height: auto;
+}
+
+.services:hover {
+    background-color: rgb(224, 86, 82);
+}
+
+.chevron-right {
+    border-bottom: solid 1px #444;
 }
 
 .services:hover .sub-menu {

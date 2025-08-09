@@ -60,6 +60,11 @@
     border: solid 2px rgb(143, 135, 135);
 }
 
+.painting.selected {
+    border: solid 2px green;
+    box-shadow: 0 0 5px;
+}
+
 .painting:hover {
     background-color: rgb(143, 135, 135);
 }
