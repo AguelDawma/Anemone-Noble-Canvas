@@ -18,20 +18,21 @@
                     </button>
 
                     <nav class="menu-nav">
-                        <div class="nav-logged-in">
+                        <div id="nav-logged-in">
                             <ul>
-                                <li id="home"><a href="index.html"><button><img src="Images/home.png" alt="home icon">Home</button></a></li>
-                                <li id="profile"><a href="index.html"><button>Profile</button></a></li>
-                                <li id="services"><a href="index.html"><button>Services</button></a>
+                                <li id="home"><a href="index.html"><button><img src="Images/Icons/home.png" alt="home icon">Home</button></a></li>
+                                <li id="profile"><a href="index.html"><button><img src="Images/Icons/profile.png" alt="profile icon">Profile</button></a></li>
+                                <li id="services"><a href="index.html"><button><img src="Images/Icons/services.png" alt="services icon">Services</button></a>
                                     <ul class="sub-menu">
                                         <li><a href="..\Pages\doublePick.html"><button>Custom Design</button></a></li>
                                         <li><a><button>Personalized Touch</button></a></li>
                                         <li><a><button>Craftsmanship</button></a></li>
                                     </ul>
+                                    <img src="../Images/Icons/gt.png" alt="gt sign" class="chevron-right">
                                 </li>
-                                <li id="dashboard"><a href="index.html"><button>Dashboard</button></a></li>
-                                <li id="settings"><a href="index.html"><button>Settings</button></a></li>
-                                <li id="logout-button"><a href="index.html"><button>Log Out</button></a></li>
+                                <li id="dashboard"><a href="index.html"><button><img src="Images/Icons/dashboard.png" alt="dashboard icon">Dashboard</button></a></li>
+                                <li id="settings"><a href="index.html"><button><img src="Images/Icons/settings.png" alt="settings icon">Settings</button></a></li>
+                                <li id="logout-button"><a href="index.html"><button><img src="Images/Icons/logout.png" alt="logout icon">Log Out</button></a></li>
                             </ul>
 
                             <div class="nav-bottom">
@@ -42,20 +43,20 @@
                             </div>
                         </div>
 
-                        <div class="nav-logged-out">
+                        <div id="nav-logged-out">
                             <ul>
-                                <li id="home"><a href="index.html"><button><img src="../Images/home.png" alt="home icon">Home</button></a></li>
-                                <li id="join"><a href="..\Pages\signup.html"><button><img src="../Images/join.png" alt="signin icon">Join Us</button></a></li>
-                                <li class="services"><a><button class="more-services"><img src="../Images/services.png" alt="services icon">Services</button></a>
+                                <li id="home"><a href="index.html"><button><img src="../Images/Icons/home.png" alt="home icon">Home</button></a></li>
+                                <li id="join"><a href="..\Pages\signup.html"><button><img src="../Images/Icons/join.png" alt="signin icon">Join Us</button></a></li>
+                                <li id="services"><a href="index.html"><button><img src="Images/Icons/services.png" alt="services icon">Services</button></a>
                                     <ul class="sub-menu">
                                         <li><a href="..\Pages\doublePick.html"><button>Custom Design</button></a></li>
                                         <li><a><button>Personalized Touch</button></a></li>
                                         <li><a><button>Craftsmanship</button></a></li>
                                     </ul>
-                                    <img src="../Images/gt.png" alt="gt sign" class="chevron-right">
+                                    <img src="../Images/Icons/gt.png" alt="gt sign" class="chevron-right">
                                 </li>
-                                <li id="settings"><a href="index.html"><button><img src="../Images/settings.png" alt="settings icon">Settings</button></a></li>
-                                <li id="logout"><a href="..\Pages\login.html"><button><img src="../Images/login.png" alt="login icon">Log In</button></a></li>
+                                <li id="settings"><a href="index.html"><button><img src="../Images/Icons/settings.png" alt="settings icon">Settings</button></a></li>
+                                <li id="logout"><a href="..\Pages\login.html"><button><img src="../Images/Icons/login.png" alt="login icon">Log In</button></a></li>
                             </ul>
 
                             <div class="nav-bottom">
@@ -73,9 +74,9 @@
                 <div class="search-and-cart">
                     <div class="search-container">
                         <input type="text" placeholder="Search..." class="search-input" id="search-text">
-                        <button title="Search" class="search"><img src="Images/search.png" alt="search icon"></button>
+                        <button title="Search" class="search"><img src="Images/Icons/search.png" alt="search icon"></button>
                     </div>
-                    <button title="Cart" id="cart"><img src="Images/cart.png" alt="cart Icon"></button>
+                    <button title="Cart" id="cart"><img src="Images/Icons/cart.png" alt="cart Icon"></button>
                 </div>
             </nav>
             <section class="intro-section">
@@ -141,7 +142,6 @@
         </footer>
 
         <script src="../JS/general.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <script src="../JS/home.js"></script>
     </body>
 </html>

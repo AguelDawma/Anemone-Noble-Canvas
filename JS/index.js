@@ -1,3 +1,5 @@
+
+
 // This is where your JavaScript logic would go
 // to check for login status and update the navigation.
 // For a real application, this would involve server-side checks

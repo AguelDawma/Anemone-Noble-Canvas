@@ -103,11 +103,11 @@ nav {
     margin-left: 0;
 }
 
-.nav-logged-in {
+#nav-logged-in {
     display: none;
 }
 
-.nav-logged-out {
+#nav-logged-out {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -144,18 +144,18 @@ button {
     height: 44px;
 }
 
-.services {
+#services {
     position: relative;
     display: inline-flex;
     width: 100%;
 }
 
-.services a {
+#services a {
     width: 100%;
     height: auto;
 }
 
-.services:hover {
+#services:hover {
     background-color: rgb(224, 86, 82);
 }
 
@@ -163,7 +163,7 @@ button {
     border-bottom: solid 1px #444;
 }
 
-.services:hover .sub-menu {
+#services:hover .sub-menu {
     display: block;
 }
 
