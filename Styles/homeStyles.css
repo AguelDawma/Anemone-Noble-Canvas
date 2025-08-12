@@ -61,3 +61,8 @@ body {
     width: 100%;
     margin: 0;
 }
+
+#home {
+    border: solid 2px green;
+    box-shadow: 0 0 5px;
+}
