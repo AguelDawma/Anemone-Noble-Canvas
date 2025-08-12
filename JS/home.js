@@ -20,7 +20,7 @@ function checkLoginStatus() {
 
 function simulateLogout() {
     localStorage.clear();
-    window.location.href = '../Pages/login.html';
+    window.location.href = '../index.html';
     checkLoginStatus();
     alert('You have been logged out.');
 }

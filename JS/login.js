@@ -21,8 +21,8 @@ if(loginForm){
             localStorage.setItem('password' , password);
             
             errorMessage.textContent='';
-            alert('Login Successful! Redirecting to Homepage.');
-            window.location.href = '../index.html'
+            alert('Login Successful! Redirecting to your dashboard.');
+            window.location.href = '../Pages/dashboard.html'
         }else{
             console.log('Invalid credentials');
             errorMessage.textContent = 'Invalid email or password.';
