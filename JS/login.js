@@ -13,21 +13,25 @@ if(loginForm){
         const testingEmail = 'thapelosekhonyana37@gmail.com';
         const testingPassword = 'Zimb@T@zzo07';
 
-        if(email==testingEmail && password==testingPassword){
-            console.log('Login Successful.');
+        if(localStorage.getItem(email+'isSignedIn')){
+            if(email==localStorage.getItem(email+'email') && password==localStorage.getItem(email+'password')){
+                console.log('Login Successful.');
 
-            localStorage.setItem('isLoggedIn', 'true');
-            localStorage.setItem('email' , email);
-            localStorage.setItem('password' , password);
-            
-            errorMessage.textContent='';
-            alert('Login Successful! Redirecting to your dashboard.');
-            window.location.href = '../Pages/dashboard.html'
-        }else{
-            console.log('Invalid credentials');
-            errorMessage.textContent = 'Invalid email or password.';
+                localStorage.setItem('isLoggedIn', 'true');
+                localStorage.setItem('email' , email);
+                localStorage.setItem('password' , password);
+                localStorage.setItem('name' , localStorage.getItem(email+'name'));
+                
+                errorMessage.textContent='';
+                alert('Login Successful! Redirecting to your dashboard.');
+                window.location.href = '../Pages/dashboard.html'
+            }else{
+                console.log('Invalid credentials');
+                errorMessage.textContent = 'Invalid email or password.';
+            }
         }
-    })
+    });
 }else{
     console.log('Login form not found');
 }
+        

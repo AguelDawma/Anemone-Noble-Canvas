@@ -19,7 +19,11 @@ function checkLoginStatus() {
 }
 
 function simulateLogout() {
-    localStorage.clear();
+    
+    localStorage.removeItem();
+    localStorage.removeItem();
+    localStorage.removeItem();
+
     window.location.href = '../index.html';
     checkLoginStatus();
     alert('You have been logged out.');
