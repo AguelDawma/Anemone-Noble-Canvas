@@ -1,37 +1,43 @@
-const loginForm = document.getElementById('login-form');
+document.addEventListener('DOMContentLoaded' , function(){
+    if(localStorage.getItem('isLoggedIn')){
+        window.location.href = 'dashboard,html';
+        return;
+    }
 
-if(loginForm){
-    loginForm.addEventListener('submit' , function(event){
-        event.preventDefault();
+    const loginForm = document.getElementById('login-form');
 
-        console.log('Login attempt');
+    if(loginForm){
+        loginForm.addEventListener('submit' , function(event){
+            event.preventDefault();
 
-        const email = event.target.email.value;
-        const password = event.target.password.value;
-        const errorMessage = document.getElementById('error-message');
+            console.log('Login attempt');
 
-        const testingEmail = 'thapelosekhonyana37@gmail.com';
-        const testingPassword = 'Zimb@T@zzo07';
+            const email = event.target.email.value;
+            const password = event.target.password.value;
+            const errorMessage = document.getElementById('error-message');
 
-        if(localStorage.getItem(email+'isSignedIn')){
-            if(email==localStorage.getItem(email+'email') && password==localStorage.getItem(email+'password')){
-                console.log('Login Successful.');
+            const userDataString = localStorage.getItem(email);
+            if(userDataString){
+                console.log('Data found.');
+                const userData = JSON.parse(userDataString);
 
-                localStorage.setItem('isLoggedIn', 'true');
-                localStorage.setItem('email' , email);
-                localStorage.setItem('password' , password);
-                localStorage.setItem('name' , localStorage.getItem(email+'name'));
-                
-                errorMessage.textContent='';
-                alert('Login Successful! Redirecting to your dashboard.');
-                window.location.href = '../Pages/dashboard.html'
+                if(userData.password === password){
+                    localStorage.setItem('isLoggedIn' , 'true');
+                    localStorage.setItem('currentUserEmail' , email);
+
+                    errorMessage.textContent='';
+                    alert('Login Successful! Redirecting to your dashboard.');
+                    window.location.href = '../Pages/dashboard.html'
+                }else{
+                    console.log('Invalid credentials');
+                    errorMessage.textContent = 'Invalid email or password.';
+                }
             }else{
-                console.log('Invalid credentials');
-                errorMessage.textContent = 'Invalid email or password.';
+                errorMessage.textContent = 'User not found, please sign up...';
             }
-        }
-    });
-}else{
-    console.log('Login form not found');
-}
+        });
+    }else{
+        console.log('Login form not found');
+    }
+})
         

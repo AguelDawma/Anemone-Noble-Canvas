@@ -1,6 +1,16 @@
 document.addEventListener('DOMContentLoaded' , function(){
-    const myUsername = localStorage.getItem('name');
+    const userEmail = localStorage.getItem('currentUserEmail');
     const clientName = document.getElementById('my-username');
 
-    clientName.textContent = myUsername;
+    if(!localStorage.getItem('isLoggedIn')){
+        window.location.href = 'login.html'
+        return;
+    }
+
+    const userDataString = localStorage.getItem(userEmail);
+    if(userDataString){
+        console.log('Data found.');
+        const userData = JSON.parse(userDataString);
+        clientName.textContent = userData.username;
+    }
 })

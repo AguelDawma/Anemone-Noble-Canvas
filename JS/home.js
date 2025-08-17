@@ -20,9 +20,8 @@ function checkLoginStatus() {
 
 function simulateLogout() {
     
-    localStorage.removeItem();
-    localStorage.removeItem();
-    localStorage.removeItem();
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('currentUserEmail');
 
     window.location.href = '../index.html';
     checkLoginStatus();
