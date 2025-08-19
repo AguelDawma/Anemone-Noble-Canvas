@@ -78,3 +78,8 @@ footer {
 body {
     background-color: rgb(238, 216, 121);
 }
+
+#back-arrow {
+    margin: 20px;
+    cursor: pointer;
+}

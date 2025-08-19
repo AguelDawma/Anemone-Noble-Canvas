@@ -31,13 +31,26 @@ document.addEventListener('DOMContentLoaded' , function(){
                 }else{
                     console.log('Invalid credentials');
                     errorMessage.textContent = 'Invalid email or password.';
+                    errorMessage.style.color = 'red';
+                    errorMessage.style.padding = '10px';
+                    errorMessage.style.border = 'solid 1px red';
+                    errorMessage.style.textAlign = 'center';
                 }
             }else{
                 errorMessage.textContent = 'User not found, please sign up...';
+                errorMessage.style.color = 'red';
+                errorMessage.style.padding = '10px';
+                errorMessage.style.border = 'solid 1px red';
+                errorMessage.style.textAlign = 'center';
             }
         });
     }else{
         console.log('Login form not found');
     }
+
+    const back = document.getElementById('back-arrow');
+    back.addEventListener('click' , function(){
+        window.location.href = '../index.html';
+    })
 })
         

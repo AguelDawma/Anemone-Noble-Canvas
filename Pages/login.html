@@ -11,9 +11,12 @@
         <link rel="stylesheet" href="..\Styles\generalStyles.css">
     </head>
     <body>
+        <img src="../Images/Icons/back.png" alt="back arrow" id="back-arrow">
         <h2>PLEASE ENTER YOUR LOGIN DETAILS.</h2>
         <div class="form_container" id="login-section">
             <form method="post" id="login-form">
+                <p id="error-message"></p>
+                
                 <div class="imgcontainer">
                     <img src="..\Images\navLogo.png" alt="Avatar" class="avatar">
                 </div>
@@ -30,7 +33,6 @@
                 <label>
                     <input type="checkbox" id="remember"> Remember me
                 </label>
-                <p id="error-message"></p>
 
                 <div class="links-container">
                     <a href="reset_pass.html">Forgot password?</a>

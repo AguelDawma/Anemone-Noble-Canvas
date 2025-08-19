@@ -9,10 +9,15 @@
     </head>
     <body>
         <div>
+            <img src="../Images/Icons/back.png" alt="back arrow" id="back-arrow">
             <h2>Create an Account</h2>
             
             <div class="form_container">
+                <div class="imgcontainer">
+                    <img src="..\Images\navLogo.png" alt="Avatar" class="avatar">
+                </div>
                 <form method="POST" id="signup-form">
+                    <p id="signup-error-message"></p>
                     <div>
                         <label for="signupUsername">Username:</label>
                         <input type="text" id="signupUsername" name="username" required>
@@ -29,7 +34,6 @@
                         <label for="confirm-password">Confirm Password:</label>
                         <input type="password" id="confirm-password" name="confirm_password" required>
                     </div>
-                    <p id="signup-error-message"></p>
                     <div>
                         <button type="submit" class="submit">Sign Up</button>
                     </div>

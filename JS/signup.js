@@ -16,17 +16,23 @@ function signup(){
 
     if(password !== confirmPassword){
         errorMessage.textContent = 'Passwords do not match.';
+        errorMessage.style.color = 'red';
+        errorMessage.style.padding = '10px';
+        errorMessage.style.border = 'solid 1px red';
+        errorMessage.style.textAlign = 'center';
         return;
     }else{
         console.log('Form is valid, signing up user...');
-        errorMessage.textContent = 'Validation Complete!';
     }
 
     if(localStorage.getItem(email)){
         errorMessage.textContent = 'User already exists, please login...';
+        errorMessage.style.color = 'red';
+        errorMessage.style.padding = '10px';
+        errorMessage.style.border = 'solid 1px red';
+        errorMessage.style.textAlign = 'center';
         return;
     }
-    errorMessage.textContent = 'Signing up user...';
 
     const userData = {
         username: username,

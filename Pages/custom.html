@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Welcome</title>
         <link rel="stylesheet" href="../Styles/generalStyles.css">
-        
+        <link rel="stylesheet" href="../Styles/homeStyles.css">
         <link rel="stylesheet" href="../Styles/product.css">
     </head>
     <body>
@@ -85,7 +85,113 @@
             </section>
         </header>
         <main class="main-content">
-            
+            <section class="choices">
+                <div class="originals">
+                    <img alt="cloth" src="..\Images\Topjean.jpg"> <img alt="painting" src="..\Images\Eagle.jpg">
+                </div>
+
+                <div class="previews">
+                        <div class="painting" id="chest">
+                            <img alt="prev" src="..\Images\chestV.jpg">
+                            <p>Chest</p>
+                        </div>
+                        <div class="painting" id="back">
+                            <img alt="prev" src="..\Images\backV.jpg">
+                            <p>Back</p>
+                        </div>
+                        <div class="painting" id="shoulder">
+                            <img alt="prev" src="..\Images\sideV.jpg">
+                            <p>Shoulder (side view)</p>
+                        </div>
+                </div>
+            </section>
+
+            <section class="description-and-preview">
+                <p>Add description for position of the painting and continue.</p>
+
+                <label for="positions">Choose position:</label>
+                <select title="positions" id="positions-selector">
+                    <option value="back">Back</option>
+                    <option value="front">Front</option>
+                    <option value="left-chest">Left chest</option>
+                    <option value="left-side">Left side</option>
+                    <option value="right-side">Right side</option>
+                    <option value="left-shoulder">Left shoulder (side view)</option>
+                    <option value="right-shoulder">Right shoulder (side view)</option>
+                    <option value="Custom" selected>Custom</option>
+                </select>
+                <textarea title="description" id="description" class="description-box" placeholder="Describe your desired position of the painting..."></textarea>
+                <br>
+
+                <label for="size">Choose size of image</label>
+                <select title="sizes" id="size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+                <button type="submit" id="continue">Continue</button>
+            </section>
+
+            <section class="clothing-section">
+                <h2>Explore our newest products:</h2>
+                <div class="clothes">
+                    <div class="item">
+                        <div class="figure">
+                            <img src="..\Images\skull_P.jpg" alt="figure">
+                            <p>Skull Face Denim Men's Jeans</p>
+                            <p>M 499.99</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="figure">
+                            <img src="..\Images\Sun_P.jpg" alt="figure">
+                            <p>Sun Hoodie</p>
+                            <p>M 359.99</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="figure">
+                            <img src="..\Images\Sun_P_cap.jpg" alt="figure">
+                            <p>Sun Jeans Cap</p>
+                            <p>M 120.00</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="figure">
+                            <img src="..\Images\Cat_P.jpg" alt="figure">
+                            <p>Cat Bag</p>
+                            <p>M 100.00</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="figure">
+                            <img src="..\Images\Fish_P.jpg" alt="figure">
+                            <p>Jelly Fish Hoodie</p>
+                            <p>M 359.99</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="figure">
+                            <img src="..\Images\Apple_P.jpg" alt="figure">
+                            <p>Red Apple T-Shirt</p>
+                            <p>M 150.00</p>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="figure">
+                            <img src="..\Images\Butterfly_P.jpg" alt="figure">
+                            <p>Butter Fly Short Jeans</p>
+                            <p>M 250.00</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
 
         <script src="../JS/general.js"></script>
