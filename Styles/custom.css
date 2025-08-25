@@ -1,0 +1,11 @@
+.art-choice , .garment-choice {
+    display: flex;
+    flex-direction: row;
+    box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.8);
+    padding: 15px;
+    height: 170px;
+}
+
+.art , .garment {
+    
+}
