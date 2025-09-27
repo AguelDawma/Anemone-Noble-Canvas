@@ -52,6 +52,6 @@ document.addEventListener('DOMContentLoaded' , function(){
 
         const nextPage =  'custom.html?art=${encodeURIComponent(artId)}&garment=${encodeURIComponent(garmentId)}';
 
-        window.location.href = 'nextPage';
+        window.location.href = nextPage;
     })
 })
