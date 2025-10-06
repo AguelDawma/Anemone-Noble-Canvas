@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+{% load static %}
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Welcome</title>
-        <link rel="stylesheet" href="../Styles/generalStyles.css">
-        <link rel="stylesheet" href="../Styles/dashboard.css">
+        <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
+        <link rel="stylesheet" href="{% static 'Styles/dashboard.css' %}">
     </head>
     <body>
         <header>
@@ -20,46 +21,46 @@
                     <nav class="menu-nav">
                         <div id="nav-logged-in">
                             <ul>
-                                <li id="home"><a href="../index.html"><button><img src="../Images/Icons/home.png" alt="home icon">Home</button></a></li>
-                                <li id="profile"><a href="../Pages/profile.html"><button><img src="../Images/Icons/profile.png" alt="profile icon">Profile</button></a></li>
-                                <li id="services"><a><button><img src="../Images/Icons/services.png" alt="services icon">Services</button></a>
+                                <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                                <li id="profile"><a href="{% url 'profile' %}"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
+                                <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
                                     <ul class="sub-menu">
-                                        <li><a href="../Pages/product.html"><button>Custom Design</button></a></li>
+                                        <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
                                         <li><a><button>Personalized Touch</button></a></li>
                                         <li><a><button>Craftsmanship</button></a></li>
                                     </ul>
-                                    <img src="../Images/Icons/gt.png" alt="gt sign" class="chevron-right">
+                                    <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
                                 </li>
-                                <li id="dashboard"><a href="../Pages/dashboard.html"><button><img src="../Images/Icons/dashboard.png" alt="dashboard icon">Dashboard</button></a></li>
-                                <li id="settings"><a href="../Pages/settings.html"><button><img src="../Images/Icons/settings.png" alt="settings icon">Settings</button></a></li>
-                                <li id="logout-button"><a><button><img src="../Images/Icons/logout.png" alt="logout icon">Log Out</button></a></li>
+                                <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
+                                <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
+                                <li id="logout-button"><a><button><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></a></li>
                             </ul>
 
                             <div class="nav-bottom">
                                 <a href="PlayStore">
                                     <img src="" alt="GET APP">
                                 </a>
-                                <img src="..\Images\navLogo.png" alt="logo" id="nav-bottom-logo">
+                                <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
                             </div>
                         </div>
                     </nav>
                 </div>
 
-                <img src="../Images/navLogo.png" alt="Navigation Logo" class="navLogo">
+                <img src="{% static 'Images/navLogo.png' %}" alt="Navigation Logo" class="navLogo">
 
                 <div class="search-and-cart">
                     <div class="search-container">
                         <input type="text" placeholder="Search..." class="search-input" id="search-text">
-                        <button title="Search" class="search"><img src="../Images/Icons/search.png" alt="search icon"></button>
+                        <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
                     </div>
-                    <button title="Cart" id="cart"><img src="../Images/Icons/cart.png" alt="cart Icon"></button>
+                    <button title="Cart" id="cart"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></button>
                 </div>
             </nav>
             
         </header>
         <main>
             <section class="dashboard-intro">
-                <img alt="profil-pic" src="../Images/logo.png" class="profile-pic">
+                <img alt="profil-pic" src="{% static 'Images/logo.png' %}" class="profile-pic">
                 <h1>Welcome, <b id="my-username">[client name]</b> !</h1>
             </section>
             <div class="buttons">
@@ -71,13 +72,13 @@
 
         <footer>
             <p>© 2025 Anemone Noble Canvas. All rights reserved.</p>
-            <a href="..\Pages\about.html" target="_blank">About</a>
+            <a href="{% url 'about' %}" target="_blank">About</a>
             <a href="mailto: info@animonenoblecanvas.com" target="_blank">Contact Us</a>
-            <a href="..\Pages\terms.html" target="_blank">Terms</a>
+            <a href="{% url 'terms' %}" target="_blank">Terms</a>
         </footer>
 
-        <script src="../JS/general.js"></script>
-        <script src="../JS/home.js"></script>
-        <script src="..\JS\dashboard.js"></script>
+        <script src="{% static 'JS/general.js' %}"></script>
+        <script src="{% static 'JS/home.js' %}"></script>
+        <script src="{% static 'JS/dashboard.js' %}"></script>
     </body>
 </html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome</title>
+        <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
+        <link rel="stylesheet" href="{% static 'Styles/custom.css' %}">
+        <link rel="stylesheet" href="{% static 'Styles/product.css' %}">
+    </head>
+    <body>
+        <header>
+            <nav class="main-nav">
+                <div class="side-menu-container">
+                    <button title="Menu" class="menuBar">
+                        <span class="line"></span>
+                        <span class="line"></span>
+                        <span class="line"></span>
+                    </button>
+
+                    <nav class="menu-nav">
+                        <div id="nav-logged-in">
+                            <ul>
+                                <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                                <li id="profile"><a href="{% url 'profile' %}"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
+                                <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
+                                        <li><a><button>Personalized Touch</button></a></li>
+                                        <li><a><button>Craftsmanship</button></a></li>
+                                    </ul>
+                                    <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
+                                </li>
+                                <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
+                                <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
+                                <li id="logout-button"><a><button><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></a></li>
+                            </ul>
+
+                            <div class="nav-bottom">
+                                <a href="PlayStore">
+                                    <img src="" alt="GET APP">
+                                </a>
+                                <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
+                            </div>
+                        </div>
+
+                        <div id="nav-logged-out">
+                            <ul>
+                                <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                                <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
+                                <li id="services"><a><button class="more-services"><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
+                                        <li><a><button>Personalized Touch</button></a></li>
+                                        <li><a><button>Craftsmanship</button></a></li>
+                                    </ul>
+                                    <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
+                                </li>
+                                <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
+                                <li id="logout"><a href="{% url 'login' %}"><button><img src="{% static 'Images/Icons/login.png' %}" alt="login icon">Log In</button></a></li>
+                            </ul>
+
+                            <div class="nav-bottom">
+                                <a href="PlayStore">
+                                    <img src="" alt="GET APP">
+                                </a>
+                                <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+                <img src="{% static 'Images/navLogo.png' %}" alt="Navigation Logo" class="navLogo">
+
+                <div class="search-and-cart">
+                    <div class="search-container">
+                        <input type="text" placeholder="Search..." class="search-input" id="search">
+                        <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
+                    </div>
+                    <button title="Cart" id="cart"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></button>
+                </div>
+            </nav>
+            <section class="intro-section">
+                
+            </section>
+        </header>
+        <main class="main-content">
+            <section>
+                <p>Choose your art.</p>
+                <div class="art-choice">
+                    {% for art in arts %}
+                    <div class="art">
+                        <img src="{% static art.image %}" alt="{{ art.name }}">
+                        <p>{{ art.name }}</p>
+                    </div>
+                    {% empty %}
+                    <p>No art available.</p>
+                    {% endfor %}
+                </div>
+                <p>Select a garment.</p>
+                <div class="garment-choice">
+                    {% for garment in garments %}
+                    <div class="garment">
+                        <img src="{% static garment.image %}" alt="{{ garment.name }}">
+                        <p>{{ garment.name }}</p>
+                    </div>
+                    {% empty %}
+                    <p>No garments available.</p>
+                    {% endfor %}
+                </div>
+            </section>
+            <p id="error-message"></p>
+            <button id="next" title="Next" type="submit">Next</button>
+        </main>
+
+        <script src="{% static 'JS/general.js' %}"></script>
+        <script src="{% static 'JS/home.js' %}"></script>
+        <script src="{% static 'JS/product.js' %}"></script>
+        <script src="{% static 'JS/custom.js' %}"></script>
+    </body>
+
+    <footer>
+        <a>© 2025 Anemone Noble Canvas. All rights reserved.</a>
+        <a href="{% url 'about' %}" target="_blank">About</a>
+        <a href="mailto: info@animonenoblecanvas.com" target="_blank">Contact Us</a>
+        <a href="{% url 'terms' %}" target="_blank">Terms</a>
+    </footer>
+</html>

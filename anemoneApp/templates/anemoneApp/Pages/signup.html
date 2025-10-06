@@ -1,20 +1,21 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Sign Up</title>
-        <link rel="stylesheet" href="..\Styles\formStyle.css">
-        <link rel="stylesheet" href="..\Styles\generalStyles.css">
+        <link rel="stylesheet" href="{% static 'Styles/formStyle.css' %}">
+        <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
     </head>
     <body>
         <div>
-            <img src="../Images/Icons/back.png" alt="back arrow" id="back-arrow">
+            <img src="{% static 'Images/Icons/back.png' %}" alt="back arrow" id="back-arrow">
             <h2>Create an Account</h2>
             
             <div class="form_container">
                 <div class="imgcontainer">
-                    <img src="..\Images\navLogo.png" alt="Avatar" class="avatar">
+                    <img src="{% static 'Images/navLogo.png' %}" alt="Avatar" class="avatar">
                 </div>
                 <form method="POST" id="signup-form">
                     <p id="signup-error-message"></p>
@@ -40,21 +41,21 @@
                     
                 </form>
                 <div class="links-container">
-                    Already have an account? <a href="login.html">Log In</a>
+                    Already have an account? <a href="{% url 'login' %}">Log In</a>
                 </div>
             </div>
         </div>
 
         <footer>
             <p>© 2025 Anemone Noble Canvas. All rights reserved.</p>
-            <a href="..\Pages\about.html" target="_blank">About</a>
+            <a href="{% url 'about' %}" target="_blank">About</a>
             <a href="mailto: info@animonenoblecanvas.com" target="_blank">Contact Us</a>
-            <a href="..\Pages\terms.html" target="_blank">Terms</a>
+            <a href="{% url 'terms' %}" target="_blank">Terms</a>
         </footer>
 
         <!--<script type="module" src="..\JS\firebase-config.js"></script>-->
-        <script type="module" src="..\JS\login.js"></script>
-        <script type="module" src="..\JS\signup.js"></script>
+        <script type="module" src="{% static 'JS/login.js' %}"></script>
+        <script type="module" src="{% static 'JS/signup.js' %}"></script>
         
     </body>
 </html>
