@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome</title>
+        <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
+        <link rel="stylesheet" href="{% static 'Styles/dashboard.css' %}">
+    </head>
+    <body>
+        <header>
+            <nav class="main-nav">
+                <div class="side-menu-container">
+                    <button title="Menu" class="menuBar">
+                        <span class="line"></span>
+                        <span class="line"></span>
+                        <span class="line"></span>
+                    </button>
+
+                    <nav class="menu-nav">
+                        <div id="nav-logged">
+                            <ul>
+                                <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                                <li id="profile"><a href="{% url 'profile' %}"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
+                                <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
+                                    <ul class="sub-menu">
+                                        <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
+                                        <li><a><button>Personalized Touch</button></a></li>
+                                        <li><a><button>Craftsmanship</button></a></li>
+                                    </ul>
+                                    <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
+                                </li>
+                                <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
+                                <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
+                                <li id="logout-button"><a><form method="POST" action="{% url 'logout' %}"> {% csrf_token %} <button><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></form></a></li>
+                            </ul>
+
+                            <div class="nav-bottom">
+                                <a href="PlayStore">
+                                    <img src="" alt="GET APP">
+                                </a>
+                                <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+
+                <img src="{% static 'Images/navLogo.png' %}" alt="Navigation Logo" class="navLogo">
+
+                <div class="search-and-cart">
+                    <div class="search-container">
+                        <input type="text" placeholder="Search..." class="search-input" id="search-text">
+                        <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
+                    </div>
+                    <button title="Cart" id="cart"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></button>
+                </div>
+            </nav>
+            
+        </header>
+        <main>
+            <section class="dashboard-intro">
+                <img alt="profil-pic" src="{% static 'Images/logo.png' %}" class="profile-pic">
+                <h1>Welcome, <b id="my-username"><span id="username-display" data-username="{{ request.user.username|default:'Guest' }}"></span></b> !</h1>
+            </section>
+            <div class="buttons">
+                <button type="button" title="browse-items">Browse Painted Clothes</button>
+                <button type="button" title="browse-other">Create a Custom Design</button>
+                <button type="button" title="orders">My Orders</button>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2025 Anemone Noble Canvas. All rights reserved.</p>
+            <a href="{% url 'about' %}" target="_blank">About</a>
+            <a href="mailto: info@animonenoblecanvas.com" target="_blank">Contact Us</a>
+            <a href="{% url 'terms' %}" target="_blank">Terms</a>
+        </footer>
+
+        <script src="{% static 'JS/general.js' %}"></script>
+        <script src="{% static 'JS/home.js' %}"></script>
+        <script src="{% static 'JS/dashboard.js' %}"></script>
+    </body>
+</html>

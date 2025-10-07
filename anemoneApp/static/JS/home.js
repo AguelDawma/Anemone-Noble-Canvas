@@ -1,3 +1,4 @@
+/*
 const navLoggedOut = document.getElementById('nav-logged-out');
 const navLoggedIn = document.getElementById('nav-logged-in');
 const logoutButton = document.getElementById('logout-button');
@@ -32,4 +33,4 @@ function simulateLogout() {
 logoutButton.addEventListener('click', simulateLogout);
 
 // Check login status when the page loads
-document.addEventListener('DOMContentLoaded', checkLoginStatus);
+document.addEventListener('DOMContentLoaded', checkLoginStatus);*/
