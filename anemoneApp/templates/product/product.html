@@ -21,8 +21,8 @@
                     </button>
 
                     <nav class="menu-nav">
-                        <div id="nav-logged-in">
-                            {% if user.is_authenticated %}
+                        {% if user.is_authenticated %}
+                        <div id="nav-logged">
                             <ul>
                                 <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
                                 <li id="profile"><a href="{% url 'profile' %}"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
@@ -36,7 +36,7 @@
                                 </li>
                                 <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
                                 <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
-                                <li id="logout-button"><a><button><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></a></li>
+                                <li id="logout-button"><a><form method="POST" action="{% url 'logout' %}"> {% csrf_token %} <button><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></form></a></li>
                             </ul>
 
                             <div class="nav-bottom">
@@ -45,11 +45,11 @@
                                 </a>
                                 <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
                             </div>
-                            {% endif %}
                         </div>
+                        {% endif %}
 
-                        <div id="nav-logged-out">
-                            {% if not user.is_authenticated %}
+                        {% if not user.is_authenticated %}
+                        <div id="nav-logged">
                             <ul>
                                 <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
                                 <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
@@ -71,8 +71,8 @@
                                 </a>
                                 <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
                             </div>
-                            {% endif %}
                         </div>
+                        {% endif %}
                     </nav>
                 </div>
 

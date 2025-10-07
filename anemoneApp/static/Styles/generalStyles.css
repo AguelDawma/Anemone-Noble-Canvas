@@ -102,12 +102,12 @@ nav {
     left: 0px;
     margin-left: 0;
 }
-
+/*
 #nav-logged-in {
     display: none;
 }
-
-#nav-logged-out {
+*/
+#nav-logged{
     position: relative;
     display: flex;
     flex-direction: column;

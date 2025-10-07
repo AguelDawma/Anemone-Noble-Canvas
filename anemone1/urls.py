@@ -21,6 +21,7 @@ from django.urls import include
 from django.urls import path
 from django.contrib.auth.views import LoginView
 from anemoneApp.forms import EmailAuthForm # 🌟 Import your custom form
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,9 +29,12 @@ urlpatterns = [
     path('login/', 
          LoginView.as_view(
              template_name='registration/login.html', # 🌟 1. Point to your custom template
+             authentication_form=EmailAuthForm,
              redirect_authenticated_user=True
          ), 
          name='login'),
+    path('logout/', auth_views.LogoutView.as_view(),
+         name='logout'),
 
     # Add this line for all built-in auth URLs (login, logout, etc.)
     path('accounts/', include('django.contrib.auth.urls')),
