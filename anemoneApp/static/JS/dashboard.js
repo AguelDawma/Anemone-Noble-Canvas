@@ -1,16 +1,11 @@
-document.addEventListener('DOMContentLoaded' , function(){
-    const userEmail = localStorage.getItem('currentUserEmail');
-    const clientName = document.getElementById('my-username');
+document.addEventListener('DOMContentLoaded', function() {
+    const usernameSpan = document.getElementById('username-display');
 
-    if(!localStorage.getItem('isLoggedIn')){
-        window.location.href = 'login.html'
-        return;
+    if (usernameSpan) {
+        // 1. Read the username from the data-username attribute
+        const username = usernameSpan.dataset.username; 
+        
+        // 2. Insert the username into the span's content
+        usernameSpan.textContent = username;
     }
-
-    const userDataString = localStorage.getItem(userEmail);
-    if(userDataString){
-        console.log('Data found.');
-        const userData = JSON.parse(userDataString);
-        clientName.textContent = userData.username;
-    }
-})
+});

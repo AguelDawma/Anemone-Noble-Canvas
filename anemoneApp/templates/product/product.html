@@ -4,9 +4,11 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome</title>
+        <title>Choose Arts and Garment</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
         <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
-        <link rel="stylesheet" href="{% static 'Styles/homeStyles.css' %}">
+        <link rel="stylesheet" href="{% static 'Styles/custom.css' %}">
+        <link rel="stylesheet" href="{% static 'Styles/product.css' %}">
     </head>
     <body>
         <header>
@@ -22,8 +24,8 @@
                         <div id="nav-logged-in">
                             {% if user.is_authenticated %}
                             <ul>
-                                <li id="home"><a href="index.html"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
-                                <li id="profile"><a href="Pages/profile.html"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
+                                <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                                <li id="profile"><a href="{% url 'profile' %}"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
                                 <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
                                     <ul class="sub-menu">
                                         <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
@@ -47,10 +49,11 @@
                         </div>
 
                         <div id="nav-logged-out">
+                            {% if not user.is_authenticated %}
                             <ul>
                                 <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
                                 <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
-                                <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
+                                <li id="services"><a><button class="more-services"><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
                                     <ul class="sub-menu">
                                         <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
                                         <li><a><button>Personalized Touch</button></a></li>
@@ -68,6 +71,7 @@
                                 </a>
                                 <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
                             </div>
+                            {% endif %}
                         </div>
                     </nav>
                 </div>
@@ -76,69 +80,49 @@
 
                 <div class="search-and-cart">
                     <div class="search-container">
-                        <input type="text" placeholder="Search..." class="search-input" id="search-text">
+                        <input type="text" placeholder="Search..." class="search-input" id="search">
                         <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
                     </div>
                     <button title="Cart" id="cart"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></button>
                 </div>
             </nav>
             <section class="intro-section">
-                <div class="intro-background"></div>
-                <div class="introduction">
-                    <h1>Anemone Noble Canvas</h1>
-                    <h2>Unique Painted Clothing for You</h2>
-                    <p>Discover a world of unique painted clothing at Anemone Noble Canvas. Order pre-painted garments, select designs for custom painting, or bring your own clothing for a personalized touch. We provide a unique experience in the world of fashion.</p>
-                    <ul>
-                        <li>Custom Designs</li>
-                        <li>Personalized Touch</li>
-                        <li>Quality Craftsmanship</li>
-                    </ul>
-                    <a href="{% url 'dashboard' %}" id="order-link"><button id="place-order" title="Place Order">Place Your Order Now</button></a>
-                </div>
+                
             </section>
         </header>
-
         <main class="main-content">
             <section>
-                <h3>Unique painted Clothing</h3>
-                <p>Explore our range of pre-painted garments, custom design options, and personalized painting services. Our team of artists ensures each piece is meticulously painted, creating wearable art that reflects your individual style and personality.</p>
-                <div class="swiper mySwiper">
-                    <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img class="shirt" src="{% static 'Images/shirt2.jpg' %}" alt="shirt2">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="shirt" src="{% static 'Images/shirt2.jpg' %}" alt="shirt2">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="shirt" src="{% static 'Images/shirt2.jpg' %}" alt="shirt2">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="shirt" src="{% static 'Images/shirt2.jpg' %}" alt="shirt2">
-                        </div>
+                <p>Choose your art.</p>
+                <div class="art-choice">
+                    {% for art in arts %}
+                    <div class="art">
+                        <img src="{% static art.image %}" alt="{{ art.name }}">
+                        <p>{{ art.name }}</p>
                     </div>
+                    {% empty %}
+                    <p>No art available.</p>
+                    {% endfor %}
                 </div>
-                <p>whether you choose from our pre-painted selection or opt for a custom design, Anemone Noble Canvas promises quality, creativity, and a touch of artistic flair in every garment.</p>
-
-                <h4>Custom Designs</h4>
-                <p>Choose from a range of custom designs to have painted on your clothing, ensuring a unique and personalized stunning look.</p>
-                <img src="{% static 'Images/shirt1.jpg' %}" class="shirt" alt="shirt1">
-
-                <h4>Personalized Touch</h4>
-                <p>Bring your own clothing for a custom touch of your choice, making each piece one-of-a-kind and tailored to your style.</p>
-                <img alt="shirt3" class="shirt" src="{% static 'Images/shirt3.jpg' %}">
-
-                <h4>Wide Selection</h4>
-                <p>select from a variety of pre-painted clothes, offering unique and artistic designs to suit your taste.</p>
-                <img alt="shirt4" class="shirt" src="{% static 'Images/shirt4.jpg' %}">
-
-                <h4>Quality Craftsmanship</h4>
-                <p>Experience expert craftsmanship and attention to detail that sets our painted clothing apart from the rest.</p>
+                <p>Select a garment.</p>
+                <div class="garment-choice">
+                    {% for garment in garments %}
+                    <div class="garment">
+                        <img src="{% static garment.image %}" alt="{{ garment.name }}">
+                        <p>{{ garment.name }}</p>
+                    </div>
+                    {% empty %}
+                    <p>No garments available.</p>
+                    {% endfor %}
+                </div>
             </section>
+            <p id="error-message"></p>
+            <button id="next" title="Next" type="submit">Next</button>
         </main>
 
         <script src="{% static 'JS/general.js' %}"></script>
         <script src="{% static 'JS/home.js' %}"></script>
+        <script src="{% static 'JS/product.js' %}"></script>
+        <script src="{% static 'JS/custom.js' %}"></script>
     </body>
 
     <footer>

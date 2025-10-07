@@ -1,10 +1,39 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from .forms import CustomSignupForm # 🌟 Import your custom form
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = CustomSignupForm(request.POST)
+        if form.is_valid():
+            # 1. Create the user object from the form data
+            user = form.save()
+            user.set_password(form.cleaned_data['password']) # 🔑 IMPORTANT: Hash the password
+            user.save()
+            print("User created!")
+
+            # 2. Log the user in
+            login(request, user)
+            return redirect('dashboard')  # Redirect to a success page.
+        else:
+            # Pass the form back to the template to show errors
+            pass 
+            
+    else:
+        form = CustomSignupForm() # A blank form for GET request
+
+    # For a custom HTML form, we only need to pass the form errors back, not the form object itself
+    context = {
+        # Pass the form object to access errors in the template
+        'form': form, 
+    }
+    return render(request, 'registration/signup.html', context)
 
 # Create your views here.
-def home(request):
-    return render(request, 'anemoneApp/home.html')
 
 def index(request):
     return render(request, 'anemoneApp/index.html')
@@ -12,7 +41,11 @@ def index(request):
 def about(request):
     return render(request, 'anemoneApp/Pages/about.html')
 
+from django.contrib.auth.decorators import login_required
+
+@login_required 
 def dashboard(request):
+    # This view will only run if the user is logged in.
     return render(request, 'anemoneApp/Pages/dashboard.html')
 
 def login_view(request):
@@ -33,16 +66,15 @@ def product(request):
         {'name': 'T-Shirt', 'image': 'Images/Apple_P.jpg'},
         {'name': 'Short Jeans', 'image': 'Images/Butterfly_P.jpg'},
     ]
-    return render(request, 'anemoneApp/Pages/product.html', {'arts': arts, 'garments': garments})
+    return render(request, 'product/product.html', {'arts': arts, 'garments': garments})
 
+@login_required
 def profile(request):
     return render(request, 'anemoneApp/Pages/profile.html')
 
+@login_required
 def settings(request):
     return render(request, 'anemoneApp/Pages/settings.html')
-
-def signup(request):
-    return render(request, 'anemoneApp/Pages/signup.html')
 
 def terms(request):
     return render(request, 'anemoneApp/Pages/terms.html')
@@ -95,7 +127,7 @@ def custom(request):
     
     selected_garment = {'name': "Men's Jeans", 'image': 'Images/Topjean.jpg'}
     selected_art = {'name': "Eagle Painting", 'image': 'Images/Eagle.jpg'}
-    return render(request, 'anemoneApp/Pages/custom.html', {
+    return render(request, 'product/custom.html', {
         'products': products,
         'selected_garment': selected_garment,
         'selected_art': selected_art, 

@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded' , function(){
         const artId = selectedArt.dataset.id;
         const garmentId = selectedGarment.dataset.id;
 
-        const nextPage =  'custom.html?art=${encodeURIComponent(artId)}&garment=${encodeURIComponent(garmentId)}';
+        const nextPage =  `/custom/?art=${encodeURIComponent(artId)}&garment=${encodeURIComponent(garmentId)}`;
 
         window.location.href = nextPage;
     })

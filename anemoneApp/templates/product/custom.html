@@ -4,9 +4,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome</title>
+        <title>Create Custom Design</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
         <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
-        <link rel="stylesheet" href="{% static 'Styles/custom.css' %}">
+        <link rel="stylesheet" href="{% static 'Styles/homeStyles.css' %}">
         <link rel="stylesheet" href="{% static 'Styles/product.css' %}">
     </head>
     <body>
@@ -21,6 +22,7 @@
 
                     <nav class="menu-nav">
                         <div id="nav-logged-in">
+                            {% if user.is_authenticated %}
                             <ul>
                                 <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
                                 <li id="profile"><a href="{% url 'profile' %}"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
@@ -43,9 +45,11 @@
                                 </a>
                                 <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
                             </div>
+                            {% endif %}
                         </div>
 
                         <div id="nav-logged-out">
+                            {% if not user.is_authenticated %}
                             <ul>
                                 <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
                                 <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
@@ -67,6 +71,7 @@
                                 </a>
                                 <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
                             </div>
+                            {% endif %}
                         </div>
                     </nav>
                 </div>
@@ -86,38 +91,82 @@
             </section>
         </header>
         <main class="main-content">
-            <section>
-                <p>Choose your art.</p>
-                <div class="art-choice">
-                    {% for art in arts %}
-                    <div class="art">
-                        <img src="{% static art.image %}" alt="{{ art.name }}">
-                        <p>{{ art.name }}</p>
-                    </div>
-                    {% empty %}
-                    <p>No art available.</p>
-                    {% endfor %}
+            <section class="choices">
+                <div class="originals">
+                    {# Use the selected garment and art from the session or context #}
+                    <img alt="cloth" src="{% static selected_garment.image %}">
+                    <img alt="painting" src="{% static selected_art.image %}">
                 </div>
-                <p>Select a garment.</p>
-                <div class="garment-choice">
-                    {% for garment in garments %}
-                    <div class="garment">
-                        <img src="{% static garment.image %}" alt="{{ garment.name }}">
-                        <p>{{ garment.name }}</p>
+
+                <div class="previews">
+                        <div class="painting" id="chest">
+                            <img alt="prev" src="{% static 'Images/chestV.jpg' %}">
+                            <p>Chest</p>
+                        </div>
+                        <div class="painting" id="back">
+                            <img alt="prev" src="{% static 'Images/backV.jpg' %}">
+                            <p>Back</p>
+                        </div>
+                        <div class="painting" id="shoulder">
+                            <img alt="prev" src="{% static 'Images/sideV.jpg' %}">
+                            <p>Shoulder (side view)</p>
+                        </div>
+                </div>
+            </section>
+
+            <section class="description-and-preview">
+                <p>Add description for position of the painting and continue.</p>
+
+                <label for="positions">Choose position:</label>
+                <select title="positions" id="positions-selector">
+                    <option value="back">Back</option>
+                    <option value="front">Front</option>
+                    <option value="left-chest">Left chest</option>
+                    <option value="left-side">Left side</option>
+                    <option value="right-side">Right side</option>
+                    <option value="left-shoulder">Left shoulder (side view)</option>
+                    <option value="right-shoulder">Right shoulder (side view)</option>
+                    <option value="Custom" selected>Custom</option>
+                </select>
+                <textarea title="description" id="description" class="description-box" placeholder="Describe your desired position of the painting..."></textarea>
+                <br>
+
+                <label for="size">Choose size of image</label>
+                <select title="sizes" id="size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+                <button type="submit" id="continue">Continue</button>
+            </section>
+
+            <section class="clothing-section">
+                <h2>Explore our newest products:</h2>
+                <div class="clothes">
+                    {% for product in products %}
+                    <div class="item">
+                        <div class="figure">
+                            <a href="{% url 'product_detail' product.id %}">
+                                <img src="{% static product.image %}" alt="{{ product.name }}">
+                            </a>
+                            <p>{{ product.name }}</p>
+                            <p>M {{ product.price }}</p>
+                            <form method="post" action="{% url 'add_to_cart' product.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Add to Cart</button>
+                            </form>
+                        </div>
                     </div>
                     {% empty %}
-                    <p>No garments available.</p>
+                    <p>No products available.</p>
                     {% endfor %}
                 </div>
             </section>
-            <p id="error-message"></p>
-            <button id="next" title="Next" type="submit">Next</button>
         </main>
 
         <script src="{% static 'JS/general.js' %}"></script>
         <script src="{% static 'JS/home.js' %}"></script>
         <script src="{% static 'JS/product.js' %}"></script>
-        <script src="{% static 'JS/custom.js' %}"></script>
     </body>
 
     <footer>

@@ -8,35 +8,39 @@
         <meta property="og:type" content="website">
         <meta property="og:title" content="Login to Animone Noble Canvas">
         <title>Login</title>
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
         <link rel="stylesheet" href="{% static 'Styles/formStyle.css' %}">
         <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
     </head>
     <body>
-        <img src="{% static 'Images/Icons/back.png' %}" alt="back arrow" id="back-arrow">
+        <a href="{% url 'index' %}"><img src="{% static 'Images/Icons/back.png' %}" alt="back arrow" id="back-arrow"></a>
         <h2>PLEASE ENTER YOUR LOGIN DETAILS.</h2>
         <div class="form_container" id="login-section">
-            <form method="post" id="login-form">
-                <p id="error-message"></p>
-                
+            <form method="post" action="{% url 'login' %}" id="login-form">
+                {% csrf_token %} <p id="error-message">{{ form.non_field_errors }}</p>
+
                 <div class="imgcontainer">
                     <img src="{% static 'Images/navLogo.png' %}" alt="Avatar" class="avatar">
                 </div>
 
                 <div class="form-group">
-                    <label for="email"><b>Email:</b></label>
-                    <input type="email" placeholder="Enter email" name="email" id="email" required>
+                    <label for="id_username"><b>Email:</b></label>
+                    <input type="email" placeholder="Enter email" name="username" id="id_username" required>
+                    {% if form.username.errors %}<span class="error">{{ form.username.errors }}</span>{% endif %}
 
-                    <label for="password"><b>Password:</b></label><!-- show password ability -->
-                    <input type="password" placeholder="Enter Password" name="password" id="password" required>
+                    <label for="id_password"><b>Password:</b></label>
+                    <input type="password" placeholder="Enter Password" name="password" id="id_password" required>
+                    {% if form.password.errors %}<span class="error">{{ form.password.errors }}</span>{% endif %}
                 </div>
 
                 <button type="submit" class="submit">Login</button>
+                
                 <label>
                     <input type="checkbox" id="remember"> Remember me
                 </label>
 
                 <div class="links-container">
-                    <a href="{% url 'reset_password' %}">Forgot password?</a>
+                    <a href="{% url 'password_reset' %}">Forgot password?</a>
                     <a href="{% url 'signup' %}">Sign Up</a>
                 </div>
             </form>
@@ -51,7 +55,6 @@
 
         <!--<script type="module" src="..\JS\firebase-config.js"></script>-->
         <script type="module" src="{% static 'JS/login.js' %}"></script>
-        <script type="module" src="{% static 'JS/signup.js' %}"></script>
 
     </body>
 </html>

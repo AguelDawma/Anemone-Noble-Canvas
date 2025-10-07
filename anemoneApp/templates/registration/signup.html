@@ -18,27 +18,35 @@
                     <img src="{% static 'Images/navLogo.png' %}" alt="Avatar" class="avatar">
                 </div>
                 <form method="POST" id="signup-form">
-                    <p id="signup-error-message"></p>
+                    {% csrf_token %} <p id="signup-error-message">{{ form.non_field_errors }}</p>
+
                     <div>
                         <label for="signupUsername">Username:</label>
-                        <input type="text" id="signupUsername" name="username" required>
+                        <input type="text" id="signupUsername" name="username" required value="{{ form.username.value|default_if_none:'' }}">
+                        {% if form.username.errors %}<span class="error">{{ form.username.errors }}</span>{% endif %}
                     </div>
+
                     <div>
                         <label for="signupEmail">Email:</label>
-                        <input type="email" id="signupEmail" name="email" required>
+                        <input type="email" id="signupEmail" name="email" required value="{{ form.email.value|default_if_none:'' }}">
+                        {% if form.email.errors %}<span class="error">{{ form.email.errors }}</span>{% endif %}
                     </div>
+                    
                     <div>
                         <label for="new-password">Password:</label>
-                        <input type="password" id="new-password" title="password" required>
+                        <input type="password" id="new-password" name="password" title="password" required> 
+                        {% if form.password.errors %}<span class="error">{{ form.password.errors }}</span>{% endif %}
                     </div>
+
                     <div>
                         <label for="confirm-password">Confirm Password:</label>
                         <input type="password" id="confirm-password" name="confirm_password" required>
+                        {% if form.confirm_password.errors %}<span class="error">{{ form.confirm_password.errors }}</span>{% endif %}
                     </div>
+
                     <div>
                         <button type="submit" class="submit">Sign Up</button>
                     </div>
-                    
                 </form>
                 <div class="links-container">
                     Already have an account? <a href="{% url 'login' %}">Log In</a>
@@ -55,7 +63,6 @@
 
         <!--<script type="module" src="..\JS\firebase-config.js"></script>-->
         <script type="module" src="{% static 'JS/login.js' %}"></script>
-        <script type="module" src="{% static 'JS/signup.js' %}"></script>
         
     </body>
 </html>

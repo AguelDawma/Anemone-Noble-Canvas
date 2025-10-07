@@ -61,7 +61,7 @@
         <main>
             <section class="dashboard-intro">
                 <img alt="profil-pic" src="{% static 'Images/logo.png' %}" class="profile-pic">
-                <h1>Welcome, <b id="my-username">[client name]</b> !</h1>
+                <h1>Welcome, <b id="my-username"><span id="username-display" data-username="{{ request.user.username|default:'Guest' }}"></span></b> !</h1>
             </section>
             <div class="buttons">
                 <button type="button" title="browse-items">Browse Painted Clothes</button>

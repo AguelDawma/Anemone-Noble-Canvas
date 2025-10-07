@@ -14,11 +14,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+
 from django.contrib import admin
 from django.urls import path
 from django.urls import include
+from django.urls import path
+from django.contrib.auth.views import LoginView
+from anemoneApp.forms import EmailAuthForm # 🌟 Import your custom form
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('anemoneApp.urls')),
+    path('login/', 
+         LoginView.as_view(
+             template_name='registration/login.html', # 🌟 1. Point to your custom template
+             redirect_authenticated_user=True
+         ), 
+         name='login'),
+
+    # Add this line for all built-in auth URLs (login, logout, etc.)
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
