@@ -1,0 +1,88 @@
+.clothes {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    background-color: burlywood;
+    padding: 7px;
+    box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.item {
+    width: 350px;
+    height: auto;
+    background-color:  rgb(218, 67, 67);
+    margin: 4px;
+    align-items: normal;
+    border: solid;
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px;
+    padding: 4px;
+}
+
+.item:hover {
+    background-color: brown;
+}
+
+.figure {
+    width: 200px;
+}
+
+.figure img {
+    width: 100%;
+}
+
+.originals img {
+    width: 30%;
+}
+
+.originals {
+    display: flexbox;
+    width: 100%;
+    text-align: center;
+    padding: 3%;
+}
+
+.previews {
+    display: flex;
+    flex-direction: row;
+    box-shadow: 5px 5px 20px;
+    padding: 3%;
+}
+
+.painting {
+    display: flex;
+    flex-direction: column;
+    margin: 0.4%;
+    width: 26%;
+    padding: 3%;
+    border: solid 2px rgb(143, 135, 135);
+}
+
+.painting.selected {
+    border: solid 2px green;
+    box-shadow: 0 0 5px;
+}
+
+.painting:hover {
+    background-color: rgb(143, 135, 135);
+}
+
+.description-box {
+    margin: 4px;
+    height: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    resize: none;
+    display: block;
+}
+
+#continue {
+    background-color: rgb(218, 67, 67);
+    padding: 10px;
+    border: solid black;
+}
+
+#continue:hover {
+    background-color: brown;
+}

@@ -79,6 +79,63 @@ def settings(request):
 def terms(request):
     return render(request, 'anemoneApp/Pages/terms.html')
 
+def cart(request):
+    products_db = {
+        1: {'name': "Skull Face Denim Men's Jeans", 'price': 499.99, 'image': 'Images/skull_P.jpg'},
+        2: {'name': "Sun Hoodie", 'price': 359.99, 'image': 'Images/Sun_P.jpg'},
+        3: {'name': "Sun Jeans Cap", 'price': 120.00, 'image': 'Images/Sun_P_cap.jpg'},
+        4: {'name': "Cat Bag", 'price': 100.00, 'image': 'Images/Cat_P.jpg'},
+        5: {'name': "Jelly Fish Hoodie", 'price': 359.99, 'image': 'Images/Fish_P.jpg'},
+        6: {'name': "Red Apple T-Shirt", 'price': 150.00, 'image': 'Images/Apple_P.jpg'},
+        7: {'name': "Butter Fly Short Jeans", 'price': 250.00, 'image': 'Images/Butterfly_P.jpg'},
+        # Add any other products you want to support here
+    }
+    cart = request.session.get('cart', {})
+    cart_items = []
+    cart_total = 0
+    for pid, qty in cart.items():
+        pid_int = int(pid)
+        product = products_db.get(pid_int)
+        if product:
+            total_price = product['price'] * qty
+            cart_items.append({
+                'id': pid_int,
+                'product': {
+                    'name': product['name'],
+                    'price': product['price'],
+                    'image': product['image'],
+                    'total_price': total_price,
+                },
+                'quantity': qty,
+            })
+            cart_total += total_price
+    tax = cart_total * 0.1
+    grand_total = cart_total + tax
+    return render(request, 'product/cart.html', {
+        'cart_items': cart_items,
+        'cart_total': cart_total,
+        'tax': tax,
+        'grand_total': grand_total,
+    })
+    
+from django.shortcuts import redirect
+
+def add_to_cart(request, product_id):
+    if request.method == 'POST':
+        cart = request.session.get('cart', {})
+        cart[str(product_id)] = cart.get(str(product_id), 0) + 1
+        request.session['cart'] = cart
+    return redirect('cart')
+    
+from django.views.decorators.http import require_POST
+
+@require_POST
+def update_cart(request, item_id):
+    quantity = int(request.POST.get('quantity', 1))
+    # Update the cart item with item_id to the new quantity
+    # (session, database, etc.)
+    return redirect('cart')
+
 def custom(request):
     products = [
         {
@@ -137,9 +194,44 @@ def product_detail(request, product_id):
     # Placeholder: You would fetch product details from DB in a real app
     return render(request, 'anemoneApp/Pages/product_detail.html', {'product_id': product_id})
 
-def add_to_cart(request, product_id):
-    # Placeholder: Implement cart logic here
-    if request.method == 'POST':
-        # Add product to cart logic goes here
-        return HttpResponseRedirect(reverse('custom'))
-    return HttpResponseRedirect(reverse('custom'))
+from django.db.models import Q
+from .models import Product
+from decimal import Decimal
+
+def search(request):
+    """
+    Handles the search for products, querying the database across 
+    product name, description, and SKU.
+    """
+    query = request.GET.get('q')
+    results = Product.objects.none() # Default empty queryset
+
+    if query:
+        # Check if the query is a valid number for price filtering (optional enhancement)
+        is_price_query = False
+        try:
+            Decimal(query.replace('M', '').strip())
+            is_price_query = True
+        except:
+            pass
+            
+        # Construct the complex lookup using Q objects (OR logic)
+        search_criteria = (
+            Q(name__icontains=query) |
+            Q(description__icontains=query) |
+            Q(sku__icontains=query) 
+        )
+        
+        # If the query looks like a price, you could optionally add price filtering
+        # if is_price_query:
+        #     search_criteria |= Q(price=Decimal(query.replace('M', '').strip()))
+            
+        # Filter the Products and order by name
+        results = Product.objects.filter(search_criteria).order_by('name')
+
+    # Render the results template
+    context = {
+        'results': results,
+        'query': query,
+    }
+    return render(request, 'product/search.html', context)

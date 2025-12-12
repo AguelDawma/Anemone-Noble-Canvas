@@ -1,0 +1,72 @@
+#place-order {
+    background-color: crimson;
+    padding: 10px;
+    border-radius: 5px;
+    border: solid darkorange 2px;
+    font-weight: bold;
+    font-size: medium;
+    cursor: pointer;
+}
+
+#place-order:hover {
+    background-color:darkorange;
+}
+
+.intro-section {
+    position: relative;
+    justify-content: center;
+}
+
+.intro-background {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(0, 0, 0, 0.8)), url('../Images/formBground.jpg') no-repeat center center/cover;
+}
+
+.introduction {
+    color: white;
+    z-index: 1;
+    padding: 5%;
+}
+
+p {
+    max-width: 600px;
+}
+
+.shirt {
+    max-width: 300px;;
+    height: auto;
+    margin-top: 3%;
+    border-radius: 0px 100px;
+}
+
+h2 {
+    font-size:xx-large;
+}
+
+h3 {
+    font-size: xx-large;
+}
+
+h4 {
+    font-size: x-large;
+}
+
+body {
+    background-color: rgb(238, 216, 121);
+    width: 100%;
+    margin: 0;
+}
+
+#home {
+    border: solid 2px green;
+    box-shadow: 0 0 5px;
+}
+
+#order-link {
+    text-decoration: none;
+}
