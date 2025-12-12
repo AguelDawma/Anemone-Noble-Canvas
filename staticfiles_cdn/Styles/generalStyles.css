@@ -1,0 +1,265 @@
+/*NAVIGATION*/
+
+nav {
+    background-color: #010a0f;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+}
+
+.navLogo {
+    height: 44px;
+    width: auto;
+}
+
+.main-nav {
+    align-items: center;
+    height: 50px;
+    width: 100%;
+}
+
+.menuBar {
+    width: 30px;
+    height: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    cursor: pointer;
+    padding: 3px;
+    background: none;
+    margin-left: 10px;
+}
+
+.menuBar .line {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    border-radius: 2px;
+    transition: transform 0.3s ease;
+}
+
+.menuBar.active .line:nth-child(1){
+    transform: translateY(7px);
+}
+
+.menuBar.active .line:nth-child(3){
+    transform: translateY(-7px);
+}
+
+.side-menu-container {
+    position: relative;
+    display: flex;
+}
+
+.menu-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    position: absolute;
+    width: 200px;
+    height: 97vh;
+    right: 0;
+    left: -250px;
+    top: 100%;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    transition: left 0.3s ease-in-out;
+    background-color: rgb(218, 67, 67);
+    overflow-y: auto;
+    z-index: 1000;
+    margin: 0;
+}
+
+.menu-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.menu-nav ul li a button, .sub-menu li a button {
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: row;
+    border: none;
+    border-bottom: 1px solid #444;
+}
+
+.menu-nav ul li a button:hover, .sub-menu li a button:hover {
+    background-color:rgb(224, 86, 82);
+}
+
+.menu-nav.active {
+    display: flex;
+    flex-direction: column;
+    left: 0px;
+    margin-left: 0;
+}
+/*
+#nav-logged-in {
+    display: none;
+}
+*/
+#nav-logged{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 95%;
+}
+
+.menu-nav ul li a button img {
+    margin: 0px 10px 0px 5px;
+}
+
+button {
+    background-color:initial;
+    color: white;
+    align-items: center;
+    display: block;
+    border: none;
+}
+
+.menu-nav ul li a {
+    text-decoration: none;
+}
+
+.sub-menu {
+    width: 200px;
+    border: solid #444 1px;
+    position: fixed;
+    left: 210px;
+    display: none;
+    background-color: rgb(218, 67, 67);
+    z-index: 1010;
+}
+
+.sub-menu li a button {
+    height: 44px;
+}
+
+#services {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+}
+
+#services a {
+    width: 100%;
+    height: auto;
+}
+
+#services:hover {
+    background-color: rgb(224, 86, 82);
+}
+
+.chevron-right {
+    border-bottom: solid 1px #444;
+}
+
+#services:hover .sub-menu {
+    display: block;
+}
+
+.menuBar, .search, #cart {
+    border: none;
+}
+
+.nav-bottom {
+    position: absolute;
+    bottom: 0;
+}
+
+#nav-bottom-logo {
+    width: 100%;
+}
+
+.search-and-cart {
+    margin-right: 2%;
+    display: flex;
+    padding: 5% 0 5% 0;
+}
+
+.search, #cart {
+    background: none;
+    cursor: pointer;
+}
+
+.search {
+    transition: transform 0.4s ease;
+    z-index: 2;
+}
+
+.search-container {
+    display: flex;
+    margin-right: 10px;
+    position: relative;
+}
+
+.search-input {
+    opacity: 0;
+    width: 0;
+    transition: all 0.4s ease;
+}
+
+.search-container.active {
+    border: solid 1px;
+    opacity: 1;
+}
+
+.search-container.active .search-input {
+    width: auto;
+    opacity: 1;
+}
+
+.search-container.active .search {
+    transform: translateX(0);
+}
+
+main {
+    margin: 15px;
+}
+
+footer {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+    padding: 15px;
+    bottom: 0;
+}
+
+body {
+    background-color: rgb(238, 216, 121);
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease;
+    font-family:Arial, Helvetica, sans-serif;
+    width: 100%;
+    height: auto;
+}
+
+body.nav-active {
+    overflow: hidden;
+}
+
+body.nav-active .main-content, body.nav-active .intro-section {
+    filter: blur(1px);
+    pointer-events: none;
+}
+
+body.search-active {
+    overflow: hidden;
+}
+
+body.search-active .main-content, body.search-active .intro-section {
+    filter: blur(1px);
+    pointer-events: none;
+}

@@ -83,7 +83,7 @@
                         <input type="text" placeholder="Search..." class="search-input" id="search">
                         <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
                     </div>
-                    <button title="Cart" id="cart"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></button>
+                    <button title="Cart" id="cart"><a href="{% url 'cart' %}"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></a></button>
                 </div>
             </nav>
             <section class="intro-section">

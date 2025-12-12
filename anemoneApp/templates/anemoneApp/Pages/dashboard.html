@@ -53,7 +53,7 @@
                         <input type="text" placeholder="Search..." class="search-input" id="search-text">
                         <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
                     </div>
-                    <button title="Cart" id="cart"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></button>
+                    <button title="Cart" id="cart"><a href="{% url 'cart' %}"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></a></button>
                 </div>
             </nav>
             
@@ -64,8 +64,8 @@
                 <h1>Welcome, <b id="my-username"><span id="username-display" data-username="{{ request.user.username|default:'Guest' }}"></span></b> !</h1>
             </section>
             <div class="buttons">
-                <button type="button" title="browse-items">Browse Painted Clothes</button>
-                <button type="button" title="browse-other">Create a Custom Design</button>
+                <a href="{% url 'product' %}"><button type="button" title="browse-items">Browse Painted Clothes</button></a>
+                <a href="{% url 'custom' %}"><button type="button" title="browse-other">Create a Custom Design</button></a>
                 <button type="button" title="orders">My Orders</button>
             </div>
         </main>
