@@ -1,0 +1,61 @@
+.search-body {
+    background-color: darkgrey;
+    border-radius: 10px;
+    padding: 5px 12px;
+    margin: 12px;
+    box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.7);
+}
+
+.search-form {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    padding: 10px;
+    background-color: initial;
+}
+
+.search-input {
+    width: 300px;
+    height: 25px;
+    border: 2px solid black;
+}
+
+.search-submit {
+    background-color: rgb(190, 8, 8);
+    border: 2px solid rgb(238, 216, 121);
+    border-radius: 8px;
+    margin-left: 10px;
+    padding: 5px 10px;
+}
+
+.title-search {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 15px;
+    font-family: 'Times New Roman', Times;
+}
+
+.search-summary {
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.product-card {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.7);
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+
+.prod-image {
+    max-width: 150px;
+}
+
+.prod-details {
+    flex-grow: 1;
+    padding: 10px;
