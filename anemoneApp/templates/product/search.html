@@ -1,9 +1,12 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Search Results</title>
+    <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/search.css' %}">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
       .product-card {
@@ -15,71 +18,157 @@
       }
     </style>
 </head>
-<body class="bg-gray-100 p-6 font-sans">
+<body>
+    <nav class="main-nav">
+        <div class="side-menu-container">
+            <button title="Menu" class="menuBar">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </button>
 
-    <div class="max-w-5xl mx-auto bg-white p-8 rounded-xl shadow-2xl">
-        <h1 class="text-4xl font-extrabold text-indigo-700 mb-8 border-b-4 border-indigo-100 pb-3">
+            <nav class="menu-nav">
+                {% if user.is_authenticated %}
+                <div id="nav-logged">
+                    <ul>
+                        <li id="home"><a href="index.html"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                        <li id="profile"><a href="Pages/profile.html"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
+                        <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
+                            <ul class="sub-menu">
+                                <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
+                                <li><a><button>Personalized Touch</button></a></li>
+                                <li><a><button>Craftsmanship</button></a></li>
+                            </ul>
+                            <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
+                        </li>
+                        <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
+                        <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
+                        <li id="logout-button"><a><form method="POST" action="{% url 'logout' %}"> {% csrf_token %} <button><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></form></a></li>
+                    </ul>
+
+                    <div class="nav-bottom">
+                        <a href="PlayStore">
+                            <img src="" alt="GET APP">
+                        </a>
+                        <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if not user.is_authenticated %}
+                <div id="nav-logged">
+                    <ul>
+                        <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                        <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
+                        <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
+                            <ul class="sub-menu">
+                                <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
+                                <li><a><button>Personalized Touch</button></a></li>
+                                <li><a><button>Craftsmanship</button></a></li>
+                            </ul>
+                            <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
+                        </li>
+                        <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
+                        <li id="login"><a href="{% url 'login' %}"><button><img src="{% static 'Images/Icons/login.png' %}" alt="login icon">Log In</button></a></li>
+                    </ul>
+
+                    <div class="nav-bottom">
+                        <a href="PlayStore">
+                            <img src="" alt="GET APP">
+                        </a>
+                        <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
+                    </div>
+                </div>
+                {% endif %}
+            </nav>
+        </div>
+
+        <img src="{% static 'Images/navLogo.png' %}" alt="Navigation Logo" class="navLogo">
+
+        <div class="search-and-cart">
+            <div class="search-container">
+                <a href="{% url 'search' %}"><button title="Search" class="search-btn"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button></a>
+            </div>
+            <button title="Cart" id="cart"><a href="{% url 'cart' %}"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></a></button>
+        </div>
+    </nav>
+    <div class="search-body">
+        <h1 class="title-search">
             Search in Anemone Noble Canvas Store...
         </h1>
 
         <!-- Search Form -->
-        <form method="GET" action="{% url 'search' %}" class="flex gap-4 mb-10">
-            <input 
-                type="text" 
-                name="q" 
-                placeholder="Search by product name, description, or SKU..." 
-                value="{{ query|default:'' }}" 
-                class="flex-grow p-4 border-2 border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 text-lg shadow-inner"
-            >
+        <form method="GET" action="{% url 'search' %}" class="search-form">
+            <input
+                type="text"
+                name="q"
+                placeholder="Search by product name, description, or SKU..."
+                value="{{ query|default:'' }}"
+                class="flex-grow p-4 border-2 border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 text-lg shadow-inner bg-white text-black"
+            />
             <button 
                 type="submit" 
-                class="bg-indigo-600 text-white font-bold text-lg py-4 px-8 rounded-xl hover:bg-indigo-700 transition duration-200 transform hover:scale-[1.01] shadow-lg"
+                class="search-submit"
             >
                 Find Products
             </button>
         </form>
 
         {% if query %}
-            <h2 class="text-2xl font-semibold text-gray-800 mb-6">
+            <h2 class="search-summary">
                 Showing {{ results|length }} result{{ results|length|pluralize }} for:
-                "<span class="text-indigo-600 font-extrabold">{{ query }}</span>"
+                "<span class="init-input">{{ query }}</span>"
             </h2>
 
             {% if results %}
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="results-div">
                     {% for product in results %}
-                        <div class="product-card bg-white p-6 border border-gray-200 rounded-xl shadow-md flex flex-col">
-                            <h3 class="text-xl font-bold text-gray-900 mb-2">{{ product.name }}</h3>
-                            <p class="text-3xl font-extrabold text-green-600 mb-3">${{ product.price }}</p>
-                            
-                            <div class="text-sm text-gray-500 mb-4">
-                                <strong>SKU:</strong> {{ product.sku }} | 
-                                <strong>In Stock:</strong> <span class="{% if product.stock > 0 %}text-green-500{% else %}text-red-500{% endif %} font-semibold">{{ product.stock }}</span>
-                            </div>
+                        <div class="product-card">
+                            <div class"prod-details">
+                                <h2 class="prod-name">{{ product.name }}</h2>
+                                <p class="prod-price">M{{ product.price }}</p>
+                                
+                                <div class="prod-additional">
+                                    <strong>SKU:</strong> {{ product.sku }} | 
+                                    <strong>In Stock:</strong> <span class="{% if product.stock > 0 %}text-black-500{% else %}text-red-500{% endif %} font-semibold">{{ product.stock }}</span>
+                                </div>
 
-                            <!-- Display a snippet of the content -->
-                            <p class="text-gray-700 line-clamp-3 flex-grow">
-                                {{ product.description|truncatewords:25 }}
-                            </p>
-                            
-                            <a href="#" class="mt-4 text-indigo-600 hover:text-indigo-800 font-semibold transition duration-150 self-end">
-                                View Details &rarr;
-                            </a>
+                                <!-- Display a snippet of the content -->
+                                <p class="text-gray-700 line-clamp-3 flex-grow">
+                                    {{ product.description|truncatewords:25 }}
+                                </p>
+                                
+                                <a href="#" class="more">
+                                    View Details &rarr;
+                                </a>
+                            </div>
+                            {% if product.image %}
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="prod-image">
+                            {% else %}
+                                <img src="{% static 'Images/placeholder.jpg' %}" alt="No Image Available" class="prod-image">
+                            {% endif %}
                         </div>
                     {% endfor %}
                 </div>
             {% else %}
-                <div class="text-center p-12 border-4 border-dashed border-gray-300 bg-white rounded-xl">
-                    <p class="text-2xl text-red-500 font-bold mb-2">No Products Found!</p>
-                    <p class="text-lg text-gray-600">We couldn't find any products matching your search term.</p>
+                <div class="no-prod">
+                    <p class="no-prod-text-head">No Products Found!</p>
+                    <p class="no-prod-text">We couldn't find any products matching your search term.</p>
                 </div>
             {% endif %}
         {% else %}
-            <div class="text-center p-12 text-gray-500 bg-indigo-50 border border-indigo-200 rounded-xl">
+            <div class="init">
                 <p class="text-xl italic">Type something in the search bar above to find your next great purchase!</p>
             </div>
         {% endif %}
     </div>
 
+    <script src="{% static 'JS/general.js' %}"></script>
 </body>
+<footer>
+    <a>© 2025 Anemone Noble Canvas. All rights reserved.</a>
+    <a href="{% url 'about' %}" target="_blank">About</a>
+    <a href="mailto: info@animonenoblecanvas.com" target="_blank">Contact Us</a>
+    <a href="{% url 'terms' %}" target="_blank">Terms</a>
+</footer>
 </html>

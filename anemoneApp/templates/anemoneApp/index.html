@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome</title>
+        <title>Anemone Noble Canvas</title>
         <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
         <link rel="stylesheet" href="{% static 'Styles/homeStyles.css' %}">
     </head>
@@ -77,10 +77,8 @@
                 <img src="{% static 'Images/navLogo.png' %}" alt="Navigation Logo" class="navLogo">
 
                 <div class="search-and-cart">
-                    <a href="{% url 'search' %}"><button title="Search" class="search-btn">Search</button></a>
                     <div class="search-container">
-                        <input type="text" placeholder="Search..." class="search-input" id="search-text">
-                        <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
+                        <a href="{% url 'search' %}"><button title="Search" class="search-btn"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button></a>
                     </div>
                     <button title="Cart" id="cart"><a href="{% url 'cart' %}"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></a></button>
                 </div>
@@ -107,15 +105,6 @@
                 <p>Explore our range of pre-painted garments, custom design options, and personalized painting services. Our team of artists ensures each piece is meticulously painted, creating wearable art that reflects your individual style and personality.</p>
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
-                        <div class="swiper-slide">
-                            <img class="shirt" src="{% static 'Images/shirt2.jpg' %}" alt="shirt2">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="shirt" src="{% static 'Images/shirt2.jpg' %}" alt="shirt2">
-                        </div>
-                        <div class="swiper-slide">
-                            <img class="shirt" src="{% static 'Images/shirt2.jpg' %}" alt="shirt2">
-                        </div>
                         <div class="swiper-slide">
                             <img class="shirt" src="{% static 'Images/shirt2.jpg' %}" alt="shirt2">
                         </div>

@@ -204,7 +204,7 @@ def search(request):
     product name, description, and SKU.
     """
     query = request.GET.get('q')
-    results = Product.objects.none() # Default empty queryset
+    results = Product.objects.all() # Default empty queryset
 
     if query:
         # Check if the query is a valid number for price filtering (optional enhancement)
