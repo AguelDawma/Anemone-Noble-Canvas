@@ -34,6 +34,8 @@ nav {
     padding: 3px;
     background: none;
     margin-left: 10px;
+    position: relative; /* ensure it's on its own stacking context */
+    z-index: 1101; /* stay on top so it's clickable */
 }
 
 .menuBar .line {
@@ -56,6 +58,7 @@ nav {
 .side-menu-container {
     position: relative;
     display: flex;
+    z-index: 1100; /* container stacking to keep menu above page content */
 }
 
 .menu-nav {
@@ -102,11 +105,7 @@ nav {
     left: 0px;
     margin-left: 0;
 }
-/*
-#nav-logged-in {
-    display: none;
-}
-*/
+
 #nav-logged{
     position: relative;
     display: flex;

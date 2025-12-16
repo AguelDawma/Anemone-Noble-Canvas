@@ -2,20 +2,21 @@
     background-color: darkgrey;
     border-radius: 10px;
     padding: 5px 12px;
-    margin: 12px;
+    margin: 10px;
     box-shadow: 0px 7px 5px rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
 }
 
 .search-form {
     display: flex;
     flex-direction: row;
     width: fit-content;
-    padding: 10px;
+    padding: 5px;
     background-color: initial;
 }
 
 .search-input {
-    width: 300px;
+    max-width: 350px;
     height: 25px;
     border: 2px solid black;
 }
@@ -30,9 +31,9 @@
 
 .title-search {
     font-size: 30px;
-    font-weight: bold;
     margin: 15px;
-    font-family: 'Times New Roman', Times;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: yellow;
 }
 
 .search-summary {
@@ -42,7 +43,7 @@
 }
 
 .product-card {
-    margin-left: 10px;
+    margin-left: 5px;
     margin-bottom: 10px;
     box-shadow: 0px 12px 15px rgba(0, 0, 0, 0.7);
     border-radius: 8px;
@@ -53,9 +54,11 @@
 }
 
 .prod-image {
-    max-width: 150px;
+    width: 150px;
+    height: auto;
 }
 
 .prod-details {
     flex-grow: 1;
     padding: 10px;
+}

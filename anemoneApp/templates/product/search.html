@@ -92,7 +92,7 @@
             <button title="Cart" id="cart"><a href="{% url 'cart' %}"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></a></button>
         </div>
     </nav>
-    <div class="search-body">
+    <main class="search-body">
         <h1 class="title-search">
             Search in Anemone Noble Canvas Store...
         </h1>
@@ -161,14 +161,14 @@
                 <p class="text-xl italic">Type something in the search bar above to find your next great purchase!</p>
             </div>
         {% endif %}
-    </div>
+    </main>
+    <footer>
+        <a>© 2025 Anemone Noble Canvas. All rights reserved.</a>
+        <a href="{% url 'about' %}" target="_blank">About</a>
+        <a href="mailto: info@animonenoblecanvas.com" target="_blank">Contact Us</a>
+        <a href="{% url 'terms' %}" target="_blank">Terms</a>
+    </footer>
 
     <script src="{% static 'JS/general.js' %}"></script>
 </body>
-<footer>
-    <a>© 2025 Anemone Noble Canvas. All rights reserved.</a>
-    <a href="{% url 'about' %}" target="_blank">About</a>
-    <a href="mailto: info@animonenoblecanvas.com" target="_blank">Contact Us</a>
-    <a href="{% url 'terms' %}" target="_blank">Terms</a>
-</footer>
 </html>
