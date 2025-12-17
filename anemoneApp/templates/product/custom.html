@@ -8,6 +8,7 @@
         <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
         <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
         <link rel="stylesheet" href="{% static 'Styles/homeStyles.css' %}">
+        <link rel="stylesheet" href="{% static 'Styles/custom.css' %}">
         <link rel="stylesheet" href="{% static 'Styles/product.css' %}">
     </head>
     <body>
@@ -80,8 +81,7 @@
 
                 <div class="search-and-cart">
                     <div class="search-container">
-                        <input type="text" placeholder="Search..." class="search-input" id="search">
-                        <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
+                        <a href="{% url 'search' %}"><button title="Search" class="search-btn"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button></a>
                     </div>
                     <button title="Cart" id="cart"><a href="{% url 'cart' %}"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></a></button>
                 </div>
@@ -93,24 +93,27 @@
         <main class="main-content">
             <section class="choices">
                 <div class="originals">
-                    {# Use the selected garment and art from the session or context #}
-                    <img alt="cloth" src="{% static selected_garment.image %}">
-                    <img alt="painting" src="{% static selected_art.image %}">
+                    {% if selected_garment %}
+                        <img alt="cloth" src="{{ selected_garment.image.url }}">
+                    {% endif %}
+                    {% if selected_art %}
+                        <img alt="painting" src="{{ selected_art.image.url }}">
+                    {% endif %}
                 </div>
 
                 <div class="previews">
-                        <div class="painting" id="chest">
-                            <img alt="prev" src="{% static 'Images/chestV.jpg' %}">
-                            <p>Chest</p>
-                        </div>
-                        <div class="painting" id="back">
-                            <img alt="prev" src="{% static 'Images/backV.jpg' %}">
-                            <p>Back</p>
-                        </div>
-                        <div class="painting" id="shoulder">
-                            <img alt="prev" src="{% static 'Images/sideV.jpg' %}">
-                            <p>Shoulder (side view)</p>
-                        </div>
+                    <div class="painting" id="chest">
+                        <img alt="prev" src="{% static 'Images/chestV.jpg' %}">
+                        <p>Chest</p>
+                    </div>
+                    <div class="painting" id="back">
+                        <img alt="prev" src="{% static 'Images/backV.jpg' %}">
+                        <p>Back</p>
+                    </div>
+                    <div class="painting" id="shoulder">
+                        <img alt="prev" src="{% static 'Images/sideV.jpg' %}">
+                        <p>Shoulder (side view)</p>
+                    </div>
                 </div>
             </section>
 
@@ -140,20 +143,28 @@
                 <button type="submit" id="continue">Continue</button>
             </section>
 
+            <a href="{% url 'product' %}">Change Selections</a>
+
             <section class="clothing-section">
                 <h2>Explore our newest products:</h2>
                 <div class="clothes">
                     {% for product in products %}
                     <div class="item">
                         <div class="figure">
-                            <a href="{% url 'product_detail' product.id %}">
-                                <img src="{% static product.image %}" alt="{{ product.name }}">
-                            </a>
+                            {% if product.image %}
+                                <a href="{% url 'product_detail' product.id %}">
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                </a>
+                            {% else %}
+                                <a href="{% url 'product_detail' product.id %}">
+                                    <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
+                                </a>
+                            {% endif %}
                             <p>{{ product.name }}</p>
                             <p>M {{ product.price }}</p>
-                            <form method="post" action="{% url 'add_to_cart' product.id %}">
+                            <form method="POST" action="{% url 'add_to_cart' product.id %}">
                                 {% csrf_token %}
-                                <button type="submit">Add to Cart</button>
+                                <button type="submit" class="btn-add">Add to Cart</button>
                             </form>
                         </div>
                     </div>

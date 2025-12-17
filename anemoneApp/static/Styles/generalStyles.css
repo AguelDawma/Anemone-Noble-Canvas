@@ -234,3 +234,6 @@ body.nav-active .main-content, body.nav-active .intro-section {
     pointer-events: none;
 }
 
+.more {
+    text-decoration: none;
+}

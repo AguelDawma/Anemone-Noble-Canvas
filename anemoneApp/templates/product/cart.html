@@ -78,8 +78,7 @@
 
             <div class="search-and-cart">
                 <div class="search-container">
-                    <input type="text" placeholder="Search..." class="search-input" id="search">
-                    <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
+                    <a href="{% url 'search' %}"><button title="Search" class="search-btn"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button></a>
                 </div>
                 <button title="Cart" id="cart"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></button>
             </div>
@@ -104,7 +103,11 @@
                 {% for item in cart_items %}
                 <tr>
                     <td>
-                        <img src="{% static item.product.image %}" alt="{{ item.product.name }}" class="product-image">
+                        {% if item.product.image %}
+                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image">
+                        {% else %}
+                            <div class="no-image-box"> No Photo </div>
+                        {% endif %}
                     </td>
                     <td>
                         <div class="product-info">
@@ -116,7 +119,7 @@
                         <form method="POST" action="{% url 'update_cart' item.id %}">
                             {% csrf_token %}
                             <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
-                            <button type="submit">Update</button>
+                            <button type="submit" class="cart-update">Update</button>
                         </form>
                     </td>
                     <td>M{{ item.product.total_price }}</td>
@@ -126,10 +129,11 @@
         </table>
         <div class="cart-summary">
             <h2>Cart Summary</h2>
-            <p>Subtotal: M{{ cart_total }}</p>
-            <p>Tax: M{{ tax }}</p>
-            <p>Total: M{{ grand_total }}</p>
+            <p>Subtotal: M{{ cart_total | floatformat:2 }}</p>
+            <p>Tax: M{{ tax | floatformat:2 }}</p>
+            <strong>Total: M{{ grand_total | floatformat:2 }}</strong>
         </div>
+        
     </div>
 
     <script src="{% static 'JS/general.js' %}"></script>

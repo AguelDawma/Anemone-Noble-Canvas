@@ -80,8 +80,7 @@
 
                 <div class="search-and-cart">
                     <div class="search-container">
-                        <input type="text" placeholder="Search..." class="search-input" id="search">
-                        <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
+                        <a href="{% url 'search' %}"><button title="Search" class="search-btn"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button></a>
                     </div>
                     <button title="Cart" id="cart"><a href="{% url 'cart' %}"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></a></button>
                 </div>
@@ -92,31 +91,44 @@
         </header>
         <main class="main-content">
             <section>
-                <p>Choose your art.</p>
-                <div class="art-choice">
-                    {% for art in arts %}
-                    <div class="art">
-                        <img src="{% static art.image %}" alt="{{ art.name }}">
-                        <p>{{ art.name }}</p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <p>Choose your art.</p>
+                    <div class="art-choice">
+                        {% for art in arts %}
+                        <label>
+                            <input type="radio" name="selected_art" value="{{ art.id }}" required>
+                            <div class="art">
+                                <img src="{{ art.image.url }}" alt="{{ art.name }}">
+                                <p>{{ art.title }} | | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                <p class="price">M{{ art.price }}</p>
+                            </div>
+                        </label>
+                        {% empty %}
+                        <h2>No art available.</h2>
+                        {% endfor %}
                     </div>
-                    {% empty %}
-                    <p>No art available.</p>
-                    {% endfor %}
-                </div>
-                <p>Select a garment.</p>
-                <div class="garment-choice">
-                    {% for garment in garments %}
-                    <div class="garment">
-                        <img src="{% static garment.image %}" alt="{{ garment.name }}">
-                        <p>{{ garment.name }}</p>
+
+                    <p>Select a garment.</p>
+                    <div class="garment-choice">
+                        {% for garment in garments %}
+                            <label>
+                                <input type="radio" name="selected_garment" value="{{ garment.id }}" required>
+                                <div class="garment">
+                                    <img src="{{ garment.image.url }}" alt="{{ garment.name }}">
+                                    <p>{{ garment.name }} | | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                    <p class="garment-price">M{{ garment.price }}</p>
+                                </div>
+                            </label>
+                        {% empty %}
+                        <h2>No garments available.</h2>
+                        {% endfor %}
                     </div>
-                    {% empty %}
-                    <p>No garments available.</p>
-                    {% endfor %}
-                </div>
+
+                    <p id="error-message"></p>
+                    <button id="next" title="Next" type="submit">Next</button>
+                </form>
             </section>
-            <p id="error-message"></p>
-            <button id="next" title="Next" type="submit">Next</button>
         </main>
 
         <script src="{% static 'JS/general.js' %}"></script>

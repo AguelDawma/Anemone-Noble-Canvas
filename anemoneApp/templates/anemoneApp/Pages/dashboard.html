@@ -50,8 +50,7 @@
 
                 <div class="search-and-cart">
                     <div class="search-container">
-                        <input type="text" placeholder="Search..." class="search-input" id="search-text">
-                        <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
+                        <a href="{% url 'search' %}"><button title="Search" class="search-btn"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button></a>
                     </div>
                     <button title="Cart" id="cart"><a href="{% url 'cart' %}"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></a></button>
                 </div>
