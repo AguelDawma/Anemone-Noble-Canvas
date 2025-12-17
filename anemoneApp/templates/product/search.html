@@ -1,117 +1,25 @@
-<!DOCTYPE html>
+{% extends "anemoneApp/base.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Search Results</title>
-    <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
-    <link rel="stylesheet" href="{% static 'styles/search.css' %}">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-      .product-card {
-        transition: box-shadow 0.2s, transform 0.2s;
-      }
-      .product-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-      }
-    </style>
-</head>
-<body>
-    <nav class="main-nav">
-        <div class="side-menu-container">
-            <button title="Menu" class="menuBar">
-                <span class="line"></span>
-                <span class="line"></span>
-                <span class="line"></span>
-            </button>
 
-            <nav class="menu-nav">
-                {% if user.is_authenticated %}
-                <div id="nav-logged">
-                    <ul>
-                        <li id="home"><a href="index.html"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
-                        <li id="profile"><a href="Pages/profile.html"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
-                        <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
-                            <ul class="sub-menu">
-                                <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
-                                <li><a><button>Personalized Touch</button></a></li>
-                                <li><a><button>Craftsmanship</button></a></li>
-                            </ul>
-                            <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
-                        </li>
-                        <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
-                        <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
-                        <li id="logout-button"><a><form method="POST" action="{% url 'logout' %}"> {% csrf_token %} <button><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></form></a></li>
-                    </ul>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'Styles/search.css' %}">
+{% endblock %}
 
-                    <div class="nav-bottom">
-                        <a href="PlayStore">
-                            <img src="" alt="GET APP">
-                        </a>
-                        <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
-                    </div>
-                </div>
-                {% endif %}
-
-                {% if not user.is_authenticated %}
-                <div id="nav-logged">
-                    <ul>
-                        <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
-                        <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
-                        <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
-                            <ul class="sub-menu">
-                                <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
-                                <li><a><button>Personalized Touch</button></a></li>
-                                <li><a><button>Craftsmanship</button></a></li>
-                            </ul>
-                            <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
-                        </li>
-                        <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
-                        <li id="login"><a href="{% url 'login' %}"><button><img src="{% static 'Images/Icons/login.png' %}" alt="login icon">Log In</button></a></li>
-                    </ul>
-
-                    <div class="nav-bottom">
-                        <a href="PlayStore">
-                            <img src="" alt="GET APP">
-                        </a>
-                        <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
-                    </div>
-                </div>
-                {% endif %}
-            </nav>
-        </div>
-
-        <img src="{% static 'Images/navLogo.png' %}" alt="Navigation Logo" class="navLogo">
-
-        <div class="search-and-cart">
-            <div class="search-container">
-                <a href="{% url 'search' %}"><button title="Search" class="search-btn"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button></a>
-            </div>
-            <button title="Cart" id="cart"><a href="{% url 'cart' %}"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></a></button>
-        </div>
-    </nav>
+{% block content %}
     <main class="search-body">
         <h1 class="title-search">
             Search...
         </h1>
 
-        <!-- Search Form -->
         <form method="GET" action="{% url 'search' %}" class="search-form">
             <input
                 type="text"
                 name="q"
-                placeholder="Search by product name, description, or SKU..."
+                placeholder="Search here..."
                 value="{{ query|default:'' }}"
                 class="flex-grow p-4 border-2 border-gray-300 rounded-xl focus:ring-indigo-500 focus:border-indigo-500 text-lg shadow-inner bg-white text-black"
             />
-            <button 
-                type="submit" 
-                class="search-submit"
-            >
-                Find Products
-            </button>
+            <button type="submit" class="search-submit"> Find Products</button>
         </form>
 
         {% if query %}
@@ -133,7 +41,6 @@
                                     <strong>In Stock:</strong> <span class="{% if product.stock > 0 %}text-black-500{% else %}text-red-500{% endif %} font-semibold">{{ product.stock }}</span>
                                 </div>
 
-                                <!-- Display a snippet of the content -->
                                 <p class="text-gray-700 line-clamp-3 flex-grow">
                                     {{ product.description|truncatewords:25 }}
                                 </p>
@@ -142,11 +49,18 @@
                                     View Details &rarr;
                                 </a>
                             </div>
-                            {% if product.image %}
-                                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="prod-image">
-                            {% else %}
-                                <img src="{% static 'Images/placeholder.jpg' %}" alt="No Image Available" class="prod-image">
-                            {% endif %}
+                            <div class="img-add-box">
+                                {% if product.image %}
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="prod-image">
+                                {% else %}
+                                    <img src="{% static 'Images/placeholder.jpg' %}" alt="No Image Available" class="prod-image">
+                                {% endif %}
+
+                                <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-add">Add to Cart</button>
+                                </form>
+                            </div>
                         </div>
                     {% endfor %}
                 </div>
@@ -158,17 +72,8 @@
             {% endif %}
         {% else %}
             <div class="init">
-                <p class="text-xl italic">Type something in the search bar above to find your next great purchase!</p>
+                <p class="text-xl italic">Search by name, description or SKU in the search bar above to find your next great purchase!</p>
             </div>
         {% endif %}
     </main>
-    <footer>
-        <a>© 2025 Anemone Noble Canvas. All rights reserved.</a>
-        <a href="{% url 'about' %}" target="_blank">About</a>
-        <a href="mailto: info@animonenoblecanvas.com" target="_blank">Contact Us</a>
-        <a href="{% url 'terms' %}" target="_blank">Terms</a>
-    </footer>
-
-    <script src="{% static 'JS/general.js' %}"></script>
-</body>
-</html>
+{% endblock %}

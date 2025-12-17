@@ -1,5 +1,5 @@
 .search-body {
-    background-color: darkgrey;
+    background-color: white;
     border-radius: 10px;
     padding: 5px 12px;
     margin: 10px;
@@ -21,11 +21,16 @@
 }
 
 .search-submit {
-    background-color: rgb(190, 8, 8);
+    background-color: crimson;
     border: 2px solid rgb(238, 216, 121);
     border-radius: 8px;
     margin-left: 10px;
     padding: 5px 10px;
+    cursor: pointer;
+}
+
+.search-submit:hover {
+    background-color: rgb(180, 3, 39);
 }
 
 .title-search {
@@ -33,7 +38,6 @@
     font-weight: bold;
     margin: 15px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    /*color: rgb(218, 67, 67);*/
 }
 
 .search-summary {
@@ -54,12 +58,24 @@
 }
 
 .prod-image {
-    width: 150px;
+    width: 100px;
     height: auto;
-    border-radius: 50%;
 }
 
 .prod-details {
     flex-grow: 1;
     padding: 10px;
+}
+
+.btn-add {
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border-radius: 8px;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.btn-add:hover {
+    background-color: rgba(1, 94, 1, 0.952);
 }

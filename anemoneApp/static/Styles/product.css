@@ -3,7 +3,7 @@
     flex-direction: row;
     box-shadow: inset 1px 1px 10px rgba(0, 0, 0, 0.8);
     padding: 15px;
-    height: 250px;
+    height: fit-content;
     overflow-y: hidden;
 }
 
@@ -34,8 +34,13 @@
     background-color: #333;
     width: 120px;
     cursor: pointer;
+    color: white;
 }
 
 #next:hover {
     background-color: gray;
+}
+
+.radio-card input[type="radio"] {
+    display: none;
 }

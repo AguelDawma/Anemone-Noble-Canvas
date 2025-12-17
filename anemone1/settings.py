@@ -133,7 +133,13 @@ LOGIN_REDIRECT_URL = '/dashboard/'
 # Where to redirect after a successful logout
 LOGOUT_REDIRECT_URL = '/'
 
-LOGIN_URL = 'registration/login/'
+# Try email-based authentication first, fall back to default username backend
+AUTHENTICATION_BACKENDS = [
+    'anemoneApp.backends.EmailBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
+LOGIN_URL = 'login'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

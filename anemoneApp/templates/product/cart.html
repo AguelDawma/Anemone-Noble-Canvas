@@ -1,128 +1,52 @@
-<!DOCTYPE html>
+{% extends "anemoneApp/base.html" %}
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+
+{% block extra_css %}
     <link rel="stylesheet" href="{% static 'Styles/cart.css' %}">
-    <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
-</head>
-<body>
-    <header>
-        <nav class="main-nav">
-            <div class="side-menu-container">
-                <button title="Menu" class="menuBar">
-                    <span class="line"></span>
-                    <span class="line"></span>
-                    <span class="line"></span>
-                </button>
+{% endblock %}
 
-                <nav class="menu-nav">
-                    {% if user.is_authenticated %}
-                    <div id="nav-logged">
-                        <ul>
-                            <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
-                            <li id="profile"><a href="{% url 'profile' %}"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
-                            <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
-                                <ul class="sub-menu">
-                                    <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
-                                    <li><a><button>Personalized Touch</button></a></li>
-                                    <li><a><button>Craftsmanship</button></a></li>
-                                </ul>
-                                <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
-                            </li>
-                            <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
-                            <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
-                            <li id="logout-button"><a><form method="POST" action="{% url 'logout' %}"> {% csrf_token %} <button><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></form></a></li>
-                        </ul>
-
-                        <div class="nav-bottom">
-                            <a href="PlayStore">
-                                <img src="" alt="GET APP">
-                            </a>
-                            <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
-                        </div>
-                    </div>
-                    {% endif %}
-
-                    {% if not user.is_authenticated %}
-                    <div id="nav-logged">
-                        <ul>
-                            <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
-                            <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
-                            <li id="services"><a><button class="more-services"><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
-                                <ul class="sub-menu">
-                                    <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
-                                    <li><a><button>Personalized Touch</button></a></li>
-                                    <li><a><button>Craftsmanship</button></a></li>
-                                </ul>
-                                <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
-                            </li>
-                            <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
-                            <li id="logout"><a href="{% url 'login' %}"><button><img src="{% static 'Images/Icons/login.png' %}" alt="login icon">Log In</button></a></li>
-                        </ul>
-
-                        <div class="nav-bottom">
-                            <a href="PlayStore">
-                                <img src="" alt="GET APP">
-                            </a>
-                            <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
-                        </div>
-                    </div>
-                    {% endif %}
-                </nav>
-            </div>
-
-            <img src="{% static 'Images/navLogo.png' %}" alt="Navigation Logo" class="navLogo">
-
-            <div class="search-and-cart">
-                <div class="search-container">
-                    <a href="{% url 'search' %}"><button title="Search" class="search-btn"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button></a>
-                </div>
-                <button title="Cart" id="cart"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></button>
-            </div>
-        </nav>
-        <section class="intro-section">
-            
-        </section>
-    </header>
+{% block content %}
+<main>
     <div class="cart-container">
         <h1>Shopping Cart</h1>
         <table class="cart-table">
             <thead>
                 <tr>
                     <th></th>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th>Total</th>
+                    <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 {% for item in cart_items %}
                 <tr>
-                    <td>
-                        {% if item.product.image %}
-                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image">
-                        {% else %}
-                            <div class="no-image-box"> No Photo </div>
-                        {% endif %}
-                    </td>
-                    <td>
-                        <div class="product-info">
-                            <span>{{ item.product.name }}</span>
-                        </div>
-                    </td>
-                    <td>M{{ item.product.price }}</td>
-                    <td>
-                        <form method="POST" action="{% url 'update_cart' item.id %}">
-                            {% csrf_token %}
-                            <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
-                            <button type="submit" class="cart-update">Update</button>
-                        </form>
-                    </td>
-                    <td>M{{ item.product.total_price }}</td>
+                    <div class="cart_item">
+                        <td>
+                            {% if item.product.image %}
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image">
+                            {% else %}
+                                <div class="no-image-box"> No Photo </div>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="product-info">
+                                <span>{{ item.product.name }} <p>{{ item.product.description }}</p></span>
+                                <b>M{{ item.product.price }}</b>
+                            </div>
+                        </td>
+                        <td style="position:relative;">
+                            <form method="POST" action="{% url 'update_cart' item.id %}">
+                                {% csrf_token %}
+                                <p>Qty:</p>
+                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                                <button type="submit" class="cart-update">Update</button>
+                            </form>
+                            <form method="POST" action="{% url 'remove_from_cart' item.id %}" class="remove-form">
+                                {% csrf_token %}
+                                <button type="submit" class="remove-btn" aria-label="Remove item">&times;</button>
+                            </form>
+                        </td>
+                    </div>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -133,9 +57,8 @@
             <p>Tax: M{{ tax | floatformat:2 }}</p>
             <strong>Total: M{{ grand_total | floatformat:2 }}</strong>
         </div>
-        
-    </div>
 
-    <script src="{% static 'JS/general.js' %}"></script>
-</body>
-</html>
+        <button class="checkout-btn"> CHECKOUT CART </button>
+    </div>
+</main>
+{% endblock %}

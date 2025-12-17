@@ -1,17 +1,28 @@
+.choices {
+    margin-bottom: 20px;
+}
+
+.change {
+    text-decoration: none;
+    border: 1px solid blue;
+    padding: 4px;
+    background-color: white;
+}
+
 .clothes {
     display: flex;
     flex-direction: row;
     overflow-x: scroll;
     overflow-y: hidden;
-    background-color: burlywood;
+    background-color: initial;
     padding: 7px;
     box-shadow: inset 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 .item {
-    width: 350px;
+    width: 200px;
     height: auto;
-    background-color:  rgb(218, 67, 67);
+    background-color:  initial;
     margin: 4px;
     align-items: normal;
     border: solid;
@@ -21,11 +32,11 @@
 }
 
 .item:hover {
-    background-color: brown;
+    background-color: burlywood;
 }
 
 .figure {
-    width: 200px;
+    width: 100%;
 }
 
 .figure img {
@@ -86,4 +97,3 @@
 #continue:hover {
     background-color: brown;
 }
-

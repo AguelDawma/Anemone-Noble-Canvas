@@ -6,18 +6,36 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from .forms import CustomSignupForm # 🌟 Import your custom form
 
+# Create your views here.
+
 def signup_view(request):
     if request.method == 'POST':
         form = CustomSignupForm(request.POST)
         if form.is_valid():
-            # 1. Create the user object from the form data
-            user = form.save()
-            user.set_password(form.cleaned_data['password']) # 🔑 IMPORTANT: Hash the password
+            # 1. Create the user object from the form data but don't commit yet
+            password = form.cleaned_data['password']
+            user = form.save(commit=False)
+            user.set_password(password)  # 🔑 IMPORTANT: Hash the password
             user.save()
             print("User created!")
 
-            # 2. Log the user in
-            login(request, user)
+            # 2. Authenticate the user so Django sets the correct backend when logging in
+            from django.contrib.auth import authenticate
+            from django.conf import settings
+
+            # Try authenticating by email first, then by username
+            auth_user = authenticate(request, username=user.email, password=password)
+            if auth_user is None:
+                auth_user = authenticate(request, username=user.username, password=password)
+
+            if auth_user is None:
+                # Fallback: set backend explicitly from settings (last resort)
+                backend = settings.AUTHENTICATION_BACKENDS[0] if settings.AUTHENTICATION_BACKENDS else 'django.contrib.auth.backends.ModelBackend'
+                user.backend = backend
+                login(request, user)
+            else:
+                login(request, auth_user)
+
             return redirect('dashboard')  # Redirect to a success page.
         else:
             # Pass the form back to the template to show errors
@@ -32,8 +50,6 @@ def signup_view(request):
         'form': form, 
     }
     return render(request, 'registration/signup.html', context)
-
-# Create your views here.
 
 def index(request):
     return render(request, 'anemoneApp/index.html')
@@ -105,6 +121,7 @@ def cart(request):
                     'price': product.price,
                     'image': product.image,
                     'total_price': total_price,
+                    'description': product.description,
                 },
                 'quantity': qty,
             })
@@ -142,6 +159,22 @@ def update_cart(request, item_id):
     quantity = int(request.POST.get('quantity', 1))
     # Update the cart item with item_id to the new quantity
     # (session, database, etc.)
+    cart = request.session.get('cart', {})
+    pid = str(item_id)
+    if quantity > 0:
+        cart[pid] = quantity
+    else:
+        cart.pop(pid, None)
+    request.session['cart'] = cart
+    request.session.modified = True
+    return redirect('cart')
+
+@require_POST
+def remove_from_cart(request, item_id):
+    cart = request.session.get('cart', {})
+    cart.pop(str(item_id), None)
+    request.session['cart'] = cart
+    request.session.modified = True
     return redirect('cart')
 
 def custom(request):
