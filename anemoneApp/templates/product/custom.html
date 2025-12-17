@@ -1,178 +1,85 @@
-<!DOCTYPE html>
+{% extends "anemoneApp/base.html" %}
 {% load static %}
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Create Custom Design</title>
-        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
-        <link rel="stylesheet" href="{% static 'Styles/generalStyles.css' %}">
-        <link rel="stylesheet" href="{% static 'Styles/homeStyles.css' %}">
-        <link rel="stylesheet" href="{% static 'Styles/product.css' %}">
-    </head>
-    <body>
-        <header>
-            <nav class="main-nav">
-                <div class="side-menu-container">
-                    <button title="Menu" class="menuBar">
-                        <span class="line"></span>
-                        <span class="line"></span>
-                        <span class="line"></span>
-                    </button>
 
-                    <nav class="menu-nav">
-                        {% if user.is_authenticated %}
-                        <div id="nav-logged">
-                            <ul>
-                                <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
-                                <li id="profile"><a href="{% url 'profile' %}"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
-                                <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
-                                        <li><a><button>Personalized Touch</button></a></li>
-                                        <li><a><button>Craftsmanship</button></a></li>
-                                    </ul>
-                                    <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
-                                </li>
-                                <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
-                                <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
-                                <li id="logout-button"><a><form method="POST" action="{% url 'logout' %}"> {% csrf_token %} <button><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></form></a></li>
-                            </ul>
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'Styles/custom.css' %}">
+{% endblock %}
 
-                            <div class="nav-bottom">
-                                <a href="PlayStore">
-                                    <img src="" alt="GET APP">
-                                </a>
-                                <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
-                            </div>
-                        </div>
-                        {% endif %}
-
-                        {% if not user.is_authenticated %}
-                        <div id="nav-logged">
-                            <ul>
-                                <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
-                                <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
-                                <li id="services"><a><button class="more-services"><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
-                                        <li><a><button>Personalized Touch</button></a></li>
-                                        <li><a><button>Craftsmanship</button></a></li>
-                                    </ul>
-                                    <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
-                                </li>
-                                <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
-                                <li id="logout"><a href="{% url 'login' %}"><button><img src="{% static 'Images/Icons/login.png' %}" alt="login icon">Log In</button></a></li>
-                            </ul>
-
-                            <div class="nav-bottom">
-                                <a href="PlayStore">
-                                    <img src="" alt="GET APP">
-                                </a>
-                                <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
-                            </div>
-                        </div>
-                        {% endif %}
-                    </nav>
-                </div>
-
-                <img src="{% static 'Images/navLogo.png' %}" alt="Navigation Logo" class="navLogo">
-
-                <div class="search-and-cart">
-                    <div class="search-container">
-                        <input type="text" placeholder="Search..." class="search-input" id="search">
-                        <button title="Search" class="search"><img src="{% static 'Images/Icons/search.png' %}" alt="search icon"></button>
-                    </div>
-                    <button title="Cart" id="cart"><a href="{% url 'cart' %}"><img src="{% static 'Images/Icons/cart.png' %}" alt="cart Icon"></a></button>
-                </div>
-            </nav>
-            <section class="intro-section">
-                
-            </section>
-        </header>
-        <main class="main-content">
-            <section class="choices">
+{% block content %}
+    <main class="main-content">
+        <section class="choices">
+            <div class="previews">
                 <div class="originals">
-                    {# Use the selected garment and art from the session or context #}
-                    <img alt="cloth" src="{% static selected_garment.image %}">
-                    <img alt="painting" src="{% static selected_art.image %}">
+                    {% if selected_garment %}
+                        <img alt="cloth" src="{{ selected_garment.image.url }}">
+                    {% endif %}
+                    {% if selected_art %}
+                        <img alt="painting" src="{{ selected_art.image.url }}">
+                    {% endif %}
                 </div>
+            </div>
+        </section>
 
-                <div class="previews">
-                        <div class="painting" id="chest">
-                            <img alt="prev" src="{% static 'Images/chestV.jpg' %}">
-                            <p>Chest</p>
-                        </div>
-                        <div class="painting" id="back">
-                            <img alt="prev" src="{% static 'Images/backV.jpg' %}">
-                            <p>Back</p>
-                        </div>
-                        <div class="painting" id="shoulder">
-                            <img alt="prev" src="{% static 'Images/sideV.jpg' %}">
-                            <p>Shoulder (side view)</p>
-                        </div>
-                </div>
-            </section>
+        <a href="{% url 'product' %}" class="change">&larr; Change Selections </a>
 
-            <section class="description-and-preview">
-                <p>Add description for position of the painting and continue.</p>
+        <section class="description-and-preview">
+            <p>Add description for position of the painting and continue.</p>
 
-                <label for="positions">Choose position:</label>
-                <select title="positions" id="positions-selector">
-                    <option value="back">Back</option>
-                    <option value="front">Front</option>
-                    <option value="left-chest">Left chest</option>
-                    <option value="left-side">Left side</option>
-                    <option value="right-side">Right side</option>
-                    <option value="left-shoulder">Left shoulder (side view)</option>
-                    <option value="right-shoulder">Right shoulder (side view)</option>
-                    <option value="Custom" selected>Custom</option>
-                </select>
-                <textarea title="description" id="description" class="description-box" placeholder="Describe your desired position of the painting..."></textarea>
-                <br>
+            <label for="positions">Choose position:</label>
+            <select title="positions" id="positions-selector">
+                <option value="back">Back</option>
+                <option value="front">Front</option>
+                <option value="left-chest">Left chest</option>
+                <option value="left-side">Left side</option>
+                <option value="right-side">Right side</option>
+                <option value="left-shoulder">Left shoulder (side view)</option>
+                <option value="right-shoulder">Right shoulder (side view)</option>
+                <option value="Custom" selected>Custom</option>
+            </select>
+            <textarea title="description" id="description" class="description-box" placeholder="Describe your desired position of the painting..."></textarea>
+            <br>
 
-                <label for="size">Choose size of image</label>
-                <select title="sizes" id="size">
-                    <option value="small">Small</option>
-                    <option value="medium">Medium</option>
-                    <option value="large">Large</option>
-                </select>
-                <button type="submit" id="continue">Continue</button>
-            </section>
+            <label for="size">Choose size of image: </label>
+            <select title="sizes" id="size">
+                <option value="small">Small</option>
+                <option value="medium">Medium</option>
+                <option value="large">Large</option>
+            </select>
+            <button type="submit" id="continue">Continue</button>
+        </section>
 
-            <section class="clothing-section">
-                <h2>Explore our newest products:</h2>
-                <div class="clothes">
-                    {% for product in products %}
-                    <div class="item">
-                        <div class="figure">
+        <section class="clothing-section">
+            <h2>Explore our newest products:</h2>
+            <div class="clothes">
+                {% for product in products %}
+                <div class="item">
+                    <div class="figure">
+                        {% if product.image %}
                             <a href="{% url 'product_detail' product.id %}">
-                                <img src="{% static product.image %}" alt="{{ product.name }}">
+                                <img src="{{ product.image.url }}" alt="{{ product.name }}">
                             </a>
-                            <p>{{ product.name }}</p>
-                            <p>M {{ product.price }}</p>
-                            <form method="post" action="{% url 'add_to_cart' product.id %}">
-                                {% csrf_token %}
-                                <button type="submit">Add to Cart</button>
-                            </form>
-                        </div>
+                        {% else %}
+                            <a href="{% url 'product_detail' product.id %}">
+                                <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
+                            </a>
+                        {% endif %}
+                        <p>{{ product.name }} | | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                        <p>M {{ product.price }}</p>
+                        <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn-add">Add to Cart</button>
+                        </form>
                     </div>
-                    {% empty %}
-                    <p>No products available.</p>
-                    {% endfor %}
                 </div>
-            </section>
-        </main>
+                {% empty %}
+                <p>No products available.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+{% endblock %}
 
-        <script src="{% static 'JS/general.js' %}"></script>
-        <script src="{% static 'JS/home.js' %}"></script>
-        <script src="{% static 'JS/product.js' %}"></script>
-    </body>
-
-    <footer>
-        <a>© 2025 Anemone Noble Canvas. All rights reserved.</a>
-        <a href="{% url 'about' %}" target="_blank">About</a>
-        <a href="mailto: info@animonenoblecanvas.com" target="_blank">Contact Us</a>
-        <a href="{% url 'terms' %}" target="_blank">Terms</a>
-    </footer>
-</html>
+{% block extra_js %}
+    <script src="{% static 'JS/custom.js' %}"></script>
+    <script src="{% static 'JS/product.js' %}"></script>
+{% endblock %}

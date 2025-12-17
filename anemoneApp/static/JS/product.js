@@ -1,28 +1,57 @@
-document.addEventListener('DOMContentLoaded', function(){
-    const paintings = document.querySelectorAll('.painting');
-    const positionSelector = document.getElementById('positions-selector');
+document.addEventListener('DOMContentLoaded' , function(){
+    const arts = document.querySelectorAll('.art');
+    const garments = document.querySelectorAll('.garment');
+    const next = document.getElementById('next');
+    
+    const main = document.querySelectorAll('main');
+    const errorMessage = document.getElementById('error-message');
 
-    paintings.forEach(item => {
+    next.disabled = true;
+
+    function nextButtonState(){
+        const selectedArt =document.querySelector('.art.selected');
+        const selectedGarment = document.querySelector('.garment.selected');
+
+        next.disabled = !(selectedArt && selectedGarment);
+
+        if(!(next.disabled)){
+            errorMessage.textContent = "Please choose an art and a garment to continue.";
+        }
+    }
+
+    arts.forEach(item=>{
         item.addEventListener('click' , function(){
-            paintings.forEach(otherItem => {
+            arts.forEach(otherItem=>{
                 otherItem.classList.remove('selected');
             });
 
             item.classList.add('selected');
+            nextButtonState();
+        })
+    })
 
-            const pElement = item.querySelector('p');
-            if(pElement){
-                const selectedText = pElement.textContent;
-                console.log("You have chosen to paint on the", selectedText);
-            }
+    garments.forEach(item=>{
+        item.addEventListener('click' , function(){
+            garments.forEach(otherItem=>{
+                otherItem.classList.remove('selected');
+            });
+            
+            item.classList.add('selected');
+            nextButtonState();
+        })
+    })
 
-            if(item.id=='chest'){
-                positionSelector.value = "left-chest";
-            }else if(item.id=='back'){
-                positionSelector.value = "back";
-            }else if(item.id=='shoulder'){
-                positionSelector.value = "left-shoulder";
-            }
-        });
-    });
-});
+    nextButtonState()
+
+    next.addEventListener('click' , function(){
+        const selectedArt =document.querySelector('.art.selected');
+        const selectedGarment = document.querySelector('.garment.selected');
+        
+        const artId = selectedArt.dataset.id;
+        const garmentId = selectedGarment.dataset.id;
+
+        const nextPage =  `/custom/?art=${encodeURIComponent(artId)}&garment=${encodeURIComponent(garmentId)}`;
+
+        window.location.href = nextPage;
+    })
+})
