@@ -6,6 +6,11 @@ from django.contrib.auth import login
 from django.contrib.auth.models import User
 from .forms import CustomSignupForm # 🌟 Import your custom form
 from django.db.utils import OperationalError
+import logging
+from PIL import Image
+from io import BytesIO
+
+logger = logging.getLogger(__name__) 
 
 # Create your views here.
 
@@ -75,10 +80,24 @@ def product(request):
     if request.method == 'POST':
         selected_garment_id = request.POST.get('selected_garment')
         selected_art_id = request.POST.get('selected_art')
-        
-        request.session['selected_garment'] = selected_garment_id
-        request.session['selected_art'] = selected_art_id
-        
+
+        # Save as integers in session when possible, otherwise remove keys
+        try:
+            if selected_garment_id and str(selected_garment_id).strip() != '':
+                request.session['selected_garment'] = int(selected_garment_id)
+            else:
+                request.session.pop('selected_garment', None)
+        except (ValueError, TypeError):
+            request.session.pop('selected_garment', None)
+
+        try:
+            if selected_art_id and str(selected_art_id).strip() != '':
+                request.session['selected_art'] = int(selected_art_id)
+            else:
+                request.session.pop('selected_art', None)
+        except (ValueError, TypeError):
+            request.session.pop('selected_art', None)
+
         return redirect('custom')
     
     else:
@@ -248,10 +267,24 @@ def select_items(request):
     if request.method == 'POST':
         selected_garment_id = request.POST.get('selected_garment')
         selected_art_id = request.POST.get('selected_art')
-        
-        request.session['selected_garment'] = selected_garment_id
-        request.session['selected_art'] = selected_art_id
-        
+
+        # Save as integers in session when possible, otherwise remove keys
+        try:
+            if selected_garment_id and str(selected_garment_id).strip() != '':
+                request.session['selected_garment'] = int(selected_garment_id)
+            else:
+                request.session.pop('selected_garment', None)
+        except (ValueError, TypeError):
+            request.session.pop('selected_garment', None)
+
+        try:
+            if selected_art_id and str(selected_art_id).strip() != '':
+                request.session['selected_art'] = int(selected_art_id)
+            else:
+                request.session.pop('selected_art', None)
+        except (ValueError, TypeError):
+            request.session.pop('selected_art', None)
+
         return redirect('custom')
     
     else:
@@ -325,7 +358,6 @@ def generate_preview(request):
         request.session['selected_garment'] = garment.id
         request.session['selected_art'] = art.id
 
-        # Look up API key from settings or env; provide useful error if missing
         from django.conf import settings
         API_KEY = getattr(settings, 'STABILITY_API_KEY', None)
         if not API_KEY:
@@ -340,52 +372,93 @@ def generate_preview(request):
                 'selected_art': art,
             })
 
-        try:
-            response = requests.post(
-                "https://api.stability.ai/v2beta/stable-image/generate/core",
-                headers={
-                    "authorization": f"Bearer {API_KEY}",
-                    "accept": "image/*"
-                },
-                files={"image": garment.image.open("rb")},
-                data={"prompt": f"Style of {art.title}: {desc}", "output_format": "webp"},
-                timeout=60,
-            )
-        except requests.RequestException:
-            return render(request, 'product/custom.html', {
-                'error': 'Failed to reach image generation API.',
-                'products': products,
-                'selected_garment': garment,
-                'selected_art': art,
-            })
+        # Helper: compress to webp
+        def compress_to_webp(image_field, max_size=1024, quality=80):
+            try:
+                image_field.open('rb')
+                img = Image.open(image_field)
+                # normalize mode
+                if img.mode not in ('RGB', 'RGBA'):
+                    img = img.convert('RGB')
+                img.thumbnail((max_size, max_size), Image.LANCZOS)
+                buf = BytesIO()
+                img.save(buf, format='WEBP', quality=quality)
+                buf.seek(0)
+                return buf
+            except Exception as e:
+                logger.exception('Image compression failed')
+                return None
 
-        if response.status_code == 200:
-            new_preview = CustomizedPreview(user_description=desc)
-            file_name = f"preview_{garment.id}_{art.id}.webp"
+        # Try a few sizes progressively smaller to avoid 413 Payload Too Large
+        sizes = [1024, 800, 600, 400]
+        response = None
+        last_err = ''
+        for s in sizes:
+            g_buf = compress_to_webp(garment.image, max_size=s, quality=80)
+            a_buf = compress_to_webp(art.image, max_size=s, quality=80)
+            if not g_buf or not a_buf:
+                last_err = 'Failed to process images for preview.'
+                continue
+
+            files = {
+                'gament_image': ('garment.webp', g_buf, 'image/webp'),
+                'art_image': ('art.webp', a_buf, 'image/webp'),
+            }
 
             try:
-                # Attempt to save the image; if the DB table doesn't exist this will raise
-                # OperationalError (e.g. before migrations have been applied).
-                new_preview.result_image.save(file_name, ContentFile(response.content), save=True)
-            except OperationalError:
-                # Friendly error message for missing migration / table
-                return render(request, 'product/custom.html', {
-                    'error': 'Unable to save preview to the database: migrations may be pending. Run `python manage.py makemigrations` and `python manage.py migrate`.',
-                    'products': products,
-                    'selected_garment': garment,
-                    'selected_art': art,
-                })
+                response = requests.post(
+                    "https://api.stability.ai/v2beta/stable-image/generate/core",
+                    headers={
+                        "authorization": f"Bearer {API_KEY}",
+                        "accept": "image/*"
+                    },
+                    files=files,
+                    data={"prompt": f"Without changing either of the images attached, just paste the selected art image (art in description) on the selected garment image(type of clothing in description, e.g hoodie, top jean) as described: {desc}", "output_format": "webp"},
+                    timeout=60,
+                )
+                response.raise_for_status()
+                # success
+                break
+            except requests.HTTPError as e:
+                status = e.response.status_code if e.response is not None else None
+                logger.exception('Image generation HTTP error')
+                if status == 413:
+                    # Payload too large — try next smaller size
+                    logger.warning(f'Payload too large at size {s}; trying smaller size')
+                    last_err = f'Payload too large at size {s}.'
+                    continue
+                last_err = str(e)
+                break
+            except requests.RequestException as e:
+                logger.exception('Image generation request failed')
+                last_err = str(e)
+                break
 
+        # If we never got a successful response, report the last error
+        if response is None:
             return render(request, 'product/custom.html', {
-                'preview': new_preview,
+                'error': f'Image generation failed: {last_err}',
                 'products': products,
                 'selected_garment': garment,
                 'selected_art': art,
             })
 
-        # Non-200 response: include status for debugging
+        # Successful response; save preview
+        new_preview = CustomizedPreview(user_description=desc)
+        file_name = f"preview_{garment.id}_{art.id}.webp"
+
+        try:
+            new_preview.result_image.save(file_name, ContentFile(response.content), save=True)
+        except OperationalError:
+            return render(request, 'product/custom.html', {
+                'error': 'Unable to save preview to the database: migrations may be pending.',
+                'products': products,
+                'selected_garment': garment,
+                'selected_art': art,
+            })
+
         return render(request, 'product/custom.html', {
-            'error': f'Image generation failed (status {response.status_code}).',
+            'preview': new_preview,
             'products': products,
             'selected_garment': garment,
             'selected_art': art,
