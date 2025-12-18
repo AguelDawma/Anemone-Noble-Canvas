@@ -63,3 +63,7 @@ class customItem(models.Model):
     def __str__(self):
         return self.name
     
+class CustomizedPreview(models.Model):
+    user_description = models.CharField(max_length=255)
+    result_image = models.ImageField(upload_to='ai_previews/')
+    created_at = models.DateTimeField(auto_now_add=True)

@@ -36,16 +36,36 @@
                 <option value="right-shoulder">Right shoulder (side view)</option>
                 <option value="Custom" selected>Custom</option>
             </select>
-            <textarea title="description" id="description" class="description-box" placeholder="Describe your desired position of the painting..."></textarea>
-            <br>
 
-            <label for="size">Choose size of image: </label>
-            <select title="sizes" id="size">
-                <option value="small">Small</option>
-                <option value="medium">Medium</option>
-                <option value="large">Large</option>
-            </select>
-            <button type="submit" id="continue">Continue</button>
+            <form method="POST" action="{% url 'preview' %}">
+                {% csrf_token %}
+                <input type="hidden" name="garment_id" value="{{ selected_garment.id }}" />
+                <input type="hidden" name="art_id" value="{{ selected_art.id }}" />
+
+                <textarea name="description" title="description" id="description" class="description-box" placeholder="Describe your desired position of the painting..."></textarea>
+
+                <label for="size">Choose size of image: </label>
+                <select title="sizes" id="size">
+                    <option value="small">Small</option>
+                    <option value="medium">Medium</option>
+                    <option value="large">Large</option>
+                </select>
+                <button type="submit" id="continue">Show Preview</button>
+            </form>
+
+            {% if error %}
+                <div class="error-message" role="alert" style="color: #b00020; margin-top: 1rem;">
+                    <strong>Error:</strong> {{ error }}
+                </div>
+            {% endif %}
+
+            {% if preview %}
+                <div class="result-card">
+                    <h2>Your Design for Precious</h2>
+                    <img src="{{ preview.result_image.url }}" alt="Customized Clothing" style="max-width: 500px;">
+                    <p>Design: {{ preview.user_description }}</p>
+                </div>
+            {% endif %}
         </section>
 
         <section class="clothing-section">

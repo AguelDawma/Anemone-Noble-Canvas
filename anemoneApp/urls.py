@@ -8,8 +8,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('login/', 
          LoginView.as_view(
-             template_name='registration/login.html', # 🌟 1. Point to your custom template
-             authentication_form=EmailAuthForm,       # 🌟 2. Use your custom form
+             template_name='registration/login.html',
+             authentication_form=EmailAuthForm,
              redirect_authenticated_user=True
          ),
          name='login'),
@@ -28,4 +28,6 @@ urlpatterns = [
     path('product/<int:product_id>/', views.product_detail, name='product_detail'),
     path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('search/', views.search, name='search'),
+    # Preview endpoint (POST from custom form) — name changed to avoid clashes
+    path('preview/', views.generate_preview, name='preview'),
 ]

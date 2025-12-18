@@ -89,11 +89,16 @@
 }
 
 #continue {
-    background-color: rgb(218, 67, 67);
+    background-color: green;
     padding: 10px;
     border: solid black;
+    color: white;
 }
 
 #continue:hover {
     background-color: brown;
+}
+
+input[type="radio"] {
+    display: none;
 }

@@ -101,7 +101,7 @@ nav {
     top: 100%;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
     transition: left 0.3s ease-in-out;
-    background-color: rgb(218, 67, 67);
+    background-color: #010a0f;
     overflow-y: auto;
     z-index: 1000;
     margin: 0;
@@ -124,7 +124,7 @@ nav {
 }
 
 .menu-nav ul li a button:hover, .sub-menu li a button:hover {
-    background-color:rgb(224, 86, 82);
+    background-color:black;
 }
 
 .menu-nav.active {
@@ -160,11 +160,11 @@ header button {
 
 .sub-menu {
     width: 200px;
-    border: solid #444 1px;
+    border: solid white 1px;
     position: fixed;
     left: 210px;
     display: none;
-    background-color: rgb(218, 67, 67);
+    background-color: #010a0f;
     z-index: 1010;
 }
 
@@ -184,7 +184,7 @@ header button {
 }
 
 #services:hover {
-    background-color: rgb(224, 86, 82);
+    background-color: black;
 }
 
 .chevron-right {

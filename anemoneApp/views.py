@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from .forms import CustomSignupForm # 🌟 Import your custom form
+from django.db.utils import OperationalError
 
 # Create your views here.
 
@@ -263,3 +264,136 @@ def select_items(request):
         }
         
         return render(request, 'product/product.html', context)
+    
+import requests
+from django.core.files.base import ContentFile
+from django.shortcuts import render
+from .models import Garment, ArtPiece, CustomizedPreview
+
+def generate_preview(request):
+    """Handle POST from custom preview form, validate inputs and render custom page
+    with the same context (`products`, `selected_garment`, `selected_art`)."""
+    products = Product.objects.all()
+
+    # Read selections from session to preserve what user previously chose
+    session_garment_id = request.session.get('selected_garment')
+    session_art_id = request.session.get('selected_art')
+
+    selected_garment = None
+    selected_art = None
+    try:
+        if session_garment_id is not None and str(session_garment_id).strip() != '':
+            selected_garment = Garment.objects.filter(id=int(session_garment_id)).first()
+    except (ValueError, TypeError):
+        selected_garment = None
+
+    try:
+        if session_art_id is not None and str(session_art_id).strip() != '':
+            selected_art = ArtPiece.objects.filter(id=int(session_art_id)).first()
+    except (ValueError, TypeError):
+        selected_art = None
+
+    if request.method == "POST":
+        garment_id = request.POST.get('garment_id')
+        art_id = request.POST.get('art_id')
+        desc = request.POST.get('description')
+
+        # Validate and convert IDs
+        try:
+            garment_id = int(garment_id)
+            art_id = int(art_id)
+        except (ValueError, TypeError):
+            return render(request, 'product/custom.html', {
+                'error': 'Invalid garment or art selection.',
+                'products': products,
+                'selected_garment': selected_garment,
+                'selected_art': selected_art,
+            })
+
+        garment = Garment.objects.filter(id=garment_id).first()
+        art = ArtPiece.objects.filter(id=art_id).first()
+
+        if not garment or not art:
+            return render(request, 'product/custom.html', {
+                'error': 'Selected garment or art not found.',
+                'products': products,
+                'selected_garment': selected_garment,
+                'selected_art': selected_art,
+            })
+
+        # persist selection to session so the custom page reflects them
+        request.session['selected_garment'] = garment.id
+        request.session['selected_art'] = art.id
+
+        # Look up API key from settings or env; provide useful error if missing
+        from django.conf import settings
+        API_KEY = getattr(settings, 'STABILITY_API_KEY', None)
+        if not API_KEY:
+            import os
+            API_KEY = os.environ.get('STABILITY_API_KEY')
+
+        if not API_KEY:
+            return render(request, 'product/custom.html', {
+                'error': 'Image generation API key is not configured. Set STABILITY_API_KEY in settings or environment.',
+                'products': products,
+                'selected_garment': garment,
+                'selected_art': art,
+            })
+
+        try:
+            response = requests.post(
+                "https://api.stability.ai/v2beta/stable-image/generate/core",
+                headers={
+                    "authorization": f"Bearer {API_KEY}",
+                    "accept": "image/*"
+                },
+                files={"image": garment.image.open("rb")},
+                data={"prompt": f"Style of {art.title}: {desc}", "output_format": "webp"},
+                timeout=60,
+            )
+        except requests.RequestException:
+            return render(request, 'product/custom.html', {
+                'error': 'Failed to reach image generation API.',
+                'products': products,
+                'selected_garment': garment,
+                'selected_art': art,
+            })
+
+        if response.status_code == 200:
+            new_preview = CustomizedPreview(user_description=desc)
+            file_name = f"preview_{garment.id}_{art.id}.webp"
+
+            try:
+                # Attempt to save the image; if the DB table doesn't exist this will raise
+                # OperationalError (e.g. before migrations have been applied).
+                new_preview.result_image.save(file_name, ContentFile(response.content), save=True)
+            except OperationalError:
+                # Friendly error message for missing migration / table
+                return render(request, 'product/custom.html', {
+                    'error': 'Unable to save preview to the database: migrations may be pending. Run `python manage.py makemigrations` and `python manage.py migrate`.',
+                    'products': products,
+                    'selected_garment': garment,
+                    'selected_art': art,
+                })
+
+            return render(request, 'product/custom.html', {
+                'preview': new_preview,
+                'products': products,
+                'selected_garment': garment,
+                'selected_art': art,
+            })
+
+        # Non-200 response: include status for debugging
+        return render(request, 'product/custom.html', {
+            'error': f'Image generation failed (status {response.status_code}).',
+            'products': products,
+            'selected_garment': garment,
+            'selected_art': art,
+        })
+
+    # GET: render the page with products and any existing selected values
+    return render(request, 'product/custom.html', {
+        'products': products,
+        'selected_garment': selected_garment,
+        'selected_art': selected_art,
+    })
