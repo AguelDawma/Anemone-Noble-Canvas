@@ -301,7 +301,7 @@ def select_items(request):
 import requests
 from django.core.files.base import ContentFile
 from django.shortcuts import render
-from .models import Garment, ArtPiece, CustomizedPreview
+from .models import Garment, ArtPiece, customItem
 
 def generate_preview(request):
     """Handle POST from custom preview form, validate inputs and render custom page
@@ -329,7 +329,8 @@ def generate_preview(request):
     if request.method == "POST":
         garment_id = request.POST.get('garment_id')
         art_id = request.POST.get('art_id')
-        desc = request.POST.get('description')
+        pos = request.POST.get('position')
+        size = request.POST.get('size')
 
         # Validate and convert IDs
         try:
@@ -413,7 +414,7 @@ def generate_preview(request):
                         "accept": "image/*"
                     },
                     files=files,
-                    data={"prompt": f"Without changing either of the images attached, just paste the selected art image (art in description) on the selected garment image(type of clothing in description, e.g hoodie, top jean) as described: {desc}", "output_format": "webp"},
+                    data={"prompt": f"using image-to-image, inpaint a {size} given art on the given outfit at the {pos}.", "output_format": "webp"},
                     timeout=60,
                 )
                 response.raise_for_status()
@@ -444,11 +445,13 @@ def generate_preview(request):
             })
 
         # Successful response; save preview
-        new_preview = CustomizedPreview(user_description=desc)
         file_name = f"preview_{garment.id}_{art.id}.webp"
+        item_name = f"preview_{garment.id}_{art.id}"
+        item_price = garment.price + art.price
+        new_custom = customItem(name = item_name, size = garment.size , price = item_price, category = garment.category)
 
         try:
-            new_preview.result_image.save(file_name, ContentFile(response.content), save=True)
+            new_custom.image.save(file_name, ContentFile(response.content), save=True)
         except OperationalError:
             return render(request, 'product/custom.html', {
                 'error': 'Unable to save preview to the database: migrations may be pending.',
@@ -458,7 +461,7 @@ def generate_preview(request):
             })
 
         return render(request, 'product/custom.html', {
-            'preview': new_preview,
+            'preview': new_custom,
             'products': products,
             'selected_garment': garment,
             'selected_art': art,
@@ -469,4 +472,12 @@ def generate_preview(request):
         'products': products,
         'selected_garment': selected_garment,
         'selected_art': selected_art,
+    })
+    
+def store(request):
+    
+    products = Product.objects.all()
+    
+    return render(request, 'product/store.html', {
+        'products': products,
     })

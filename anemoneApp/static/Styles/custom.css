@@ -79,13 +79,9 @@
     background-color: rgb(143, 135, 135);
 }
 
-.description-box {
-    margin: 4px;
-    height: 150px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    resize: none;
-    display: block;
+.preview {
+    display: flex;
+    flex-direction: column;
 }
 
 #continue {
@@ -93,12 +89,25 @@
     padding: 10px;
     border: solid black;
     color: white;
+    cursor: pointer;
 }
 
 #continue:hover {
-    background-color: brown;
+    background-color: rgba(1, 94, 1, 0.952);
 }
 
 input[type="radio"] {
     display: none;
+}
+
+.btn-add {
+    padding: 10px 20px;
+    background-color: green;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-add:hover {
+    background-color: rgba(1, 94, 1, 0.952);
 }

@@ -18,6 +18,7 @@ class Product(models.Model):
     We will search across name, description, and SKU.
     """
     name = models.CharField(max_length=255)
+    category = models.CharField(max_length=20, default="men")
     description = models.TextField()
     size = models.CharField(max_length=50)
     sku = models.CharField(max_length=50, unique=True, verbose_name="SKU/Product Code")
@@ -32,7 +33,8 @@ class Garment(models.Model):
     """Garments to be chosen for drawing"""
     
     name = models.CharField(max_length=255)
-    fabric = models.CharField(max_length=100)
+    category = models.CharField(max_length=20, default="men")
+    fabric = models.CharField(max_length=100, default="ANCanva")
     size = models.CharField(max_length=50)
     price =models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='garments/', null=True , blank=True)
@@ -44,7 +46,7 @@ class ArtPiece(models.Model):
     """Art to be chosen for drawing"""
     
     title = models.CharField(max_length=255)
-    artist = models.CharField(max_length=100)
+    artist = models.CharField(max_length=100, default="ANCanvas")
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='arts/')
     
@@ -55,15 +57,15 @@ class customItem(models.Model):
     """Fully customized item to be put to cart"""
     
     name = models.CharField(max_length=255)
+    category = models.CharField(max_length=20, default="men")
     size = models.CharField(max_length=50)
     sku = models.CharField(max_length=50, unique=True, verbose_name="SKU/Product Code")
     price = models.DecimalField(max_digits=10, decimal_places=2)
     image = models.ImageField(upload_to='custom_Items/', null=True, blank=True)
+    fabric = models.CharField(max_length=100, default="ANCanva")
+    artist = models.CharField(max_length=100, default="ANCanvas")
 
     def __str__(self):
         return self.name
     
-class CustomizedPreview(models.Model):
-    user_description = models.CharField(max_length=255)
-    result_image = models.ImageField(upload_to='ai_previews/')
-    created_at = models.DateTimeField(auto_now_add=True)
+    

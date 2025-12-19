@@ -1,0 +1,168 @@
+{% extends "anemoneApp/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'Styles/store.css' %}">
+{% endblock %}
+
+{% block content %}
+    <header>
+        <div class="category-bar">
+            <span data-target="all-items" class="active">All</span>
+            <span data-target="men-items">Men</span>
+            <span data-target="women-items">Women</span>
+            <span data-target="kids-items">Kids</span>
+            <span data-target="head-items">Head</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="slide-box">
+            <div class="slider-track">
+                <div id="all-items" class="clothes">
+                    {% for product in products %}
+                        <div class="item">
+                            <div class="figure">
+                                {% if product.image %}
+                                    <a href="{% url 'product_detail' product.id %}">
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'product_detail' product.id %}">
+                                        <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
+                                    </a>
+                                {% endif %}
+                                <p>{{ product.name }} <br>| | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                <p>M {{ product.price }}</p>
+                                <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-add">Add to Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                    {% empty %}
+                    <p>No products available.</p>
+                    {% endfor %}
+                </div>
+
+                <div id="men-items" class="clothes">
+                    {% for product in products %}
+                        {% if product.category == 'men' %}
+                        <div class="item">
+                            <div class="figure">
+                                {% if product.image %}
+                                    <a href="{% url 'product_detail' product.id %}">
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'product_detail' product.id %}">
+                                        <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
+                                    </a>
+                                {% endif %}
+                                <p>{{ product.name }} <br>| | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                <p>M {{ product.price }}</p>
+                                <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-add">Add to Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% empty %}
+                    <p>No products available.</p>
+                    {% endfor %}
+                </div>
+
+                <div id="women-items" class="clothes">
+                    {% for product in products %}
+                        {% if product.category == 'women' %}
+                        <div class="item">
+                            <div class="figure">
+                                {% if product.image %}
+                                    <a href="{% url 'product_detail' product.id %}">
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'product_detail' product.id %}">
+                                        <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
+                                    </a>
+                                {% endif %}
+                                <p>{{ product.name }} <br>| | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                <p>M {{ product.price }}</p>
+                                <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-add">Add to Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% empty %}
+                    <p>No products available.</p>
+                    {% endfor %}
+                </div>
+
+                <div id="kids-items" class="clothes">
+                    {% for product in products %}
+                        {% if product.category == 'kids' %}
+                        <div class="item">
+                            <div class="figure">
+                                {% if product.image %}
+                                    <a href="{% url 'product_detail' product.id %}">
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'product_detail' product.id %}">
+                                        <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
+                                    </a>
+                                {% endif %}
+                                <div class="prod-det">
+                                    <p>{{ product.name }} <br>| | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                    <p>M {{ product.price }}</p>
+                                </div>
+                                <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-add">Add to Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% empty %}
+                    <p>No products available.</p>
+                    {% endfor %}
+                </div>
+
+                <div id="head-items" class="clothes">
+                    {% for product in products %}
+                        {% if product.category == 'head' %}
+                        <div class="item">
+                            <div class="figure">
+                                {% if product.image %}
+                                    <a href="{% url 'product_detail' product.id %}">
+                                        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                    </a>
+                                {% else %}
+                                    <a href="{% url 'product_detail' product.id %}">
+                                        <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
+                                    </a>
+                                {% endif %}
+                                <p>{{ product.name }} <br>| | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                <p>M {{ product.price }}</p>
+                                <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-add">Add to Cart</button>
+                                </form>
+                            </div>
+                        </div>
+                        {% endif %}
+                    {% empty %}
+                    <p>No products available.</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static "JS/store.js" %}"></script>
+{% endblock %}
