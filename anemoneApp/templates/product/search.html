@@ -45,15 +45,15 @@
                                     {{ product.description|truncatewords:25 }}
                                 </p>
                                 
-                                <a href="#" class="more">
+                                <a href="{% url 'product_detail' product.id %}" class="more">
                                     View Details &rarr;
                                 </a>
                             </div>
                             <div class="img-add-box">
                                 {% if product.image %}
-                                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="prod-image">
+                                    <a href="{% url 'product_detail' product.id %}"><img src="{{ product.image.url }}" alt="{{ product.name }}" class="prod-image"></a>
                                 {% else %}
-                                    <img src="{% static 'Images/placeholder.jpg' %}" alt="No Image Available" class="prod-image">
+                                    <a href="{% url 'product_detail' product.id %}"><img src="{% static 'Images/placeholder.jpg' %}" alt="No Image Available" class="prod-image"></a>
                                 {% endif %}
 
                                 <form method="POST" action="{% url 'add_to_cart' product.id %}">

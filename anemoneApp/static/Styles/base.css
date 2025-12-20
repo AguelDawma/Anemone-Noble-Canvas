@@ -3,7 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: rgb(238, 216, 121);
+    background-color: white;
     overflow-x: hidden;
     margin: 0;
     padding: 0;
@@ -18,7 +18,7 @@ body.nav-active {
     overflow: hidden;
 }
 
-body.nav-active .main-content, body.nav-active .intro-section {
+body.nav-active main, body.nav-active .intro-section {
     filter: blur(1px);
     pointer-events: none;
 }

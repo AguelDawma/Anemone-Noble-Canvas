@@ -4,6 +4,7 @@
 
 .change {
     text-decoration: none;
+    color: black;
     border: 1px solid blue;
     padding: 4px;
     background-color: white;
@@ -11,6 +12,7 @@
 
 .clothes {
     display: flex;
+    gap: 10px;
     flex-direction: row;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -20,7 +22,7 @@
 }
 
 .item {
-    width: 200px;
+    flex: 1 0 160px;
     height: auto;
     background-color:  initial;
     margin: 4px;

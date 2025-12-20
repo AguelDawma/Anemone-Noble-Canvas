@@ -25,9 +25,17 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField(default=0)
     image = models.ImageField(upload_to='product_images/', null=True, blank=True)
+    
 
     def __str__(self):
         return self.name
+    
+class ProductImage(models.Model):
+    produt = models.ForeignKey(Product, related_name='images', on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='product_gallery/')
+    
+    def __str__(self):
+        return f"Image for {self.produt.name}"
     
 class Garment(models.Model):
     """Garments to be chosen for drawing"""

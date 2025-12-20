@@ -32,7 +32,7 @@
                                         <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
                                     </a>
                                 {% endif %}
-                                <p>{{ product.name }} <br>| | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                <p>{{ product.name }} <br>| | <a href="{% url 'product_detail' product.id %}" class="more" title="View Details"> &rarr; </a></p>
                                 <p>M {{ product.price }}</p>
                                 <form method="POST" action="{% url 'add_to_cart' product.id %}">
                                     {% csrf_token %}
@@ -59,7 +59,7 @@
                                         <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
                                     </a>
                                 {% endif %}
-                                <p>{{ product.name }} <br>| | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                <p>{{ product.name }} <br>| | <a href="{% url 'product_detail' product.id %}" class="more" title="View Details"> &rarr; </a></p>
                                 <p>M {{ product.price }}</p>
                                 <form method="POST" action="{% url 'add_to_cart' product.id %}">
                                     {% csrf_token %}
@@ -87,7 +87,7 @@
                                         <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
                                     </a>
                                 {% endif %}
-                                <p>{{ product.name }} <br>| | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                <p>{{ product.name }} <br>| | <a href="{% url 'product_detail' product.id %}" class="more" title="View Details"> &rarr; </a></p>
                                 <p>M {{ product.price }}</p>
                                 <form method="POST" action="{% url 'add_to_cart' product.id %}">
                                     {% csrf_token %}
@@ -116,7 +116,7 @@
                                     </a>
                                 {% endif %}
                                 <div class="prod-det">
-                                    <p>{{ product.name }} <br>| | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                    <p>{{ product.name }} <br>| | <a href="{% url 'product_detail' product.id %}" class="more" title="View Details"> &rarr; </a></p>
                                     <p>M {{ product.price }}</p>
                                 </div>
                                 <form method="POST" action="{% url 'add_to_cart' product.id %}">
@@ -145,7 +145,7 @@
                                         <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
                                     </a>
                                 {% endif %}
-                                <p>{{ product.name }} <br>| | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                                <p>{{ product.name }} <br>| | <a href="{% url 'product_detail' product.id %}" class="more" title="View Details"> &rarr; </a></p>
                                 <p>M {{ product.price }}</p>
                                 <form method="POST" action="{% url 'add_to_cart' product.id %}">
                                     {% csrf_token %}

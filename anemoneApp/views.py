@@ -212,9 +212,20 @@ def custom(request):
         'selected_art': art, 
     })
 
+from django.contrib import messages
+
 def product_detail(request, product_id):
-    # Placeholder: You would fetch product details from DB in a real app
-    return render(request, 'anemoneApp/Pages/product_detail.html', {'product_id': product_id})
+    
+    product = Product.objects.filter(id=product_id).first()
+    back_url = request.META.get('HTTP_REFERER', '/')
+    
+    if not product:
+        messages.error(request, "Oops! This item is not available right now.")
+        return redirect('store')
+    
+    return render(request, 'product/product_detail.html', {'product': product,
+                                                           'back_url': back_url,
+                                                           })
 
 from django.db.models import Q
 from .models import Product, Garment, ArtPiece

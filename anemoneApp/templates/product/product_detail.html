@@ -1,11 +1,55 @@
-<!DOCTYPE html>
+{% extends "anemoneApp/base.html" %}
 {% load static %}
-<html>
-<head>
-    <title>Product Detail</title>
-</head>
-<body>
-    <h1>Product Detail for ID: {{ product_id }}</h1>
-    <a href="{% url 'custom' %}">Back to Products</a>
-</body>
-</html>
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'Styles/product_detail.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <b><a href="{{ back_url }}"> &lt; </a></b>
+        <div class="prod-card">
+            <div class="figure">
+                <div class="images">
+                    <button class="prev-img" onclick="scrollGallery(-1)"><b> &lt; </b></button>
+                    <div class="slide-track" id="productGallery">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="scroll-item" onclick="openModal(this.src, '{{ product.name }}')">
+                    {% else %}
+                        <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}" class="scroll-item" onclick="openModal(this.src, '{{ product.name }}')">
+                    {% endif %}
+
+                    {% for extra in product.images.all %}
+                        <img src="{{ extra.image.url }}" class="scroll-item" onclick="openModal(this.src, 'Design Detail')">
+                    {% endfor %}
+                    </div>
+                    <button class="next-img" onclick="scrollGallery(1)"><b> &gt; </b></button>
+                </div>
+                <h2> {{ product.name }} </h2>
+                <p><strong>M {{ product.price }} </strong></p>
+                <p> {{ product.stock }} left in store. </p>
+                <form method="POST" action="{% url 'add_to_cart' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-add">Add to Cart</button>
+                </form>
+            </div>
+            <div class="details">
+                <h3>Details</h3>
+                {% if product.description %}
+                    <p> {{ product.description }} </p>
+                {% else %}
+                    <p>No further details for this product.</p>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+    <div id="imageModal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="fullImage">
+        <div id="caption"></div>
+    </div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static "JS/product_detail.js" %}"></script>
+{% endblock %}
