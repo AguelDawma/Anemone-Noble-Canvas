@@ -10,10 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
 
-    console.log('menu:init', { menuIcon, mainNav });
-
     menuIcon.addEventListener('click', function (event) {
-        console.log('menu:clicked', event.target);
         // Prevent the click from bubbling up to document and immediately closing the menu
         event.stopPropagation();
         menuIcon.classList.toggle('active');

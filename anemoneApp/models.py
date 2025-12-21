@@ -1,16 +1,7 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
-class cartItem(models.Model):
-    name = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-    quantity = models.IntegerField(default=1)
-
-    def __str__(self):
-        return f"{self.name} (x{self.quantity}) - ${self.price * self.quantity}"
-    
-    def total_price(self):
-        return self.price * self.quantity
 
 class Product(models.Model):
     """
@@ -36,6 +27,20 @@ class ProductImage(models.Model):
     
     def __str__(self):
         return f"Image for {self.produt.name}"
+    
+class cartItem(models.Model):
+    
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True, blank=True)
+    session_id = models.CharField(max_length=40, null=True, blank=True)
+    quantity = models.IntegerField(default=1)
+    
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.name} (x{self.quantity}) - M{self.price * self.quantity}"
+    
+    def total_price(self):
+        return self.price * self.quantity
     
 class Garment(models.Model):
     """Garments to be chosen for drawing"""
@@ -75,5 +80,14 @@ class customItem(models.Model):
 
     def __str__(self):
         return self.name
+    
+from django.contrib.auth.signals import user_logged_in
+from django.dispatch import receiver
+
+@receiver(user_logged_in)
+def merge_cart_on_login(sender, user, request, **kwargs):
+    guest_session_key = request.session.session_key
+    
+    cartItem.objects.filter(session_id=guest_session_key).update(user=user, session_id=None)
     
     

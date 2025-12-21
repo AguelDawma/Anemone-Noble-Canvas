@@ -122,33 +122,35 @@ def settings(request):
 def terms(request):
     return render(request, 'anemoneApp/Pages/terms.html')
 
-from .models import Product, Garment, ArtPiece
+from .models import Product, Garment, ArtPiece, cartItem
 
 def cart(request):
+    
+    db_items = []
+    
+    if request.user.is_authenticated:
+        db_items = cartItem.objects.filter(user=request.user)
+    else:
+        if request.session.session_key:
+            db_items = cartItem.objects.filter(session_id=request.session.session_key)
+        else:
+            request.session.create()
 
-    cart = request.session.get('cart', {})
     cart_items = []
     cart_total = 0
-    for pid, qty in cart.items():
-        pid_int = int(pid)
-        product = Product.objects.filter(id=pid_int).first()
-        if product:
-            total_price = product.price * qty
-            cart_items.append({
-                'id': pid_int,
-                'product': {
-                    'name': product.name,
-                    'price': product.price,
-                    'image': product.image,
-                    'total_price': total_price,
-                    'description': product.description,
-                },
-                'quantity': qty,
-            })
-            cart_total += total_price
+    
+    for item in db_items:
+        total_item_price = item.product.price * item.quantity
+        
+        cart_items.append({
+            'item': item,
+        })
+        
+        cart_total += total_item_price
             
     tax = cart_total * Decimal('0.10')
     grand_total = cart_total + tax
+    
     return render(request, 'product/cart.html', {
         'cart_items': cart_items,
         'cart_total': cart_total,
@@ -160,15 +162,25 @@ from django.shortcuts import redirect
 
 def add_to_cart(request, product_id):
     if request.method == 'POST':
-        cart = request.session.get('cart', {})
-        pid = str(product_id)
+        product = Product.objects.get(id=product_id)
         
-        if pid in cart:
-            cart[pid] += 1
-        else:
-            cart[pid] = 1
-
-        request.session['cart'] = cart
+        if not request.session.session_key:
+            request.session.create()
+            
+        user = request.user if request.user.is_authenticated else None
+        s_id = request.session.session_key if not user else None
+        
+        item, created = cartItem.objects.get_or_create(
+            product = product,
+            user = user,
+            session_id = s_id,
+            defaults = {'quantity': 1,},
+        )
+        
+        if not created:
+            item.quantity += 1
+            item.save()
+        
         request.session.modified = True
     return redirect('cart')
     
@@ -176,16 +188,14 @@ from django.views.decorators.http import require_POST
 
 @require_POST
 def update_cart(request, item_id):
-    quantity = int(request.POST.get('quantity', 1))
-    # Update the cart item with item_id to the new quantity
-    # (session, database, etc.)
-    cart = request.session.get('cart', {})
-    pid = str(item_id)
-    if quantity > 0:
-        cart[pid] = quantity
-    else:
-        cart.pop(pid, None)
-    request.session['cart'] = cart
+    if request.method == 'POST':
+        item = cartItem.objects.get(id=item_id)
+        new_qty = request.POST.get('quantity')
+        
+        if new_qty:
+            item.quantity = int(new_qty)
+            item.save()
+
     request.session.modified = True
     return redirect('cart')
 

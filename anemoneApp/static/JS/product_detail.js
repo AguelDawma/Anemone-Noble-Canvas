@@ -8,22 +8,27 @@ function scrollGallery(direction){
     });
 };
 
+const modal = document.getElementById('imageModal');
+
 function openModal(src, altText){
-    const modal = document.getElementById('imageModal');
     const modalImg = document.getElementById('fullImage');
     const captionText = document.getElementById('caption');
 
-    modal.style.display = "block";
-    modalImg.src = src;
-    captionText.innerHTML = altText;
+    if(modal){
+        modal.style.display = "block";
+        modalImg.src = src;
+        captionText.innerHTML = altText;
+    }
 }
 
 document.querySelector('.close-modal').onclick = function() {
     document.getElementById('imageModal').style.display = "none"
 }
 
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+if(modal){
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
 }

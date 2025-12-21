@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Anemone Noble Canvas</title>
         <link rel="stylesheet" href="{% static 'Styles/base.css' %}">
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
         {% block extra_css %}
         {% endblock %}
     </head>
@@ -23,13 +24,13 @@
                         {% if user.is_authenticated %}
                         <div id="nav-logged">
                             <ul>
-                                <li id="home"><a href="index.html"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                                <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
                                 <li id="profile"><a href="Pages/profile.html"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
                                 <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
                                     <ul class="sub-menu">
-                                        <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
+                                        <li id="custom"><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
                                         <li><a><button>Personalized Touch</button></a></li>
-                                        <li><a href="{% url 'store' %}"><button>Our Store</button></a></li>
+                                        <li id="store"><a href="{% url 'store' %}"><button>Our Store</button></a></li>
                                     </ul>
                                     <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
                                 </li>
@@ -39,9 +40,6 @@
                             </ul>
 
                             <div class="nav-bottom">
-                                <a href="PlayStore">
-                                    <img src="" alt="GET APP">
-                                </a>
                                 <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
                             </div>
                         </div>
@@ -65,9 +63,6 @@
                             </ul>
 
                             <div class="nav-bottom">
-                                <a href="PlayStore">
-                                    <img src="" alt="GET APP">
-                                </a>
                                 <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
                             </div>
                         </div>

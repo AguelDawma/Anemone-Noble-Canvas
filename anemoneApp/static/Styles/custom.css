@@ -113,3 +113,13 @@ input[type="radio"] {
 .btn-add:hover {
     background-color: rgba(1, 94, 1, 0.952);
 }
+
+#custom {
+    border: solid 2px green;
+    box-shadow: 0 0 5px;
+}
+
+#services {
+    border: solid 2px green;
+    box-shadow: 0 0 5px;
+}
