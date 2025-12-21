@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login
 from django.contrib.auth.models import User
 from .forms import CustomSignupForm # 🌟 Import your custom form
@@ -9,6 +9,7 @@ from django.db.utils import OperationalError
 import logging
 from PIL import Image
 from io import BytesIO
+
 
 logger = logging.getLogger(__name__) 
 
@@ -162,7 +163,7 @@ from django.shortcuts import redirect
 
 def add_to_cart(request, product_id):
     if request.method == 'POST':
-        product = Product.objects.get(id=product_id)
+        product = get_object_or_404(Product, id=product_id)
         
         if not request.session.session_key:
             request.session.create()
@@ -189,22 +190,21 @@ from django.views.decorators.http import require_POST
 @require_POST
 def update_cart(request, item_id):
     if request.method == 'POST':
-        item = cartItem.objects.get(id=item_id)
+        item = get_object_or_404(cartItem, id=item_id)
         new_qty = request.POST.get('quantity')
         
         if new_qty:
             item.quantity = int(new_qty)
             item.save()
-
-    request.session.modified = True
+            
     return redirect('cart')
 
 @require_POST
 def remove_from_cart(request, item_id):
-    cart = request.session.get('cart', {})
-    cart.pop(str(item_id), None)
-    request.session['cart'] = cart
-    request.session.modified = True
+
+    item = get_object_or_404(cartItem, id=item_id)
+    item.delete()
+    
     return redirect('cart')
 
 def custom(request):

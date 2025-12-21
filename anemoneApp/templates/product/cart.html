@@ -35,13 +35,13 @@
                             </div>
                         </td>
                         <td style="position:relative;">
-                            <form method="POST" action="{% url 'update_cart' item.item.product.id %}">
+                            <form method="POST" action="{% url 'update_cart' item.item.id %}">
                                 {% csrf_token %}
                                 <p>Qty:</p>
                                 <input type="number" name="quantity" value="{{ item.item.quantity }}" min="1">
                                 <button type="submit" class="cart-update">Update</button>
                             </form>
-                            <form method="POST" action="{% url 'remove_from_cart' item.item.product.id %}" class="remove-form">
+                            <form method="POST" action="{% url 'remove_from_cart' item.item.id %}" class="remove-form">
                                 {% csrf_token %}
                                 <button type="submit" class="remove-btn" aria-label="Remove item">&times;</button>
                             </form>
