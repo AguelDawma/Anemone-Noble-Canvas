@@ -1,0 +1,21 @@
+{% extends "anemoneApp/base.html" %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'Styles/settings.css' %}">
+{% endblock %}
+
+{% block content %}
+    <main>
+        <h1>Settings</h1>
+        <h2>Profile and Personal Info</h2>
+        <div class="changes-section">
+            <img id="pic-preview" src="{% static "Images/logo.png" %}" alt="Profile preview">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" id="choose-pic">Update Photo</button>
+            </form>
+        </div>
+    </main>
+{% endblock %}

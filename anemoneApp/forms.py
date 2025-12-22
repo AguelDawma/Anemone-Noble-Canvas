@@ -55,3 +55,9 @@ class CustomSignupForm(forms.ModelForm):
         if username and User.objects.filter(username__iexact=username).exists():
             raise forms.ValidationError('This username is already taken.')
         return username
+
+from .models import Profile
+class ProfileUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['image']

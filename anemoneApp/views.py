@@ -562,3 +562,22 @@ def store(request):
     return render(request, 'product/store.html', {
         'products': products,
     })
+    
+from .forms import ProfileUpdateForm
+from .models import Profile
+
+@login_required
+def settings_view(request):
+    
+    profile, created = Profile.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+        
+        if form.is_valid():
+            form.save()
+            return redirect('settings')
+        
+    else:
+        form = ProfileUpdateForm(instance=profile)
+        
+        return render(request, 'anemoneApp/Pages/settings.html', {'form': form})
