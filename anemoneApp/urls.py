@@ -30,5 +30,5 @@ urlpatterns = [
     path('add-to-cart/<int:product_id>/', views.add_to_cart, name='add_to_cart'),
     path('search/', views.search, name='search'),
     # Preview endpoint (POST from custom form) — name changed to avoid clashes
-    path('preview/', views.generate_preview, name='preview'),
+    # path('preview/', views.generate_preview, name='preview'),
 ]

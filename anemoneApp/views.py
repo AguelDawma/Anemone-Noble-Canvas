@@ -319,14 +319,72 @@ def select_items(request):
         
         return render(request, 'product/product.html', context)
     
+"""
 import requests
 from django.core.files.base import ContentFile
 from django.shortcuts import render
 from .models import Garment, ArtPiece, customItem
 
+import os
+import replicate
+from PIL import Image, ImageDraw
+from django.shortcuts import render
+from django.core.files.storage import default_storage
+
 def generate_preview(request):
-    """Handle POST from custom preview form, validate inputs and render custom page
-    with the same context (`products`, `selected_garment`, `selected_art`)."""
+    if request.method == 'POST':
+        cloth_id = request.POST.get('garment_id')
+        art_id = request.POST.get('art_it')
+        position = request.POST.get('position')
+        
+        hoodie = get_object_or_404(Garment, id=cloth_id).image
+        art = get_object_or_404(ArtPiece, id=art_id).image
+
+        # 1. Save files temporarily
+        hoodie_path = default_storage.save(f"tmp/{hoodie.name}", hoodie)
+        art_path = default_storage.save(f"tmp/{art.name}", art)
+        
+        full_hoodie_path = default_storage.path(hoodie_path)
+        
+        # 2. Generate the Mask based on position
+        # We create a black image and draw a white box where the art goes
+        with Image.open(full_hoodie_path) as img:
+            width, height = img.size
+            mask = Image.new("L", (width, height), 0) # L = Grayscale (0 is black)
+            draw = ImageDraw.Draw(mask)
+            
+            # Define coordinates (Calculated as % of hoodie size)
+            if position == "left_chest":
+                coords = [width*0.6, height*0.25, width*0.8, height*0.45]
+            elif position == "center":
+                coords = [width*0.35, height*0.3, width*0.65, height*0.6]
+            
+            draw.rectangle(coords, fill=255) # 255 is white (area to paint)
+            mask_path = full_hoodie_path.replace(".jpg", "_mask.png")
+            mask.save(mask_path)
+
+        # 3. Call Replicate API (SDXL Inpainting)
+        os.environ["REPLICATE_API_TOKEN"] = "your_token_here"
+        
+        # We use the hoodie as 'image', our generated mask as 'mask', 
+        # and describe the user's art in the prompt.
+        output = replicate.run(
+            "stability-ai/stable-diffusion-inpainting:e5a34f913de0adc560d20e002c45ad43a80031b62caacc3d84010c6b6a64870c",
+            input={
+                "image": open(full_hoodie_path, "rb"),
+                "mask": open(mask_path, "rb"),
+                "prompt": "a hoodie with the provided art printed precisely on it, high quality, realistic fabric texture",
+                "negative_prompt": "blurry, distorted art, low quality",
+                "num_inference_steps": 25
+            }
+        )
+
+        return render(request, 'result.html', {'preview_url': output[0]})
+
+    return render(request, 'upload.html')
+
+def generate_preview(request):
+
     products = Product.objects.all()
 
     # Read selections from session to preserve what user previously chose
@@ -494,6 +552,8 @@ def generate_preview(request):
         'selected_garment': selected_garment,
         'selected_art': selected_art,
     })
+    
+    """
     
 def store(request):
     

@@ -24,22 +24,25 @@
                         {% if user.is_authenticated %}
                         <div id="nav-logged">
                             <ul>
-                                <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
-                                <li id="profile"><a href="Pages/profile.html"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
-                                <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
-                                    <ul class="sub-menu">
-                                        <li id="custom"><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
-                                        <li><a><button>Personalized Touch</button></a></li>
-                                        <li id="store"><a href="{% url 'store' %}"><button>Our Store</button></a></li>
-                                    </ul>
-                                    <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
-                                </li>
-                                <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
-                                <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
-                                <li id="logout-button"><a><form method="POST" action="{% url 'logout' %}"> {% csrf_token %} <button><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></form></a></li>
+                                <div class="home">
+                                    <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                                </div>
+                                <div class="services">
+                                    <p>Services</p>
+                                    <li id="custom"><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
+                                    <li id="store"><a href="{% url 'store' %}"><button>Our Store</button></a></li>
+                                </div>
+                                <div class="me">
+                                    <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
+                                    <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
+                                    <li id="logout-button"><a><form method="POST" id="logout_form" action="{% url 'logout' %}"> {% csrf_token %} <button onclick="confirmLogout()" type="button"><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></form></a></li>
+                                </div>
                             </ul>
 
                             <div class="nav-bottom">
+                                <div class="prof">
+                                    <img src="{% static "Images/logo.png" %}" class="profile-pic" alt="pic"> <span class="username-display" data-username="{{ request.user.username|default:'Guest' }}"></span>
+                                </div>
                                 <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
                             </div>
                         </div>
@@ -78,6 +81,8 @@
                 </div>
             </nav>
         </header>
+
+        <div class="overlay"></div>
 
         {% block content %}
         {% endblock %}
