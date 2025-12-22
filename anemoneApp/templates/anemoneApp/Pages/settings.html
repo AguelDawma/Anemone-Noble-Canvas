@@ -10,11 +10,11 @@
         <h1>Settings</h1>
         <h2>Profile and Personal Info</h2>
         <div class="changes-section">
-            <img id="pic-preview" src="{% static "Images/logo.png" %}" alt="Profile preview">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" id="choose-pic">Update Photo</button>
+                {{ p_form.as_p }}
+                {{ u_form.as_p }}
+                <button type="submit" id="update-profile">Update Profile</button>
             </form>
         </div>
     </main>

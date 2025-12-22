@@ -563,7 +563,9 @@ def store(request):
         'products': products,
     })
     
-from .forms import ProfileUpdateForm
+from .forms import ProfileUpdateForm, UserUpdateForm
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 from .models import Profile
 
 @login_required
@@ -571,13 +573,31 @@ def settings_view(request):
     
     profile, created = Profile.objects.get_or_create(user=request.user)
     if request.method == 'POST':
-        form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=profile)
+        u_form = UserUpdateForm(request.POST, instance = request.user)
         
-        if form.is_valid():
-            form.save()
+        pass_form = PasswordChangeForm(request.user, request.POST)
+        if 'update_profile' in request.POST:
+            if p_form.is_valid() and u_form.is_valid():
+                p_form.save()
+                u_form.save()
+                messages.success(request, 'Profile updated!')
+                return redirect('settings')
+            
+        elif 'update_password' in request.POST:
+            user = pass_form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Password updated')
             return redirect('settings')
         
     else:
-        form = ProfileUpdateForm(instance=profile)
+        p_form = ProfileUpdateForm(instance=profile)
+        u_form = UserUpdateForm(instance=request.user)
+        pass_form = PasswordChangeForm(request.user)
         
-        return render(request, 'anemoneApp/Pages/settings.html', {'form': form})
+    context = {'u_form': u_form,
+               'p_form': p_form,
+               'pass_form': pass_form,
+               }
+        
+    return render(request, 'anemoneApp/Pages/settings.html', context)
