@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'anemoneApp',
+    
+    'phonenumber_field',
+    'django_babel',
 ]
 
 MIDDLEWARE = [
@@ -126,6 +129,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_cdn')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PHONENUMBER_DEFAULT_REGION = 'LS'
 
 # Where to redirect after a successful login (e.g., to the homepage)
 LOGIN_REDIRECT_URL = '/dashboard/' 

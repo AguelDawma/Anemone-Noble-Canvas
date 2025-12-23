@@ -1,3 +1,8 @@
+#store {
+    border: solid 2px green;
+    box-shadow: 0 0 5px;
+}
+
 .category-bar {
     display: flex;
     gap: 10px;
@@ -37,6 +42,7 @@
 
 .clothes {
     display: flex;
+    flex-direction: row;
     flex: 0 0 100vw;
     flex-wrap: wrap;
     gap: 20px;
@@ -52,11 +58,10 @@
     height: 350px;
     display: flex;
     flex-direction: column;
-
 }
 
 .item {
-    flex: 0 1 147px;
+    flex: 0 1 37vw;
     height: auto;
     background-color:  initial;
     margin: 4px;

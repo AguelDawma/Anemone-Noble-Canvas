@@ -22,26 +22,26 @@
                 <tr>
                     <div class="cart_item">
                         <td>
-                            {% if item.product.image %}
-                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="product-image">
+                            {% if item.item.product.image %}
+                                <img src="{{ item.item.product.image.url }}" alt="{{ item.item.product.name }}" class="product-image">
                             {% else %}
                                 <div class="no-image-box"> No Photo </div>
                             {% endif %}
                         </td>
                         <td>
                             <div class="product-info">
-                                <span>{{ item.product.name }} <p>{{ item.product.description }}</p></span>
-                                <b>M{{ item.product.price }}</b>
+                                <span>{{ item.item.product.name }} <p>{{ item.item.product.description }}</p></span>
+                                <b>M{{ item.item.product.price }}</b>
                             </div>
                         </td>
                         <td style="position:relative;">
-                            <form method="POST" action="{% url 'update_cart' item.id %}">
+                            <form method="POST" action="{% url 'update_cart' item.item.id %}">
                                 {% csrf_token %}
                                 <p>Qty:</p>
-                                <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+                                <input type="number" name="quantity" value="{{ item.item.quantity }}" min="1">
                                 <button type="submit" class="cart-update">Update</button>
                             </form>
-                            <form method="POST" action="{% url 'remove_from_cart' item.id %}" class="remove-form">
+                            <form method="POST" action="{% url 'remove_from_cart' item.item.id %}" class="remove-form">
                                 {% csrf_token %}
                                 <button type="submit" class="remove-btn" aria-label="Remove item">&times;</button>
                             </form>

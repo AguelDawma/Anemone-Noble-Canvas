@@ -14,7 +14,7 @@
                 <div class="art-choice">
                     {% for art in arts %}
                     <label class="radio-card">
-                        <input type="radio" name="selected_art" value="{{ art.id }}" required>
+                        <input type="radio" name="selected_art" value="{{ art.id }}" onclick="toggleRadio(this)" required>
                         <div class="art">
                             <img src="{{ art.image.url }}" alt="{{ art.name }}">
                             <p>{{ art.title }} | | <a href="#" class="more" title="View Details"> &rarr; </a></p>
@@ -30,7 +30,7 @@
                 <div class="garment-choice">
                     {% for garment in garments %}
                         <label class="radio-card">
-                            <input type="radio" name="selected_garment" value="{{ garment.id }}" required>
+                            <input type="radio" name="selected_garment" value="{{ garment.id }}" onclick="toggleRadio(this)" required>
                             <div class="garment">
                                 <img src="{{ garment.image.url }}" alt="{{ garment.name }}">
                                 <p>{{ garment.name }} | | <a href="#" class="more" title="View Details"> &rarr; </a></p>

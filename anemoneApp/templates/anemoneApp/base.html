@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Anemone Noble Canvas</title>
         <link rel="stylesheet" href="{% static 'Styles/base.css' %}">
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
         {% block extra_css %}
         {% endblock %}
     </head>
@@ -23,26 +24,25 @@
                         {% if user.is_authenticated %}
                         <div id="nav-logged">
                             <ul>
-                                <li id="home"><a href="index.html"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
-                                <li id="profile"><a href="Pages/profile.html"><button><img src="{% static 'Images/Icons/profile.png' %}" alt="profile icon">Profile</button></a></li>
-                                <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
-                                        <li><a><button>Personalized Touch</button></a></li>
-                                        <li><a href="{% url 'store' %}"><button>Our Store</button></a></li>
-                                    </ul>
-                                    <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
-                                </li>
-                                <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
-                                <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
-                                <li id="logout-button"><a><form method="POST" action="{% url 'logout' %}"> {% csrf_token %} <button><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></form></a></li>
+                                <div class="home">
+                                    <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                                </div>
+                                <div class="services">
+                                    <p>Services</p>
+                                    <li id="custom"><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
+                                    <li id="store"><a href="{% url 'store' %}"><button>Our Store</button></a></li>
+                                </div>
+                                <div class="me">
+                                    <li id="dashboard"><a href="{% url 'dashboard' %}"><button><img src="{% static 'Images/Icons/dashboard.png' %}" alt="dashboard icon">Dashboard</button></a></li>
+                                    <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
+                                    <li id="logout-button"><a><form method="POST" id="logout_form" action="{% url 'logout' %}"> {% csrf_token %} <button onclick="confirmLogout()" type="button"><img src="{% static 'Images/Icons/logout.png' %}" alt="logout icon">Log Out</button></form></a></li>
+                                </div>
                             </ul>
 
                             <div class="nav-bottom">
-                                <a href="PlayStore">
-                                    <img src="" alt="GET APP">
-                                </a>
-                                <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
+                                <div class="prof">
+                                    <img src="{{ user.profile.image.url }}" class="profile-pic" alt="pic"> <span class="username-display" data-username="{{ request.user.username|default:'Guest' }}"></span>
+                                </div>
                             </div>
                         </div>
                         {% endif %}
@@ -50,26 +50,19 @@
                         {% if not user.is_authenticated %}
                         <div id="nav-logged">
                             <ul>
-                                <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
-                                <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
-                                <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
-                                        <li><a><button>Personalized Touch</button></a></li>
-                                        <li><a href="{% url 'store' %}"><button>Our Store</button></a></li>
-                                    </ul>
-                                    <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
-                                </li>
-                                <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
-                                <li id="login"><a href="{% url 'login' %}"><button><img src="{% static 'Images/Icons/login.png' %}" alt="login icon">Log In</button></a></li>
+                                <div class="home">
+                                    <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                                </div>
+                                <div class="services">
+                                    <p>Services</p>
+                                    <li id="custom"><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
+                                    <li id="store"><a href="{% url 'store' %}"><button>Our Store</button></a></li>
+                                </div>
+                                <div class="Me">
+                                    <li id="login"><a href="{% url 'login' %}"><button><img src="{% static 'Images/Icons/login.png' %}" alt="login icon">Log In</button></a></li>
+                                    <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
+                                </div>
                             </ul>
-
-                            <div class="nav-bottom">
-                                <a href="PlayStore">
-                                    <img src="" alt="GET APP">
-                                </a>
-                                <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
-                            </div>
                         </div>
                         {% endif %}
                     </nav>
@@ -83,6 +76,8 @@
                 </div>
             </nav>
         </header>
+
+        <div class="overlay"></div>
 
         {% block content %}
         {% endblock %}

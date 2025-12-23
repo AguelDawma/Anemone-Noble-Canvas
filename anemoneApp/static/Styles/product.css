@@ -44,3 +44,13 @@
 .radio-card input[type="radio"] {
     display: none;
 }
+
+#custom {
+    border: solid 2px green;
+    box-shadow: 0 0 5px;
+}
+
+#services {
+    border: solid 2px green;
+    box-shadow: 0 0 5px;
+}

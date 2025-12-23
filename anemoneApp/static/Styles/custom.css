@@ -4,6 +4,7 @@
 
 .change {
     text-decoration: none;
+    color: black;
     border: 1px solid blue;
     padding: 4px;
     background-color: white;
@@ -11,6 +12,7 @@
 
 .clothes {
     display: flex;
+    gap: 10px;
     flex-direction: row;
     overflow-x: scroll;
     overflow-y: hidden;
@@ -20,7 +22,7 @@
 }
 
 .item {
-    width: 200px;
+    flex: 1 0 160px;
     height: auto;
     background-color:  initial;
     margin: 4px;
@@ -110,4 +112,14 @@ input[type="radio"] {
 
 .btn-add:hover {
     background-color: rgba(1, 94, 1, 0.952);
+}
+
+#custom {
+    border: solid 2px green;
+    box-shadow: 0 0 5px;
+}
+
+#services {
+    border: solid 2px green;
+    box-shadow: 0 0 5px;
 }

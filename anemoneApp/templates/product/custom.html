@@ -28,7 +28,7 @@
                 {% csrf_token %}
 
                 <div> <br>
-                    <label for="position">Choose position:</label>
+                    <label for="position-selector">Choose position:</label>
                     <select title="position" id="position-selector" name="position">
                         <option value="back" selected>Back</option>
                         <option value="front">Front</option>
@@ -85,7 +85,7 @@
                                 <img src="{% static 'Images/placeholder.jpg' %}" alt="{{ product.name }}">
                             </a>
                         {% endif %}
-                        <p>{{ product.name }} | | <a href="#" class="more" title="View Details"> &rarr; </a></p>
+                        <p>{{ product.name }} | | <a href="{% url 'product_detail' product.id %}" class="more" title="View Details"> &rarr; </a></p>
                         <p>M {{ product.price }}</p>
                         <form method="POST" action="{% url 'add_to_cart' product.id %}">
                             {% csrf_token %}
