@@ -41,9 +41,8 @@
 
                             <div class="nav-bottom">
                                 <div class="prof">
-                                    <img src="{% static "Images/logo.png" %}" class="profile-pic" alt="pic"> <span class="username-display" data-username="{{ request.user.username|default:'Guest' }}"></span>
+                                    <img src="{{ user.profile.image.url }}" class="profile-pic" alt="pic"> <span class="username-display" data-username="{{ request.user.username|default:'Guest' }}"></span>
                                 </div>
-                                <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
                             </div>
                         </div>
                         {% endif %}
@@ -51,23 +50,19 @@
                         {% if not user.is_authenticated %}
                         <div id="nav-logged">
                             <ul>
-                                <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
-                                <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
-                                <li id="services"><a><button><img src="{% static 'Images/Icons/services.png' %}" alt="services icon">Services</button></a>
-                                    <ul class="sub-menu">
-                                        <li><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
-                                        <li><a><button>Personalized Touch</button></a></li>
-                                        <li><a href="{% url 'store' %}"><button>Our Store</button></a></li>
-                                    </ul>
-                                    <img src="{% static 'Images/Icons/gt.png' %}" alt="gt sign" class="chevron-right">
-                                </li>
-                                <li id="settings"><a href="{% url 'settings' %}"><button><img src="{% static 'Images/Icons/settings.png' %}" alt="settings icon">Settings</button></a></li>
-                                <li id="login"><a href="{% url 'login' %}"><button><img src="{% static 'Images/Icons/login.png' %}" alt="login icon">Log In</button></a></li>
+                                <div class="home">
+                                    <li id="home"><a href="{% url 'index' %}"><button><img src="{% static 'Images/Icons/home.png' %}" alt="home icon">Home</button></a></li>
+                                </div>
+                                <div class="services">
+                                    <p>Services</p>
+                                    <li id="custom"><a href="{% url 'product' %}"><button>Custom Design</button></a></li>
+                                    <li id="store"><a href="{% url 'store' %}"><button>Our Store</button></a></li>
+                                </div>
+                                <div class="Me">
+                                    <li id="login"><a href="{% url 'login' %}"><button><img src="{% static 'Images/Icons/login.png' %}" alt="login icon">Log In</button></a></li>
+                                    <li id="join"><a href="{% url 'signup' %}"><button><img src="{% static 'Images/Icons/join.png' %}" alt="signin icon">Join Us</button></a></li>
+                                </div>
                             </ul>
-
-                            <div class="nav-bottom">
-                                <img src="{% static 'Images/navLogo.png' %}" alt="logo" id="nav-bottom-logo">
-                            </div>
                         </div>
                         {% endif %}
                     </nav>

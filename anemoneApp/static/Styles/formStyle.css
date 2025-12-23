@@ -3,18 +3,19 @@ form {
     flex-direction: column;
     gap: 5px;
     padding: 20px;
+    margin-bottom: 20px;
 }
 
 .form_container {
     border-radius: 8px;
-    background-color: rgb(238, 216, 121);
     box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.7);
     padding: 10px;
     width: 100%;
-    margin: 0 auto;
+    margin: 0 auto 20px auto;
     box-sizing: border-box;
     transition: box-shadow 0.3s ease;
-    max-width: 400px;
+    max-width: 350px;
+    max-height: 500px;
 }
 
 input[type="text"],
@@ -53,13 +54,6 @@ h2 {
     font-size: xx-large;
 }
 
-footer {
-    text-align: center;
-    background-color: #007bff;
-    padding: 5px;
-    margin-top: 5%;
-}
-
 .links-container {
     text-align: center;
     display: flex;
@@ -76,7 +70,7 @@ footer {
 }
 
 body {
-    background-color: rgb(238, 216, 121);
+    background-color: white;
 }
 
 #back-arrow {

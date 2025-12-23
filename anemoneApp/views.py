@@ -577,6 +577,7 @@ def settings_view(request):
         u_form = UserUpdateForm(request.POST, instance = request.user)
         
         pass_form = PasswordChangeForm(request.user, request.POST)
+        
         if 'update_profile' in request.POST:
             if p_form.is_valid() and u_form.is_valid():
                 p_form.save()

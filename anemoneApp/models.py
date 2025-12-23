@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils.translation import gettext_lazy as _
 
 # Create your models here.
 
@@ -91,10 +92,13 @@ def merge_cart_on_login(sender, user, request, **kwargs):
     cartItem.objects.filter(session_id=guest_session_key).update(user=user, session_id=None)
     
 from django.contrib.auth.models import User
+from phonenumber_field.modelfields import PhoneNumberField
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     image = models.ImageField(default='default_pic.jpg', upload_to='profile_pics')
+    phone_number = PhoneNumberField(blank=True, null=True)
+    birthday = models.DateField(null=True, blank=True)
     
     def __str__(self):
         return f'{self.user.username} Profile'

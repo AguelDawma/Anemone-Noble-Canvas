@@ -9,13 +9,61 @@
     <main>
         <h1>Settings</h1>
         <h2>Profile and Personal Info</h2>
-        <div class="changes-section">
+        <div class="settings-form">
             <form method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ p_form.as_p }}
-                {{ u_form.as_p }}
-                <button type="submit" id="update-profile">Update Profile</button>
+
+                <div class ="input-group">
+                    <label for="{{ u_form.username.id_for_label }}">Username</label>
+                    {{ u_form.username }}
+                </div>
+
+                <div class="input-group">
+                    <label for="{{ u_form.email.id_for_label }}">Email</label>
+                    {{ u_form.email }}
+                </div>
+
+                <div class="input-group">
+                    <label for="{{ p_form.phone_number.id_for_label }}">Phone Number</label>
+                    {{ p_form.phone_number }}
+                </div>
+
+                <div class="input-group">
+                    <label for="{{ p_form.birthday.id_for_label }}">Birthday</label>
+                    {{ p_form.birthday }}
+                </div>
+
+                <div class="profile-section">
+                    <label>Profile Picture</label>
+                    <div class="avatar-preview">
+                        <img src="{{ user.profile.image.url }}" id="pic-preview">
+                    </div>
+                    <div class="file-upload">
+                        {{ p_form.image }}
+                    </div>
+                </div>
+                
+                <button type="submit" id="update-profile" name="update_profile">Update Profile</button>
             </form>
         </div>
+
+        <h2>Login and Security</h2>
+        <div class="settings-form">
+            <button class="change-pass">Change Password</button>
+        </div>
+
+        <h2>Payment Methods</h2>
+        <div class="settings-form">
+
+        </div>
+
+        <h2>Preferences and Notifications</h2>
+        <div class="settings-form">
+
+        </div>
     </main>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'JS/settings.js' %}"></script>
 {% endblock %}

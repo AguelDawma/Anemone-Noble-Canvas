@@ -57,11 +57,31 @@ class CustomSignupForm(forms.ModelForm):
         return username
 
 from .models import Profile
+from phonenumber_field.widgets import PhoneNumberPrefixWidget, RegionalPhoneNumberWidget
+from phonenumber_field.formfields import PhoneNumberField
+from phonenumber_field import formfields
 
 class ProfileUpdateForm(forms.ModelForm):
+    # Use the SplitPhoneNumberField so the PhoneNumberPrefixWidget (a MultiWidget)
+    # is paired with the matching MultiValueField which will compress the
+    # separate prefix and number into a single PhoneNumber object.
+    phone_number = formfields.SplitPhoneNumberField(
+        required=False,
+        widget=PhoneNumberPrefixWidget(
+            widgets=(formfields.PrefixChoiceField().widget, RegionalPhoneNumberWidget())
+        ),
+    )
+
     class Meta:
         model = Profile
-        fields = ['image']
+        fields = ['image', 'phone_number', 'birthday']
+        widgets = {
+            'birthday': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
+            'image': forms.FileInput(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
@@ -69,3 +89,7 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ['username', 'email'] 
+        
+    def __init__(self, *args, **kwargs):
+        super(UserUpdateForm, self).__init__(*args, **kwargs)
+        self.fields['username'].help_text=""
